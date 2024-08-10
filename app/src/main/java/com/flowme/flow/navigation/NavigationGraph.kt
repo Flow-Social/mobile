@@ -32,17 +32,17 @@ val bottomNavigationItems = listOf(
     BottomNavigationItem(
         route = NavigationItem.Main.Feed.route,
         titleId = R.string.feed_bottom_nav_label,
-        drawableIconId = R.drawable.feed_icon,
+        drawableIconId = com.flowme.uikit.R.drawable.feed_icon,
     ),
     BottomNavigationItem(
         route = NavigationItem.Main.Chats.route,
         titleId = R.string.chats_bottom_nav_label,
-        drawableIconId = R.drawable.chats_icon,
+        drawableIconId = com.flowme.uikit.R.drawable.chats_icon,
     ),
     BottomNavigationItem(
         route = NavigationItem.Main.Explore.route,
         titleId = R.string.explore_bottom_nav_label,
-        drawableIconId = R.drawable.search_icon,
+        drawableIconId = com.flowme.uikit.R.drawable.search_icon,
     ),
 )
 

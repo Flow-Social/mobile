@@ -21,7 +21,7 @@ fun ChatsScreen(
                 onClick = { TODO() },
                 icon = {
                     Icon(
-                        painterResource(R.drawable.chats_icon),
+                        painterResource(R.drawable.search_icon),
                         null
                     )
                 }

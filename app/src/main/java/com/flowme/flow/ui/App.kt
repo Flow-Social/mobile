@@ -12,8 +12,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.flowme.flow.navigation.BottomNavigationItem
 import com.flowme.flow.navigation.FlowNavHost
-import com.flowme.flow.navigation.mainBottomBarNavigationDestinations
 import com.flowme.flow.navigation.bottomNavigationItems
+import com.flowme.flow.navigation.mainBottomBarNavigationDestinations
 
 @Composable
 fun App(modifier: Modifier = Modifier) {
@@ -22,7 +22,6 @@ fun App(modifier: Modifier = Modifier) {
     val currentDestination = navBackStackEntry?.destination
 
     Scaffold(
-        topBar = { TopBar() },
         bottomBar = {
             if (currentDestination?.route in mainBottomBarNavigationDestinations) {
                 BottomBar(
@@ -41,15 +40,6 @@ fun App(modifier: Modifier = Modifier) {
                 .padding(innerPadding)
         )
     }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun TopBar(modifier: Modifier = Modifier) {
-    TopAppBar(
-        title = { Text("flow типа") },
-        modifier = modifier
-    )
 }
 
 @Composable

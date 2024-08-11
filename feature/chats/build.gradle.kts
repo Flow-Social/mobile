@@ -22,6 +22,7 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
+    buildFeatures { compose = true }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -34,6 +35,8 @@ android {
 dependencies {
     implementation(project(":core:uikit"))
     implementation(libs.appcompat)
+    implementation(libs.ui.tooling)
+    implementation(libs.ui.tooling.preview)
 
     testImplementation(libs.junit)
 

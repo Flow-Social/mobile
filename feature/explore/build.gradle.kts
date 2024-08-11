@@ -26,6 +26,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    buildFeatures { compose = true }
     kotlinOptions {
         jvmTarget = "1.8"
     }
@@ -35,6 +36,9 @@ dependencies {
     implementation(project(":core:uikit"))
 
     implementation(libs.appcompat)
+
+    implementation(libs.ui.tooling)
+    implementation(libs.ui.tooling.preview)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)

@@ -1,4 +1,4 @@
-package com.flowme.uikit
+package com.flowme.uikit.theme
 
 import androidx.compose.ui.graphics.Color
 
@@ -10,6 +10,9 @@ val ChetwodeBlue400 = Color(0x8A8BEA)
 val ChetwodeBlue500 = Color(0x7A73E1)
 val ChetwodeBlue600 = Color(0x6958D3)
 val ChetwodeBlue700 = Color(0x5A48BA)
-val ChetwodeBlue800 = Color(0xAFB5F2) // todo: this is incorrect
+val ChetwodeBlue800 = Color(0x493D96)
 val ChetwodeBlue900 = Color(0x3F3778)
 val ChetwodeBlue950 = Color(0x262046)
+
+val MoodyBlue400 = Color(0x9190E9)
+val MoodyBlue700 = Color(0x5D4BB7)

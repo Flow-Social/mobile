@@ -1,10 +1,15 @@
 package com.flowme.uikit.components.buttons
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -21,9 +26,7 @@ fun WideOutlinedIconButton(
     icon: @Composable () -> Unit,
 ) {
     OutlinedButton(
-        colors = ButtonDefaults.outlinedButtonColors(
-            containerColor = Color.Transparent,
-        ),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
         enabled = enabled,
         onClick = onClick,
         modifier = modifier

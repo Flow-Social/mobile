@@ -1,6 +1,7 @@
 package com.flowme.uikit.theme
 
 import android.app.Activity
+import android.content.Context
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.ripple.LocalRippleTheme
@@ -86,8 +87,7 @@ private val LightColorScheme = lightColorScheme(
     surfaceContainerLowest = ChetwodeBlue50,
     inversePrimary = MoodyBlue400,
     scrim = Color.Black,
-
-    )
+)
 
 @Composable
 fun FlowTheme(
@@ -96,15 +96,7 @@ fun FlowTheme(
     content: @Composable () -> Unit
 ) {
     val context = LocalContext.current
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
-
-        darkTheme -> DarkColorScheme
-
-        else -> LightColorScheme
-    }
+    val colorScheme = generateColorScheme(dynamicColor, darkTheme, context)
 
     val flowColorScheme = if (darkTheme) DarkFlowColorScheme else LightFlowColorScheme
     val typography = FlowTypography()
@@ -133,3 +125,21 @@ fun FlowTheme(
         colorScheme = colorScheme
     )
 }
+
+@Composable
+private fun generateColorScheme(
+    dynamicColor: Boolean,
+    darkTheme: Boolean,
+    context: Context
+) = when {
+    dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+        if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+    }
+
+    darkTheme -> DarkColorScheme
+
+    else -> LightColorScheme
+}.let(::overrideColors)
+
+private fun overrideColors(colorScheme: ColorScheme): ColorScheme =
+    colorScheme.copy(outline = colorScheme.outline.copy(alpha = 0.5f))

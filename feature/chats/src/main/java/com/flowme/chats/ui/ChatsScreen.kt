@@ -11,7 +11,7 @@ import com.flowme.uikit.R
 import com.flowme.uikit.components.topbar.TitleIconTopBar
 
 @Composable
-fun ChatsScreen(
+internal fun ChatsScreen(
     modifier: Modifier = Modifier
 ) {
     Scaffold(

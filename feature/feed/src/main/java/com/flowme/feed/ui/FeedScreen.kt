@@ -17,7 +17,7 @@ import com.flowme.uikit.components.topbar.TitleIconTopBar
 import com.flowme.uikit.theme.ElevanagonShape
 
 @Composable
-fun FeedScreen(
+internal fun FeedScreen(
     modifier: Modifier = Modifier
 ) {
     Scaffold(

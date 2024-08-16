@@ -54,6 +54,7 @@ dependencies {
     implementation(project(":core:database"))
     implementation(project(":core:data"))
 
+    implementation(project(":feature:login"))
     implementation(project(":feature:chats"))
     implementation(project(":feature:feed"))
     implementation(project(":feature:explore"))

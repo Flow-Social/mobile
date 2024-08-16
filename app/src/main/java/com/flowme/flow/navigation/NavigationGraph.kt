@@ -4,14 +4,15 @@ import com.flowme.flow.R
 
 enum class NavigationCluster {
     Main,
-    Login
+    Auth
 }
 
 enum class Screen {
     Feed,
     Explore,
     Chats,
-    Registration
+    Registration,
+    Login,
 }
 
 sealed class NavigationItem(val route: String) {
@@ -23,8 +24,10 @@ sealed class NavigationItem(val route: String) {
         data object Explore : NavigationItem(Screen.Explore.name)
     }
 
-    data object Login : NavigationItem(NavigationCluster.Login.name) {
+    data object Auth : NavigationItem(NavigationCluster.Auth.name) {
         data object Registration : NavigationItem(Screen.Registration.name)
+
+        data object Login : NavigationItem(Screen.Login.name)
     }
 }
 

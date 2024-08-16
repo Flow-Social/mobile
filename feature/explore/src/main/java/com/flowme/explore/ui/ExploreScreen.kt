@@ -15,7 +15,7 @@ import com.flowme.uikit.R
 import com.flowme.uikit.components.topbar.TitleIconTopBar
 
 @Composable
-fun ExploreScreen(
+internal fun ExploreScreen(
     modifier: Modifier = Modifier
 ) {
     Scaffold(

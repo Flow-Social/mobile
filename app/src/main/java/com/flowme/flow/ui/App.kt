@@ -8,6 +8,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.flowme.flow.navigation.BottomNavigationItem
@@ -27,7 +28,12 @@ fun App(modifier: Modifier = Modifier) {
                 BottomBar(
                     currentRoute = navController.currentDestination?.route ?: "",
                     navigationItems = bottomNavigationItems,
-                    onClick = { navController.navigate(it) }
+                    onClick = {
+                        navController.navigate(it) {
+                            launchSingleTop = true
+                            popUpTo(it)
+                        }
+                    }
                 )
             }
         },

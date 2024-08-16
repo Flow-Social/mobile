@@ -1,4 +1,3 @@
-@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlinAndroid)
@@ -6,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.flowme.feed"
+    namespace = "com.flowme.login"
     compileSdk = 34
 
     defaultConfig {
@@ -22,11 +21,11 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
+    buildFeatures { compose = true }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-    buildFeatures { compose = true }
     kotlinOptions {
         jvmTarget = "1.8"
     }

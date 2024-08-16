@@ -299,6 +299,17 @@ private val highContrastDarkColorScheme = darkColorScheme(
     surfaceContainerHighest = surfaceContainerHighestDarkHighContrast,
 )
 
+val typography = Typography(
+    headlineLarge = TextStyle(
+        fontSize = 46.sp
+    ),
+    headlineSmall = TextStyle(
+        fontSize = 16.sp,
+        lineHeight = 22.sp,
+        letterSpacing = 0.sp
+    )
+)
+
 @Composable
 fun FlowTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
@@ -309,7 +320,7 @@ fun FlowTheme(
     val colorScheme = generateColorScheme(dynamicColor, darkTheme, context)
 
     val flowColorScheme = if (darkTheme) DarkFlowColorScheme else LightFlowColorScheme
-    val typography = FlowTypography()
+    val flowTypography = FlowTypography()
 
     val view = LocalView.current
 
@@ -327,14 +338,15 @@ fun FlowTheme(
     MaterialTheme(
         content = {
             CompositionLocalProvider(
-                LocalTypography provides typography,
+                LocalTypography provides flowTypography,
                 LocalColorScheme provides flowColorScheme,
                 LocalRippleTheme provides FlowRippleTheme
             ) {
                 content()
             }
         },
-        colorScheme = colorScheme
+        colorScheme = colorScheme,
+        typography = typography
     )
 }
 

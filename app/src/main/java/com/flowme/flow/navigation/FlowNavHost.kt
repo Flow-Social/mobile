@@ -3,43 +3,57 @@ package com.flowme.flow.navigation
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
-import com.flowme.chats.ui.ChatsScreen
-import com.flowme.explore.ui.ExploreScreen
-import com.flowme.feed.ui.FeedScreen
+import androidx.navigation.navOptions
+import com.flowme.chats.ui.ChatsRoute
+import com.flowme.explore.ui.ExploreRoute
+import com.flowme.feed.ui.FeedRoute
+import com.flowme.login.ui.LoginRoute
 
 @Composable
 fun FlowNavHost(
     navController: NavHostController,
     modifier: Modifier = Modifier,
 ) {
-    NavHost(navController = navController, startDestination = NavigationItem.Main.route) {
+    NavHost(navController = navController, startDestination = NavigationItem.Auth.route) {
+        navigation(
+            route = NavigationItem.Auth.route,
+            startDestination = NavigationItem.Auth.Login.route
+        ) {
+            composable(NavigationItem.Auth.Registration.route) {
+                Text(text = "Registration")
+            }
+
+            composable(NavigationItem.Auth.Login.route) {
+                LoginRoute(
+                    onGoToHome = {
+                        navController.navigate(NavigationItem.Main.route) {
+                            popUpTo(NavigationItem.Auth.route) { inclusive = false }
+                        }
+                    },
+                    modifier
+                )
+            }
+        }
+
         navigation(
             route = NavigationItem.Main.route,
             startDestination = NavigationItem.Main.Feed.route
         ) {
             composable(NavigationItem.Main.Feed.route) {
-                FeedScreen(modifier)
+                FeedRoute(modifier)
             }
 
             composable(NavigationItem.Main.Explore.route) {
-                ExploreScreen(modifier)
+                ExploreRoute(modifier)
             }
 
             composable(NavigationItem.Main.Chats.route) {
-                ChatsScreen(modifier)
-            }
-        }
-
-        navigation(
-            route = NavigationItem.Login.route,
-            startDestination = NavigationItem.Login.Registration.route
-        ) {
-            composable(NavigationItem.Login.Registration.route) {
-                Text(text = "Registration")
+                ChatsRoute(modifier)
             }
         }
     }

@@ -26,6 +26,8 @@ include(":core:database")
 include(":core:data")
 include(":core:uikit")
 include(":core:domain")
+include(":core:mock")
+include(":core:auth")
 
 include(":feature:feed")
 include(":feature:chats")

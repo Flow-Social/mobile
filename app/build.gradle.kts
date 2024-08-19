@@ -50,9 +50,11 @@ android {
 
 dependencies {
     implementation(project(":core:uikit"))
+    implementation(project(":core:domain"))
     implementation(project(":core:api"))
     implementation(project(":core:database"))
     implementation(project(":core:data"))
+    implementation(project(":core:auth"))
 
     implementation(project(":feature:login"))
     implementation(project(":feature:chats"))

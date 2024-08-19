@@ -1,6 +1,7 @@
 package com.flowme.login.ui.components
 
 import androidx.compose.foundation.text.ClickableText
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -22,23 +23,25 @@ internal fun TermsAndPolicyText(
     val termsAndConditionsString = stringResource(R.string.terms_and_conditions)
 
     val annotatedString = buildAnnotatedString {
-        append(stringResource(R.string.auth_accepting_by_continuing))
+        withStyle(SpanStyle(color = MaterialTheme.colorScheme.onBackground)) {
+            append(stringResource(R.string.auth_accepting_by_continuing))
 
-        pushStringAnnotation(tag = "terms_and_conditions", annotation = "terms_and_conditions")
-        withStyle(SpanStyle(textDecoration = TextDecoration.Underline)) {
-            append(termsAndConditionsString)
+            pushStringAnnotation(tag = "terms_and_conditions", annotation = "terms_and_conditions")
+            withStyle(SpanStyle(textDecoration = TextDecoration.Underline)) {
+                append(termsAndConditionsString)
+            }
+            pop()
+
+            append(stringResource(R.string.auth_accepting_and))
+
+            pushStringAnnotation(tag = "privacy_policy", annotation = "privacy_policy")
+            withStyle(SpanStyle(textDecoration = TextDecoration.Underline)) {
+                append(privacyPolicyString)
+            }
+            pop()
+
+            append(stringResource(R.string.auth_accepting_will_be_applied))
         }
-        pop()
-
-        append(stringResource(R.string.auth_accepting_and))
-
-        pushStringAnnotation(tag = "privacy_policy", annotation = "privacy_policy")
-        withStyle(SpanStyle(textDecoration = TextDecoration.Underline)) {
-            append(privacyPolicyString)
-        }
-        pop()
-
-        append(stringResource(R.string.auth_accepting_will_be_applied))
     }
 
     ClickableText(

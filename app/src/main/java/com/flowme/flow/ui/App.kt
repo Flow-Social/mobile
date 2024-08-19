@@ -8,16 +8,19 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.flowme.flow.navigation.BottomNavigationItem
 import com.flowme.flow.navigation.FlowNavHost
 import com.flowme.flow.navigation.bottomNavigationItems
 import com.flowme.flow.navigation.mainBottomBarNavigationDestinations
+import com.flowme.login.ui_logic.LoginViewModel
 
 @Composable
-fun App(modifier: Modifier = Modifier) {
+fun App(
+    loginViewModel: LoginViewModel,
+    modifier: Modifier = Modifier
+) {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
@@ -40,6 +43,7 @@ fun App(modifier: Modifier = Modifier) {
         modifier = modifier
     ) { innerPadding ->
         FlowNavHost(
+            loginViewModel = loginViewModel,
             navController = navController,
             modifier = Modifier
                 .fillMaxSize()

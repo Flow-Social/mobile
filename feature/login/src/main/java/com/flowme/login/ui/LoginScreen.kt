@@ -24,7 +24,7 @@ import com.flowme.uikit.theme.FlowTheme
 
 @Composable
 internal fun LoginScreen(
-    onGoToHome: () -> Unit,
+    onLoginWithGoogle: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
@@ -61,7 +61,7 @@ internal fun LoginScreen(
 
         Spacer(Modifier.height(24.dp))
 
-        GoogleLoginButton(onGoToHome, Modifier)
+        GoogleLoginButton(onLoginWithGoogle, Modifier)
 
         Spacer(Modifier.weight(1f))
 

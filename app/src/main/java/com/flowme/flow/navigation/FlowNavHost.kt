@@ -13,9 +13,11 @@ import com.flowme.chats.ui.ChatsRoute
 import com.flowme.explore.ui.ExploreRoute
 import com.flowme.feed.ui.FeedRoute
 import com.flowme.login.ui.LoginRoute
+import com.flowme.login.ui_logic.LoginViewModel
 
 @Composable
 fun FlowNavHost(
+    loginViewModel: LoginViewModel,
     navController: NavHostController,
     modifier: Modifier = Modifier,
 ) {
@@ -35,6 +37,7 @@ fun FlowNavHost(
                             popUpTo(NavigationItem.Auth.route) { inclusive = false }
                         }
                     },
+                    viewModel = loginViewModel,
                     modifier
                 )
             }

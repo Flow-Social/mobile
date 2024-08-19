@@ -13,6 +13,7 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
 
     implementation(libs.kotlinx.coroutines)
+
     implementation(libs.ktor.core)
     implementation(libs.ktor.cio)
     implementation(libs.ktor.client.content.negotiation)

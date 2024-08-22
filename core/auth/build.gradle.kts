@@ -32,6 +32,8 @@ android {
 dependencies {
     implementation(project(":core:domain"))
 
+    implementation("androidx.browser:browser:1.3.0")
+
     implementation(libs.credentials)
     implementation(libs.credentials.play.services.auth)
     implementation(libs.googleid)

@@ -65,6 +65,7 @@ dependencies {
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.appcompat)
 
     testImplementation(libs.junit)
 

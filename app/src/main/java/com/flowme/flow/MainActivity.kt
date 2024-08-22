@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
+import com.flowme.api.AuthApiConfig
 import com.flowme.api.AuthApiImpl
 import com.flowme.auth.AuthenticationManagerImpl
 import com.flowme.auth.GoogleOAuthImpl
@@ -30,7 +31,9 @@ class MainActivity : ComponentActivity() {
         val authenticationManager = AuthenticationManagerImpl(
             this@MainActivity,
             googleOAuth = googleOAuthImpl,
-            authApi = AuthApiImpl()
+            authApi = AuthApiImpl(
+                AuthApiConfig(apiUrl = "https://floow.me/api")
+            )
         )
 
         val loginViewModel = LoginViewModel(

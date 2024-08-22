@@ -1,7 +1,10 @@
 package com.flowme.auth
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
+import androidx.browser.customtabs.CustomTabsIntent
 import com.flowme.domain.api.AuthApi
 import com.flowme.domain.api.models.AuthApiResult
 import com.flowme.domain.auth.AuthenticationManager
@@ -17,7 +20,6 @@ class AuthenticationManagerImpl(
 ) : AuthenticationManager {
     companion object {
         private const val AUTH_SHARED_PREF = "flowme.auth"
-        private const val GOOGLE_ID_TOKEN_PREF_KEY = "googleIdToken"
         private const val AUTH_TOKEN_PREF_KEY = "authToken"
     }
 
@@ -28,21 +30,10 @@ class AuthenticationManagerImpl(
         )
 
     private suspend fun getGoogleIdToken(): GoogleAuthenticationResult {
-        val googleIdTokenFromPreferences = sharedPreferences.getString(GOOGLE_ID_TOKEN_PREF_KEY, null)
-
-        if (googleIdTokenFromPreferences != null) {
-            return GoogleAuthenticationResult.Success(googleIdTokenFromPreferences)
-        }
-
         val googleOAuthResult = googleOAuth.startSignIn()
 
         if (googleOAuthResult is GoogleOAuthResult.Success) {
             val idToken = googleOAuthResult.idToken
-
-            sharedPreferences
-                .edit()
-                .putString(GOOGLE_ID_TOKEN_PREF_KEY, idToken)
-                .apply()
 
             return GoogleAuthenticationResult.Success(idToken)
         }

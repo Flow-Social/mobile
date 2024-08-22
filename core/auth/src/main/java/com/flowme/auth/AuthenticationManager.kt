@@ -51,6 +51,11 @@ class AuthenticationManagerImpl(
             val authApiResult = authApi.getAuthTokenByGoogleIdToken(googleAuthenticationResult.idToken)
 
             if (authApiResult is AuthApiResult.Success) {
+                sharedPreferences.edit().apply {
+                    putString(AUTH_TOKEN_PREF_KEY, authApiResult.token)
+                    commit()
+                }
+
                 return AuthenticationResult.Success(authApiResult.token)
             }
         }

@@ -328,7 +328,8 @@ fun FlowTheme(
         SideEffect {
             val window = (view.context as Activity).window
             window.statusBarColor = colorScheme.background.toArgb()
-            window.navigationBarColor = colorScheme.surfaceContainer.toArgb()
+            val navigationBarElevation = NavigationBarDefaults.Elevation
+            window.navigationBarColor = colorScheme.surfaceColorAtElevation(navigationBarElevation).toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
             WindowCompat.getInsetsController(window, view).isAppearanceLightNavigationBars = !darkTheme
         }

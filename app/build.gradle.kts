@@ -4,6 +4,8 @@ plugins {
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.serialization)
+    alias(libs.plugins.googleGmsGoogleServices)
+    alias(libs.plugins.firebaseCrashlytics)
 }
 
 android {
@@ -60,6 +62,10 @@ dependencies {
     implementation(project(":feature:chats"))
     implementation(project(":feature:feed"))
     implementation(project(":feature:explore"))
+
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.crashlytics)
 
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)

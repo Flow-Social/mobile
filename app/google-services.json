@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "291755427997",
+    "project_id": "flow-901cf",
+    "storage_bucket": "flow-901cf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:291755427997:android:e072b5401dc9d0ce1a2c74",
+        "android_client_info": {
+          "package_name": "com.flowme.flow"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtGUu5IMFTc5-PW5Ta2LkPmlCrolVUOdo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

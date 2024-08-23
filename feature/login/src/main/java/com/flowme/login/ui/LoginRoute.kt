@@ -2,6 +2,9 @@ package com.flowme.login.ui
 
 import android.widget.Toast
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -16,18 +19,22 @@ fun LoginRoute(
 ) {
     val context = LocalContext.current
     val loginUnsuccessfulToastMessage = stringResource(R.string.login_unsuccessful_toast_message)
+    val state by viewModel.loginState.collectAsState()
+
+    LaunchedEffect(Unit) {
+        viewModel.initialize(
+            onGoToHome,
+            onFailure = {
+                Toast
+                    .makeText(context, loginUnsuccessfulToastMessage, Toast.LENGTH_SHORT)
+                    .show()
+            }
+        )
+    }
 
     LoginScreen(
-        onLoginWithGoogle = {
-            viewModel.loginWithGoogle(
-                onGoToHome,
-                onFailure = {
-                    Toast
-                        .makeText(context, loginUnsuccessfulToastMessage, Toast.LENGTH_SHORT)
-                        .show()
-                }
-            )
-        },
+        state = state,
+        onLoginWithGoogle = viewModel::loginWithGoogle,
         modifier = modifier
     )
 }

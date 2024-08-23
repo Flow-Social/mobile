@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.serialization)
 }
 
 android {
@@ -32,11 +33,17 @@ android {
 dependencies {
     implementation(project(":core:domain"))
 
-    implementation("androidx.browser:browser:1.3.0")
+    implementation(libs.kotlinx.serialization.core)
+    implementation(libs.kotlinx.serialization.json)
 
-    implementation(libs.credentials)
-    implementation(libs.credentials.play.services.auth)
-    implementation(libs.googleid)
+    implementation(libs.kotlinx.coroutines)
+
+    implementation(libs.ktor.core)
+    implementation(libs.ktor.cio)
+    implementation(libs.ktor.client.content.negotiation)
+    implementation(libs.ktor.serialization.kotlinx.json)
+
+    implementation(libs.androidx.browser)
 
     testImplementation(libs.junit)
 

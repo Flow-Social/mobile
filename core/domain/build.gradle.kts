@@ -6,3 +6,7 @@ plugins {
 kotlin {
     jvmToolchain(21)
 }
+
+dependencies {
+    api(libs.kotlinx.coroutines)
+}

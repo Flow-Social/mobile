@@ -3,10 +3,7 @@ package com.flowme.login.ui
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,11 +16,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.flowme.login.ui.components.GoogleLoginButton
 import com.flowme.login.ui.components.TermsAndPolicyText
+import com.flowme.login.ui_logic.LoginState
 import com.flowme.uikit.R
 import com.flowme.uikit.theme.FlowTheme
 
 @Composable
 internal fun LoginScreen(
+    state: LoginState,
     onLoginWithGoogle: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -61,7 +60,15 @@ internal fun LoginScreen(
 
         Spacer(Modifier.height(24.dp))
 
-        GoogleLoginButton(onLoginWithGoogle, Modifier)
+        when (state) {
+            is LoginState.Idle -> {
+                GoogleLoginButton(onLoginWithGoogle, Modifier)
+            }
+
+            is LoginState.Loading -> {
+                CircularProgressIndicator()
+            }
+        }
 
         Spacer(Modifier.weight(1f))
 
@@ -88,7 +95,7 @@ internal fun LoginScreen(
 private fun LoginScreenPreview() {
     FlowTheme {
         Surface {
-            LoginScreen({}, Modifier.fillMaxSize())
+            LoginScreen(LoginState.Idle, {}, Modifier.fillMaxSize())
         }
     }
 }

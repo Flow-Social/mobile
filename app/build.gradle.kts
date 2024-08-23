@@ -63,6 +63,8 @@ dependencies {
     implementation(project(":feature:feed"))
     implementation(project(":feature:explore"))
 
+    implementation(libs.androidx.core.splashscreen)
+
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.crashlytics)

@@ -1,5 +1,6 @@
 [versions]
 agp = "8.2.0"
+androidxCoreSplashscreen = "1.0.1"
 credentials = "1.2.2"
 graphics-shapes = "1.0.0-rc01"
 kotlin = "2.0.0"
@@ -25,6 +26,7 @@ androidx-browser = "1.3.0"
 
 [libraries]
 androidx-browser = { group = "androidx.browser", name = "browser", version.ref = "androidx-browser" }
+androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "androidxCoreSplashscreen" }
 androidx-graphics-shapes = { module = "androidx.graphics:graphics-shapes", version.ref = "graphics-shapes" }
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }

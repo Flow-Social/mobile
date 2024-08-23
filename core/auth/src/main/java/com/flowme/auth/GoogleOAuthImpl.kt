@@ -61,7 +61,7 @@ class GoogleOAuthImpl(
             "https://accounts.google.com/o/oauth2/v2/auth" +
                     "?client_id=${googleOAuthInfo.clientId}" +
                     "&redirect_uri=com.flowme.flow:/" +
-                    "&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.email" +
+                    "&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile" +
                     "&code_challenge=$codeChallenge" +
                     "&code_challenge_method=S256" +
                     "&response_type=code"

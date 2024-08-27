@@ -37,7 +37,7 @@ class MainActivity : ComponentActivity() {
         googleOAuthImpl = GoogleOAuthImpl(
             context = this,
             googleOAuthInfo = GoogleOAuthInfo(
-                clientId = "529714055602-vmcr4n7qe6rek70fgufrv3aklvu7ukvf.apps.googleusercontent.com",
+                clientId = BuildConfig.GOOGLE_CLIENT_ID,
                 redirectUri = "com.flowme.flow:/"
             )
         )

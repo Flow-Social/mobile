@@ -1,3 +1,5 @@
+import java.util.*
+
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.androidApplication)
@@ -19,10 +21,22 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        val secretsFile = project.rootProject.file("secrets.properties")
+        val secretsProperties = Properties()
+        secretsProperties.load(secretsFile.inputStream())
+
+        val googleClientId = secretsProperties.getProperty("googleClientId") ?: ""
+        buildConfigField(
+            type = "String",
+            name = "GOOGLE_CLIENT_ID",
+            value = googleClientId
+        )
     }
 
     buildTypes {
@@ -40,6 +54,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
     }

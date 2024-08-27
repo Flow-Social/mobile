@@ -25,11 +25,17 @@ class LoginViewModel(
             authenticationManager.authenticationStateFlow.collect { state ->
                 when (state) {
                     is AuthState.HasResult -> {
+                        _loginState.value = LoginState.Loading
+
                         handleAuthStateResult(
                             state.authenticationResult,
                             onGoToHome,
                             onFailure
                         )
+                    }
+
+                    is AuthState.HandlingOAuth -> {
+                        _loginState.value = LoginState.Loading
                     }
 
                     else -> Unit
@@ -44,17 +50,20 @@ class LoginViewModel(
         onFailure: () -> Unit,
     ) {
         when (result) {
-            is AuthenticationResult.Success -> onGoToHome()
+            is AuthenticationResult.Success -> {
+                onGoToHome()
+                _loginState.value = LoginState.Idle
+            }
 
-            is AuthenticationResult.Failure -> onFailure()
+            is AuthenticationResult.Failure -> {
+                onFailure()
+                _loginState.value = LoginState.Idle
+            }
         }
-        _loginState.update { LoginState.Idle }
     }
 
     fun loginWithGoogle() {
         viewModelScope.launch {
-            _loginState.update { LoginState.Loading }
-
             authenticationManager.startGoogleAuthentication()
         }
     }

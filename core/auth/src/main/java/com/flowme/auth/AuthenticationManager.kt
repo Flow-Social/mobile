@@ -34,6 +34,10 @@ class AuthenticationManagerImpl(
         )
 
     override suspend fun handleGoogleOAuthCode(code: String) {
+        _authenticationStateFlow.update {
+            AuthState.HandlingOAuth
+        }
+
         when (val googleOAuthResult = googleOAuth.handleGoogleOAuthCode(code)) {
             is GoogleOAuthResult.Success -> {
                 val authApiResult = authApi.getAuthTokenByGoogleIdToken(googleOAuthResult.idToken)

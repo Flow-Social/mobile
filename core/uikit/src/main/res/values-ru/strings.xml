@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="to_the_profile">в профиль</string>
+    <string name="auth_accepting_by_continuing">Продолжая,&#160;</string>
+    <string name="auth_accepting_and">&#160;и&#160;</string>
+    <string name="auth_accepting_will_be_applied">&#160;будут применены.</string>
+    <string name="social_media_flow_exclamation">Соцсеть Flow!</string>
+    <string name="flow_onboarding_explanation">"Платформа с интерактивной лентой и персонализированными рекомендациями.
+        "
+    </string>
+</resources>

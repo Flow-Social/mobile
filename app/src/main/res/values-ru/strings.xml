@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Flow</string>
+    <string name="feed_bottom_nav_label">Лента</string>
+    <string name="explore_bottom_nav_label">Обзор</string>
+    <string name="chats_bottom_nav_label">Чаты</string>
+</resources>

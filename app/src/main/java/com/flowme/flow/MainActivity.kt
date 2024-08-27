@@ -1,6 +1,8 @@
 package com.flowme.flow
 
+import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -17,6 +19,7 @@ import com.flowme.flow.ui.App
 import com.flowme.login.ui_logic.LoginViewModel
 import com.flowme.uikit.theme.FlowTheme
 import kotlinx.coroutines.*
+import java.util.*
 
 // TODO: remove VM instantiations when there will be DI
 
@@ -66,5 +69,14 @@ class MainActivity : ComponentActivity() {
         }
 
         super.onNewIntent(intent)
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+        // TODO: remove at production
+        val newConfiguration = Configuration(newBase?.resources?.configuration).apply {
+            setLocale(Locale("ru"))
+        }
+
+        super.attachBaseContext(newBase?.createConfigurationContext(newConfiguration))
     }
 }

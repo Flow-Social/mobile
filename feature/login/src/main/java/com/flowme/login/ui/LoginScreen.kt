@@ -45,6 +45,7 @@ internal fun LoginScreen(
 
         Text(
             text = stringResource(R.string.social_media_flow_exclamation),
+            textAlign = TextAlign.Center,
             style = MaterialTheme.typography.headlineLarge
         )
 

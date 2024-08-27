@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:291755427997:android:e072b5401dc9d0ce1a2c74",
+        "mobilesdk_app_id": "1:291755427997:android:279f33d6987d4c111a2c74",
         "android_client_info": {
-          "package_name": "com.flowme.flow"
+          "package_name": "me.floow.app"
         }
       },
       "oauth_client": [],

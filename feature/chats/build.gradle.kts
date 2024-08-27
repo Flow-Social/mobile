@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.flowme.chats"
+    namespace = "me.flowme.chats"
     compileSdk = 34
 
     defaultConfig {

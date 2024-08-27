@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.flowme.auth"
+    namespace = "me.floow.auth"
     compileSdk = 34
 
     defaultConfig {

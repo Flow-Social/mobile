@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.flowme.uikit"
+    namespace = "me.floow.uikit"
     compileSdk = 34
 
     defaultConfig {

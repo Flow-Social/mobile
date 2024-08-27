@@ -11,11 +11,11 @@ plugins {
 }
 
 android {
-    namespace = "com.flowme.flow"
+    namespace = "me.floow.app"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.flowme.flow"
+        applicationId = "me.floow.app"
         minSdk = 28
         targetSdk = 34
         versionCode = 1

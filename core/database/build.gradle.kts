@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.flowme.database"
+    namespace = "me.floow.database"
     compileSdk = 34
 
     defaultConfig {

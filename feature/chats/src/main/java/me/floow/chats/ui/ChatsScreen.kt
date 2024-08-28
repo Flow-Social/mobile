@@ -26,10 +26,11 @@ internal fun ChatsScreen(
                     )
                 }
             )
-        }
+        },
+        modifier = modifier
     ) { innerPadding ->
         Column(
-            modifier
+            Modifier
                 .padding(innerPadding)
                 .padding(8.dp)
         ) {

@@ -29,7 +29,8 @@ internal fun LoginScreen(
     val context = LocalContext.current
 
     Column(
-        modifier,
+        modifier
+            .statusBarsPadding(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

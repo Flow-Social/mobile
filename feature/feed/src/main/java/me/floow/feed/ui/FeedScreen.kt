@@ -33,10 +33,11 @@ internal fun FeedScreen(
                     )
                 }
             )
-        }
+        },
+        modifier = modifier
     ) { innerPadding ->
         Column(
-            modifier
+            Modifier
                 .padding(8.dp)
                 .padding(innerPadding)
         ) {

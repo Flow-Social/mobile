@@ -27,10 +27,11 @@ internal fun ExploreScreen(
                     NotificationBellIcon(hasBadge = true)
                 }
             )
-        }
+        },
+        modifier = modifier
     ) { innerPadding ->
         Column(
-            modifier
+            Modifier
                 .padding(8.dp)
                 .padding(innerPadding)
         ) {

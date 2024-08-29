@@ -14,11 +14,9 @@ import me.floow.app.navigation.BottomNavigationItem
 import me.floow.app.navigation.FlowNavHost
 import me.floow.app.navigation.bottomNavigationItems
 import me.floow.app.navigation.mainBottomBarNavigationDestinations
-import me.floow.login.ui_logic.LoginViewModel
 
 @Composable
 fun App(
-    loginViewModel: LoginViewModel,
     modifier: Modifier = Modifier
 ) {
     val navController = rememberNavController()
@@ -43,7 +41,6 @@ fun App(
         modifier = modifier
     ) { innerPadding ->
         FlowNavHost(
-            loginViewModel = loginViewModel,
             navController = navController,
             modifier = Modifier
                 .fillMaxSize()

@@ -11,11 +11,11 @@ import me.floow.chats.ui.ChatsRoute
 import me.floow.explore.ui.ExploreRoute
 import me.floow.feed.ui.FeedRoute
 import me.floow.login.ui.LoginRoute
-import me.floow.login.ui_logic.LoginViewModel
+import me.floow.login.uilogic.LoginViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun FlowNavHost(
-    loginViewModel: LoginViewModel,
     navController: NavHostController,
     modifier: Modifier = Modifier,
 ) {
@@ -35,7 +35,7 @@ fun FlowNavHost(
                             popUpTo(NavigationItem.Auth.route) { inclusive = false }
                         }
                     },
-                    viewModel = loginViewModel,
+                    viewModel = koinViewModel(),
                     modifier
                 )
             }

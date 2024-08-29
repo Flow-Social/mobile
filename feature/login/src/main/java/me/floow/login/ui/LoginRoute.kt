@@ -9,7 +9,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import me.floow.login.ui_logic.LoginViewModel
+import me.floow.login.uilogic.LoginViewModel
 import me.floow.uikit.util.SetNavigationBarColor
 import me.flowme.login.R
 

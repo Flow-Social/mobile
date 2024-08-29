@@ -1,4 +1,4 @@
-package me.floow.login.ui_logic
+package me.floow.login.uilogic
 
 interface LoginState {
     data object Idle : LoginState

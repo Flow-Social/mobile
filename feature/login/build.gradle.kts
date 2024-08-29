@@ -37,6 +37,10 @@ dependencies {
 
     implementation(libs.appcompat)
 
+    api(platform(libs.koin.bom))
+    api(libs.koin.core)
+    api(libs.koin.android)
+
     testImplementation(libs.junit)
 
     androidTestImplementation(libs.androidx.test.ext.junit)

@@ -1,4 +1,4 @@
-package me.floow.login.ui_logic
+package me.floow.login.uilogic
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

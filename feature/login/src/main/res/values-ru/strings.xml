@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="login_unsuccessful_toast_message">Login was unsuccessful</string>
+    <string name="google_login_btn_text">Войти</string>
 </resources>

@@ -11,4 +11,6 @@ interface AuthenticationManager {
     suspend fun handleGoogleOAuthCode(code: String)
 
     suspend fun getAuthTokenOrNull(): String?
+
+    fun isSignedIn(): Boolean
 }

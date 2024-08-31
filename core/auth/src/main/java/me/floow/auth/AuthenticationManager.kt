@@ -45,6 +45,7 @@ class AuthenticationManagerImpl(
                     _authenticationStateFlow.update {
                         AuthState.HasResult(AuthenticationResult.Success(authApiResult.token))
                     }
+                    writeAuthToken(authApiResult.token)
                 } else {
                     _authenticationStateFlow.update {
                         AuthState.HasResult(AuthenticationResult.Failure)
@@ -60,8 +61,19 @@ class AuthenticationManagerImpl(
         }
     }
 
+    private fun writeAuthToken(token: String) {
+        sharedPreferences.edit().apply {
+            putString(AUTH_TOKEN_PREF_KEY, token)
+            apply()
+        }
+    }
+
     override suspend fun getAuthTokenOrNull(): String? {
         return sharedPreferences.getString(AUTH_TOKEN_PREF_KEY, null)
+    }
+
+    override fun isSignedIn(): Boolean {
+        return sharedPreferences.getString(AUTH_TOKEN_PREF_KEY, null) != null
     }
 
     override suspend fun startGoogleAuthentication() {

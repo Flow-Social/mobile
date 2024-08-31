@@ -10,22 +10,14 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
 import kotlinx.coroutines.*
-import me.floow.api.AuthApiConfig
-import me.floow.api.AuthApiImpl
 import me.floow.app.di.*
+import me.floow.app.navigation.NavigationItem
 import me.floow.app.ui.App
-import me.floow.auth.AuthenticationManagerImpl
-import me.floow.auth.GoogleOAuthImpl
-import me.floow.auth.models.GoogleOAuthInfo
 import me.floow.domain.auth.AuthenticationManager
-import me.floow.domain.auth.GoogleOAuth
 import me.floow.login.di.loginModule
-import me.floow.login.uilogic.LoginViewModel
 import me.floow.uikit.theme.FlowTheme
 import org.koin.android.ext.android.getKoin
 import org.koin.android.ext.koin.androidContext
-import org.koin.compose.getKoin
-import org.koin.core.context.GlobalContext.get
 import org.koin.core.context.startKoin
 import java.util.*
 
@@ -51,12 +43,21 @@ class MainActivity : ComponentActivity() {
         }
 
         coroutineScope = CoroutineScope(CoroutineName("MainActivity"))
+        val authenticationManager: AuthenticationManager = getKoin().get()
 
         enableEdgeToEdge()
 
+        val startDestination = when (authenticationManager.isSignedIn()) {
+            false -> NavigationItem.Auth.route
+            true -> NavigationItem.Main.route
+        }
+
         setContent {
             FlowTheme {
-                App(Modifier.fillMaxSize())
+                App(
+                    startDestination = startDestination,
+                    Modifier.fillMaxSize()
+                )
             }
         }
     }

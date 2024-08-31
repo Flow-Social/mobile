@@ -10,13 +10,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import me.floow.app.navigation.BottomNavigationItem
-import me.floow.app.navigation.FlowNavHost
-import me.floow.app.navigation.bottomNavigationItems
-import me.floow.app.navigation.mainBottomBarNavigationDestinations
+import me.floow.app.navigation.*
 
 @Composable
 fun App(
+    startDestination: String,
     modifier: Modifier = Modifier
 ) {
     val navController = rememberNavController()
@@ -42,6 +40,7 @@ fun App(
     ) { innerPadding ->
         FlowNavHost(
             navController = navController,
+            startDestination = startDestination,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)

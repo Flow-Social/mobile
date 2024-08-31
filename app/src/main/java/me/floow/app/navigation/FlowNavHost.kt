@@ -8,6 +8,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import me.floow.chats.ui.ChatsRoute
+import me.floow.domain.auth.AuthenticationManager
+import me.floow.domain.auth.models.AuthState
 import me.floow.explore.ui.ExploreRoute
 import me.floow.feed.ui.FeedRoute
 import me.floow.login.ui.LoginRoute
@@ -17,9 +19,10 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun FlowNavHost(
     navController: NavHostController,
+    startDestination: String,
     modifier: Modifier = Modifier,
 ) {
-    NavHost(navController = navController, startDestination = NavigationItem.Auth.route) {
+    NavHost(navController = navController, startDestination = startDestination) {
         navigation(
             route = NavigationItem.Auth.route,
             startDestination = NavigationItem.Auth.Login.route

@@ -77,6 +77,7 @@ dependencies {
     implementation(project(":feature:chats"))
     implementation(project(":feature:feed"))
     implementation(project(":feature:explore"))
+    implementation(project(":feature:profile"))
 
     implementation(libs.androidx.core.splashscreen)
 
@@ -96,7 +97,7 @@ dependencies {
     implementation(libs.koin.androidx.compose)
     implementation(libs.koin.compose)
 
-    testImplementation(libs.junit)
+	testImplementation(libs.junit)
 
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)

@@ -8,7 +8,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import me.floow.uikit.R
-import me.floow.uikit.components.topbar.TitleIconTopBar
+import me.floow.uikit.components.topbar.TitleIconTopBarWithActionButton
 
 @Composable
 internal fun ChatsScreen(
@@ -16,9 +16,9 @@ internal fun ChatsScreen(
 ) {
     Scaffold(
         topBar = {
-            TitleIconTopBar(
+            TitleIconTopBarWithActionButton(
                 titleText = "Чаты",
-                onClick = { TODO() },
+                onActionButtonClick = { TODO() },
                 icon = {
                     Icon(
                         painterResource(R.drawable.search_icon),

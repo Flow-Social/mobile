@@ -11,7 +11,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import me.floow.uikit.components.topbar.TitleIconTopBar
+import me.floow.uikit.components.topbar.TitleIconTopBarWithActionButton
 import me.floow.uikit.R
 
 @Composable
@@ -20,9 +20,9 @@ internal fun ExploreScreen(
 ) {
     Scaffold(
         topBar = {
-            TitleIconTopBar(
+            TitleIconTopBarWithActionButton(
                 titleText = "Обзор",
-                onClick = { TODO() },
+                onActionButtonClick = { TODO() },
                 icon = {
                     NotificationBellIcon(hasBadge = true)
                 }

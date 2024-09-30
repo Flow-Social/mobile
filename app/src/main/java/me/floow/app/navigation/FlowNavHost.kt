@@ -8,41 +8,38 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import me.floow.chats.ui.ChatsRoute
-import me.floow.domain.auth.AuthenticationManager
-import me.floow.domain.auth.models.AuthState
-import me.floow.explore.ui.ExploreRoute
 import me.floow.feed.ui.FeedRoute
 import me.floow.login.ui.LoginRoute
-import me.floow.login.uilogic.LoginViewModel
+import me.floow.profile.ui.ProfileRoute
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun FlowNavHost(
-    navController: NavHostController,
-    startDestination: String,
-    modifier: Modifier = Modifier,
+	navController: NavHostController,
+	startDestination: String,
+	modifier: Modifier = Modifier,
 ) {
-    NavHost(navController = navController, startDestination = startDestination) {
-        navigation(
-            route = NavigationItem.Auth.route,
-            startDestination = NavigationItem.Auth.Login.route
-        ) {
-            composable(NavigationItem.Auth.Registration.route) {
-                Text(text = "Registration")
-            }
+	NavHost(navController = navController, startDestination = startDestination) {
+		navigation(
+			route = NavigationItem.Auth.route,
+			startDestination = NavigationItem.Auth.Login.route
+		) {
+			composable(NavigationItem.Auth.Registration.route) {
+				Text(text = "Registration")
+			}
 
-            composable(NavigationItem.Auth.Login.route) {
-                LoginRoute(
-                    onGoToHome = {
-                        navController.navigate(NavigationItem.Main.route) {
-                            popUpTo(NavigationItem.Auth.route) { inclusive = false }
-                        }
-                    },
-                    viewModel = koinViewModel(),
-                    modifier
-                )
-            }
-        }
+			composable(NavigationItem.Auth.Login.route) {
+				LoginRoute(
+					onGoToHome = {
+						navController.navigate(NavigationItem.Main.route) {
+							popUpTo(NavigationItem.Auth.route) { inclusive = false }
+						}
+					},
+					viewModel = koinViewModel(),
+					modifier
+				)
+			}
+		}
 
 		navigation(
 			route = NavigationItem.Main.route,
@@ -52,13 +49,16 @@ fun FlowNavHost(
 				FeedRoute(onPostCreateClick = { TODO() }, modifier)
 			}
 
-            composable(NavigationItem.Main.Explore.route) {
-                ExploreRoute(modifier)
-            }
+			composable(NavigationItem.Main.Profile.route) {
+				ProfileRoute(
+					viewModel = koinViewModel(),
+					modifier = modifier
+				)
+			}
 
-            composable(NavigationItem.Main.Chats.route) {
-                ChatsRoute(modifier)
-            }
-        }
-    }
+			composable(NavigationItem.Main.Chats.route) {
+				ChatsRoute(modifier)
+			}
+		}
+	}
 }

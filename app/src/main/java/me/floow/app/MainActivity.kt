@@ -21,6 +21,7 @@ import me.floow.app.navigation.NavigationItem
 import me.floow.app.ui.App
 import me.floow.domain.auth.AuthenticationManager
 import me.floow.login.di.loginModule
+import me.floow.profile.di.profileModule
 import me.floow.uikit.theme.FlowTheme
 import org.koin.android.ext.android.getKoin
 import org.koin.android.ext.koin.androidContext
@@ -46,7 +47,8 @@ class MainActivity : ComponentActivity() {
                 dataModule,
                 domainModule,
                 mockModule,
-                loginModule
+                loginModule,
+                profileModule
             )
         }
 

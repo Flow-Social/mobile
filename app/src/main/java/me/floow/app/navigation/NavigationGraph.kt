@@ -9,7 +9,7 @@ enum class NavigationCluster {
 
 enum class Screen {
     Feed,
-    Explore,
+    Profile,
     Chats,
     Registration,
     Login,
@@ -21,7 +21,7 @@ sealed class NavigationItem(val route: String) {
 
         data object Chats : NavigationItem(Screen.Chats.name)
 
-        data object Explore : NavigationItem(Screen.Explore.name)
+        data object Profile : NavigationItem(Screen.Profile.name)
     }
 
     data object Auth : NavigationItem(NavigationCluster.Auth.name) {
@@ -43,14 +43,14 @@ val bottomNavigationItems = listOf(
         drawableIconId = me.floow.uikit.R.drawable.chats_icon,
     ),
     BottomNavigationItem(
-        route = NavigationItem.Main.Explore.route,
-        titleId = R.string.explore_bottom_nav_label,
-        drawableIconId = me.floow.uikit.R.drawable.search_icon,
+        route = NavigationItem.Main.Profile.route,
+        titleId = R.string.profile_bottom_nav_label,
+        drawableIconId = me.floow.uikit.R.drawable.profile_icon,
     ),
 )
 
 val mainBottomBarNavigationDestinations = listOf(
     NavigationItem.Main.Feed.route,
     NavigationItem.Main.Chats.route,
-    NavigationItem.Main.Explore.route,
+    NavigationItem.Main.Profile.route,
 )

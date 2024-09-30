@@ -34,6 +34,7 @@ android {
 
 dependencies {
     implementation(project(":core:uikit"))
+
     implementation(libs.appcompat)
     implementation(libs.ui.tooling)
     implementation(libs.ui.tooling.preview)

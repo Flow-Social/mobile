@@ -16,9 +16,9 @@ import me.floow.uikit.util.ComponentPreviewBox
 import me.floow.uikit.R
 
 @Composable
-fun TitleIconTopBar(
+fun TitleIconTopBarWithActionButton(
     titleText: String,
-    onClick: () -> Unit,
+    onActionButtonClick: () -> Unit,
     icon: @Composable () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -38,7 +38,7 @@ fun TitleIconTopBar(
             Spacer(Modifier.weight(1f))
 
             WideOutlinedIconButton(
-                onClick = onClick,
+                onClick = onActionButtonClick,
                 modifier = Modifier
             ) {
                 icon()
@@ -53,7 +53,7 @@ fun TitleIconTopBar(
 @Composable
 private fun TitleIconTopBarPreview(modifier: Modifier = Modifier) {
     ComponentPreviewBox(Modifier.fillMaxSize()) {
-        TitleIconTopBar(
+        TitleIconTopBarWithActionButton(
             titleText = "Chats",
             icon = {
                 Icon(
@@ -61,7 +61,7 @@ private fun TitleIconTopBarPreview(modifier: Modifier = Modifier) {
                     null
                 )
             },
-            onClick = {},
+            onActionButtonClick = {},
             modifier = Modifier
                 .fillMaxSize()
         )

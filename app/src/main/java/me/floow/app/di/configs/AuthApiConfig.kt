@@ -1,5 +1,5 @@
 package me.floow.app.di.configs
 
-import me.floow.api.AuthApiConfig
+import me.floow.api.util.ApiConfig
 
-val authApiConfig = AuthApiConfig(apiUrl = "https://floow.me/api")
+val apiConfig = ApiConfig(apiUrl = "https://floow.me/api")

@@ -10,6 +10,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
+import me.floow.api.util.ApiConfig
+import me.floow.api.util.HttpClientProvider
+import me.floow.api.util.JsonSerializer
 import me.floow.domain.api.AuthApi
 import me.floow.domain.api.models.AuthApiResult
 
@@ -26,14 +29,11 @@ internal data class Data(
     val token: String
 )
 
-data class AuthApiConfig(
-    val apiUrl: String
-)
-
 class AuthApiImpl(
-    private val config: AuthApiConfig
+    private val config: ApiConfig,
+    httpClientProvider: HttpClientProvider
 ) : AuthApi {
-    private val httpClient = HttpClient(CIO)
+    private val httpClient = httpClientProvider.getClient()
 
     override suspend fun getAuthTokenByGoogleIdToken(idToken: String): AuthApiResult = withContext(Dispatchers.IO) {
         val response = httpClient.post("${config.apiUrl}/auth/social/google") {
@@ -52,7 +52,8 @@ class AuthApiImpl(
         val bodyText = response.bodyAsText()
 
         if (response.status.isSuccess()) {
-            val parsedResponse = Json.decodeFromString<GoogleAuthorizeResponse>(bodyText)
+            val jsonParser = JsonSerializer
+            val parsedResponse = jsonParser.decodeFromString<GoogleAuthorizeResponse>(bodyText)
 
             return@withContext AuthApiResult.Success(
                 token = parsedResponse.data.token

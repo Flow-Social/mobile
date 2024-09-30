@@ -40,11 +40,13 @@ class AuthenticationManagerImpl(
         when (val googleOAuthResult = googleOAuth.handleGoogleOAuthCode(code)) {
             is GoogleOAuthResult.Success -> {
                 val authApiResult = authApi.getAuthTokenByGoogleIdToken(googleOAuthResult.idToken)
+                println(authApiResult)
 
                 if (authApiResult is AuthApiResult.Success) {
                     _authenticationStateFlow.update {
                         AuthState.HasResult(AuthenticationResult.Success(authApiResult.token))
                     }
+                    println(authApiResult.token)
                     writeAuthToken(authApiResult.token)
                 } else {
                     _authenticationStateFlow.update {

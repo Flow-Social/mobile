@@ -1,4 +1,4 @@
-package me.floow.api
+package me.floow.api.util
 
 import kotlinx.serialization.json.Json
 

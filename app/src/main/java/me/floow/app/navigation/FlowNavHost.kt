@@ -44,13 +44,13 @@ fun FlowNavHost(
             }
         }
 
-        navigation(
-            route = NavigationItem.Main.route,
-            startDestination = NavigationItem.Main.Feed.route
-        ) {
-            composable(NavigationItem.Main.Feed.route) {
-                FeedRoute(modifier)
-            }
+		navigation(
+			route = NavigationItem.Main.route,
+			startDestination = NavigationItem.Main.Feed.route
+		) {
+			composable(NavigationItem.Main.Feed.route) {
+				FeedRoute(onPostCreateClick = { TODO() }, modifier)
+			}
 
             composable(NavigationItem.Main.Explore.route) {
                 ExploreRoute(modifier)

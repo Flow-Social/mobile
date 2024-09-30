@@ -8,8 +8,8 @@ import androidx.compose.ui.Modifier
 import me.floow.uikit.util.SetNavigationBarColor
 
 @Composable
-fun FeedRoute(modifier: Modifier = Modifier) {
-    FeedScreen(modifier)
+fun FeedRoute(onPostCreateClick: () -> Unit, modifier: Modifier = Modifier) {
+    FeedScreen(onPostCreateClick, modifier)
 
     SetNavigationBarColor(
         MaterialTheme.colorScheme.surfaceColorAtElevation(NavigationBarDefaults.Elevation)

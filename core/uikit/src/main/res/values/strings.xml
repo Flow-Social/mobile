@@ -8,4 +8,5 @@
     <string name="auth_accepting_will_be_applied">&#160;will be applied.</string>
     <string name="social_media_flow_exclamation">Social network Flow!</string>
     <string name="flow_onboarding_explanation">A platform with an interactive feed and personalised recommendations.</string>
+    <string name="feed_topbar_title">Feed</string>
 </resources>

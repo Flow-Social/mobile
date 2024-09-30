@@ -8,4 +8,5 @@
     <string name="flow_onboarding_explanation">"Платформа с интерактивной лентой и персонализированными рекомендациями.
         "
     </string>
+    <string name="feed_topbar_title">Лента</string>
 </resources>

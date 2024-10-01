@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
@@ -310,6 +309,7 @@ val typography = Typography(
     )
 )
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FlowTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
@@ -335,13 +335,16 @@ fun FlowTheme(
         }
     }
 
+    val flowRippleTheme = RippleConfiguration(
+        color = MaterialTheme.colorScheme.primary
+    )
 
     MaterialTheme(
         content = {
             CompositionLocalProvider(
                 LocalTypography provides flowTypography,
                 LocalColorScheme provides flowColorScheme,
-                LocalRippleTheme provides FlowRippleTheme
+                LocalRippleConfiguration provides flowRippleTheme
             ) {
                 content()
             }

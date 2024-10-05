@@ -25,71 +25,74 @@ import me.floow.profile.di.profileModule
 import me.floow.uikit.theme.FlowTheme
 import org.koin.android.ext.android.getKoin
 import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.GlobalContext
 import org.koin.core.context.startKoin
 import java.util.*
 
 class MainActivity : ComponentActivity() {
-    private lateinit var coroutineScope: CoroutineScope
+	private lateinit var coroutineScope: CoroutineScope
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        installSplashScreen()
+	override fun onCreate(savedInstanceState: Bundle?) {
+		installSplashScreen()
 
-        super.onCreate(savedInstanceState)
+		super.onCreate(savedInstanceState)
 
-        startKoin {
-            androidContext(this@MainActivity)
+		if (GlobalContext.getKoinApplicationOrNull() == null) {
+			startKoin {
+				androidContext(this@MainActivity)
 
-            modules(
-                appModule,
-                apiModule,
-                authModule,
-                databaseModule,
-                dataModule,
-                domainModule,
-                mockModule,
-                loginModule,
-                profileModule
-            )
-        }
+				modules(
+					appModule,
+					apiModule,
+					authModule,
+					databaseModule,
+					dataModule,
+					domainModule,
+					mockModule,
+					loginModule,
+					profileModule
+				)
+			}
+		}
 
-        coroutineScope = CoroutineScope(CoroutineName("MainActivity"))
-        val authenticationManager: AuthenticationManager = getKoin().get()
+		coroutineScope = CoroutineScope(CoroutineName("MainActivity"))
+		val authenticationManager: AuthenticationManager = getKoin().get()
 
-        enableEdgeToEdge()
+		enableEdgeToEdge()
 
-        val startDestination = when (authenticationManager.isSignedIn()) {
-            false -> NavigationItem.Auth.route
-            true -> NavigationItem.Main.route
-        }
+		val startDestination = when (authenticationManager.isSignedIn()) {
+			false -> NavigationItem.Auth.route
+			true -> NavigationItem.Main.route
+		}
 
-        setContent {
-            FlowTheme {
-                App(
-                    startDestination = startDestination,
-                    Modifier.fillMaxSize()
-                )
-            }
-        }
-    }
+		setContent {
+			FlowTheme {
+				App(
+					startDestination = startDestination,
+					Modifier.fillMaxSize()
+				)
+			}
+		}
+	}
 
-    override fun onNewIntent(intent: Intent) {
-        val authenticationManager: AuthenticationManager = getKoin().get()
+	override fun onNewIntent(intent: Intent) {
+		val authenticationManager: AuthenticationManager = getKoin().get()
 
-        intent.data?.getQueryParameter("code")?.let { code ->
-            coroutineScope.launch {
-                authenticationManager.handleGoogleOAuthCode(code)
-            }
-        }
+		intent.data?.getQueryParameter("code")?.let { code ->
+			coroutineScope.launch {
+				authenticationManager.handleGoogleOAuthCode(code)
+			}
+		}
 
-        super.onNewIntent(intent)
-    }
+		super.onNewIntent(intent)
+	}
 
-    override fun attachBaseContext(newBase: Context?) {
-        // TODO: remove at production
-        val newConfiguration = Configuration(newBase?.resources?.configuration).apply {
-            setLocale(Locale("ru"))
-        }
+	override fun attachBaseContext(newBase: Context?) {
+		// TODO: remove at production
+		val newConfiguration = Configuration(newBase?.resources?.configuration).apply {
+			setLocale(Locale("ru"))
+		}
 
-        super.attachBaseContext(newBase?.createConfigurationContext(newConfiguration))
-    }
+		super.attachBaseContext(newBase?.createConfigurationContext(newConfiguration))
+	}
 }

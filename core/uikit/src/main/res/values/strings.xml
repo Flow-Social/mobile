@@ -9,4 +9,7 @@
     <string name="social_media_flow_exclamation">Social network Flow!</string>
     <string name="flow_onboarding_explanation">A platform with an interactive feed and personalised recommendations.</string>
     <string name="feed_topbar_title">Feed</string>
+    <string name="one_subscriber">1 subscriber</string>
+    <string name="subscribers_label">subscribers</string>
+    <string name="no_subscribers">No subscribers</string>
 </resources>

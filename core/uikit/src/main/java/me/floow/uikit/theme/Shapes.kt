@@ -17,8 +17,13 @@ import androidx.graphics.shapes.*
 import me.floow.uikit.util.ComponentPreviewBox
 import kotlin.math.max
 
-val elevanagon = RoundedPolygon.star(
+private val elevanagon = RoundedPolygon.star(
     11,
+    rounding = CornerRounding(0.3f),
+)
+
+private val ninehedron = RoundedPolygon.star(
+    9,
     rounding = CornerRounding(0.3f),
 )
 
@@ -49,6 +54,8 @@ class RoundedPolygonShape(
 
 val ElevanagonShape = RoundedPolygonShape(polygon = elevanagon)
 
+val NinehedronShape = RoundedPolygonShape(polygon = ninehedron)
+
 @Preview
 @Composable
 fun ElevanagonPolygonShapePreview(modifier: Modifier = Modifier) {
@@ -57,6 +64,19 @@ fun ElevanagonPolygonShapePreview(modifier: Modifier = Modifier) {
             Modifier
                 .size(64.dp)
                 .clip(ElevanagonShape)
+                .background(Color.Red)
+        )
+    }
+}
+
+@Preview
+@Composable
+fun NinehedronPolygonShapePreview(modifier: Modifier = Modifier) {
+    ComponentPreviewBox {
+        Box(
+            Modifier
+                .size(64.dp)
+                .clip(NinehedronShape)
                 .background(Color.Red)
         )
     }

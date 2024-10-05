@@ -10,8 +10,11 @@ import me.floow.profile.uilogic.ProfileScreenViewModel
 
 @Composable
 fun ProfileRoute(
-	viewModel: ProfileScreenViewModel,
-	modifier: Modifier = Modifier
+	goToProfileEditScreen: () -> Unit,
+	goToAddPostScreen: () -> Unit,
+	shareProfile: () -> Unit,
+	modifier: Modifier = Modifier,
+	viewModel: ProfileScreenViewModel
 ) {
 	val state: ProfileScreenState by viewModel.state.collectAsState()
 
@@ -20,7 +23,10 @@ fun ProfileRoute(
 	}
 
 	ProfileScreen(
-		state = state,
-		modifier = modifier
+		onProfileEditClick = goToProfileEditScreen,
+		onAddPostButtonClick = goToAddPostScreen,
+		onShareButtonClick = shareProfile,
+		modifier = modifier,
+		state = state
 	)
 }

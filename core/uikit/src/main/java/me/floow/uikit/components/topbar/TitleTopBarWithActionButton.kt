@@ -16,7 +16,7 @@ import me.floow.uikit.util.ComponentPreviewBox
 import me.floow.uikit.R
 
 @Composable
-fun TitleIconTopBarWithActionButton(
+fun TitleTopBarWithActionButton(
     titleText: String,
     onActionButtonClick: () -> Unit,
     icon: @Composable () -> Unit,
@@ -53,7 +53,7 @@ fun TitleIconTopBarWithActionButton(
 @Composable
 private fun TitleIconTopBarPreview(modifier: Modifier = Modifier) {
     ComponentPreviewBox(Modifier.fillMaxSize()) {
-        TitleIconTopBarWithActionButton(
+        TitleTopBarWithActionButton(
             titleText = "Chats",
             icon = {
                 Icon(

@@ -19,7 +19,7 @@ import androidx.core.view.WindowCompat
 data class FlowTypography(
     val titleMedium: TextStyle = TextStyle(
         fontFamily = roboto,
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.Black,
         fontSize = 20.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.38.sp

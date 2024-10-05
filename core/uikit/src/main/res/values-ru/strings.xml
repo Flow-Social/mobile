@@ -9,4 +9,7 @@
         "
     </string>
     <string name="feed_topbar_title">Лента</string>
+    <string name="one_subscriber">1 подписчик</string>
+    <string name="subscribers_label">подписчиков</string>
+    <string name="no_subscribers">Нет подписчиков</string>
 </resources>

@@ -9,8 +9,9 @@ sealed interface ProfileScreenState {
 
 	data class Success(
 		val shortUsername: String,
-		val avatarUrl: Uri,
+		val avatarUri: Uri,
 		val displayName: String,
 		val description: String,
+		val subscribers: ProfileSubscribers,
 	) : ProfileScreenState
 }

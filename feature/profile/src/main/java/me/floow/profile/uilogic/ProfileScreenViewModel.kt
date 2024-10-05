@@ -14,18 +14,20 @@ data class ProfileScreenVmState(
 	val avatarUrl: Uri? = null,
 	val displayName: String? = null,
 	val description: String? = null,
+	val subscribers: ProfileSubscribers? = null,
 ) {
 	fun toUiState(): ProfileScreenState {
 		if (isLoading) return ProfileScreenState.Loading
 
 		if (isError) return ProfileScreenState.Error
 
-		if (shortUsername != null && avatarUrl != null && description != null && displayName != null) {
+		if (shortUsername != null && avatarUrl != null && description != null && displayName != null && subscribers != null) {
 			return ProfileScreenState.Success(
 				shortUsername = shortUsername,
-				avatarUrl = avatarUrl,
+				avatarUri = avatarUrl,
 				description = description,
 				displayName = displayName,
+				subscribers = subscribers,
 			)
 		} else {
 			return ProfileScreenState.Error
@@ -46,15 +48,20 @@ class ProfileScreenViewModel(
 		_state.value = _state.value.copy(isLoading = true)
 
 		viewModelScope.launch {
-			delay(2280L)
+			delay(700L)
 
 			_state.update {
 				it.copy(
 					shortUsername = "demndevel",
-					avatarUrl = Uri.EMPTY,
+					avatarUrl = Uri.parse("https://avatars.githubusercontent.com/u/69032700?v=4"),
 					displayName = "Demn Demov",
 					description = "I like meowing, coding and hugs. Welcome to my zone!!",
-					isLoading = true
+					isLoading = false,
+					subscribers = ProfileSubscribers(
+						firstAvatar = Uri.parse("https://avatars.githubusercontent.com/u/46930374?v=4"),
+						secondAvatar = Uri.parse("https://avatars.githubusercontent.com/u/69369034?v=4"),
+						subscribersCount = 123456
+					)
 				)
 			}
 		}

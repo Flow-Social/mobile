@@ -51,6 +51,9 @@ fun FlowNavHost(
 
 			composable(NavigationItem.Main.Profile.route) {
 				ProfileRoute(
+					goToProfileEditScreen = { TODO() },
+					goToAddPostScreen = { TODO() },
+					shareProfile = { TODO() },
 					viewModel = koinViewModel(),
 					modifier = modifier
 				)

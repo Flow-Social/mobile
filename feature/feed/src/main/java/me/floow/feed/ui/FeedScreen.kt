@@ -12,7 +12,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import me.floow.uikit.R
-import me.floow.uikit.components.topbar.TitleIconTopBarWithActionButton
+import me.floow.uikit.components.topbar.TitleTopBarWithActionButton
 
 @Composable
 internal fun FeedScreen(
@@ -21,7 +21,7 @@ internal fun FeedScreen(
 ) {
 	Scaffold(
 		topBar = {
-			TitleIconTopBarWithActionButton(
+			TitleTopBarWithActionButton(
 				titleText = stringResource(R.string.feed_topbar_title),
 				onActionButtonClick = onPostCreateClick,
 				icon = {

@@ -46,6 +46,9 @@ dependencies {
 
     api(libs.activity.compose)
 
+    api(libs.coil)
+    api(libs.coil.compose)
+
     testImplementation(libs.junit)
 
     androidTestImplementation(libs.androidx.test.ext.junit)

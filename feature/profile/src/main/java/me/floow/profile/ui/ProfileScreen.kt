@@ -1,45 +1,46 @@
 package me.floow.profile.ui
 
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import me.floow.profile.uilogic.ProfileScreenState
 
 @Composable
 fun ProfileScreen(
+	onProfileEditClick: () -> Unit,
+	onAddPostButtonClick: () -> Unit,
+	onShareButtonClick: () -> Unit,
 	state: ProfileScreenState,
 	modifier: Modifier = Modifier,
 ) {
-	Scaffold(
+	Box(
 		modifier = modifier
-	) { innerPadding ->
+	) {
 		when (state) {
 			is ProfileScreenState.Loading -> {
-				CircularProgressIndicator(
+				CircularProgressIndicator( // todo
 					modifier = Modifier
-						.padding(innerPadding)
+						.align(Alignment.Center)
 				)
 			}
 
 			is ProfileScreenState.Error -> {
-				Text(
+				Text( // todo
 					text = "error :(",
 					modifier = Modifier
-						.padding(innerPadding)
 				)
 			}
 
 			is ProfileScreenState.Success -> {
-				Text(
-					text = """
-				hihihihi
-				$state  
-				""".trimIndent(),
+				ProfileScreenSuccessState(
+					state = state,
+					onProfileEditClick = onProfileEditClick,
+					onAddPostButtonClick = onAddPostButtonClick,
+					onShareButtonClick = onShareButtonClick,
 					modifier = Modifier
-						.padding(innerPadding)
 				)
 			}
 		}

@@ -105,7 +105,7 @@ fun TextFieldWithAdditionalText(
 
 @Preview
 @Composable
-fun TextFieldWithAdditionalTextPreview() {
+internal fun TextFieldWithAdditionalTextPreview() {
     var value by remember { mutableStateOf("demn") }
     ComponentPreviewBox(Modifier.size(400.dp)) {
         TextFieldWithAdditionalText(
@@ -121,7 +121,7 @@ fun TextFieldWithAdditionalTextPreview() {
 
 @Preview
 @Composable
-fun TextFieldWithAdditionalTextPreview_WithoutEnteredText() {
+internal fun TextFieldWithAdditionalTextPreview_WithoutEnteredText() {
     var value by remember { mutableStateOf("") }
 
     ComponentPreviewBox(Modifier.size(400.dp)) {
@@ -149,7 +149,7 @@ fun TextFieldWithAdditionalTextPreview_WithoutEnteredText() {
 
 @Preview
 @Composable
-fun TextFieldWithAdditionalTextPreview_WithoutAdditionalText() {
+internal fun TextFieldWithAdditionalTextPreview_WithoutAdditionalText() {
     var value by remember { mutableStateOf("") }
 
     ComponentPreviewBox(Modifier.size(400.dp)) {

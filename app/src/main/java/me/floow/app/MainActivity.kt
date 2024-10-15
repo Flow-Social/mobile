@@ -41,17 +41,33 @@ class MainActivity : ComponentActivity() {
 			startKoin {
 				androidContext(this@MainActivity)
 
-				modules(
-					appModule,
-					apiModule,
-					authModule,
-					databaseModule,
-					dataModule,
-					domainModule,
-					mockModule,
-					loginModule,
-					profileModule
-				)
+				val mockDependencies = true // TODO: make build flavors with and without mocks
+
+				if (!mockDependencies) {
+					modules(
+						appModule,
+						apiModule,
+						authModule,
+						databaseModule,
+						dataModule,
+						domainModule,
+						mockModule,
+						loginModule,
+						profileModule
+					)
+				} else {
+					modules(
+						appModule,
+						apiModule,
+						mockAuthModule,
+						databaseModule,
+						mockDataModule,
+						domainModule,
+						mockModule,
+						loginModule,
+						profileModule
+					)
+				}
 			}
 		}
 

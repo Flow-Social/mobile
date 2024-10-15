@@ -29,6 +29,13 @@ fun FlowNavHost(
 				Text(text = "Registration")
 			}
 
+			composable(NavigationItem.Auth.CreateProfile.route) {
+				CreateProfileRoute(
+					vm = koinViewModel(),
+					modifier = modifier
+				)
+			}
+
 			composable(NavigationItem.Auth.Login.route) {
 				LoginRoute(
 					onGoToHome = {

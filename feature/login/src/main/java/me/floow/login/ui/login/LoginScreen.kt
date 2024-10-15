@@ -37,7 +37,7 @@ internal fun LoginScreen(
         Spacer(Modifier.weight(1f))
 
         Icon(
-            painterResource(R.drawable.flow_logo),
+            painterResource(R.drawable.flow_rounded_logo),
             null,
             tint = Color.Unspecified,
             modifier = Modifier.size(67.dp)

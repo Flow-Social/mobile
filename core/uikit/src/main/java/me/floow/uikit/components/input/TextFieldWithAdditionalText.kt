@@ -35,6 +35,8 @@ fun TextFieldWithAdditionalText(
     minLines: Int = 1,
     maxLines: Int = 1,
     singleLine: Boolean = true,
+    isError: Boolean = false,
+    errorMessage: String = "",
     placeholder: String = "",
     modifier: Modifier = Modifier
 ) {
@@ -56,7 +58,7 @@ fun TextFieldWithAdditionalText(
                 modifier = Modifier
                     .border(
                         width = borderWidth,
-                        color = borderColor,
+                        color = if (isError) MaterialTheme.colorScheme.error else borderColor,
                         shape = RoundedCornerShape(18.dp)
                     )
                     .padding(14.dp)
@@ -157,6 +159,7 @@ internal fun TextFieldWithAdditionalTextPreview_WithoutAdditionalText() {
             title = "Username",
             additionalText = "",
             value = value,
+            isError = true,
             onValueChange = { value = it },
             singleLine = false,
             maxLines = 5,

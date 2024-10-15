@@ -26,7 +26,7 @@ data class FlowTypography(
     ),
     val bodyMedium: TextStyle = TextStyle(
         fontFamily = roboto,
-        fontWeight = FontWeight.Medium,
+        fontWeight = FontWeight.Normal,
         fontSize = 15.sp,
         lineHeight = 20.sp,
         letterSpacing = (-0.24).sp

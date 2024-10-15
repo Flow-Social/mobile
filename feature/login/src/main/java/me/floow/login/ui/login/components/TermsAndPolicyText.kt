@@ -1,4 +1,4 @@
-package me.floow.login.ui.components
+package me.floow.login.ui.login.components
 
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.MaterialTheme

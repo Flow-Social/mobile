@@ -2,4 +2,11 @@
 <resources>
     <string name="login_unsuccessful_toast_message">Login was unsuccessful</string>
     <string name="google_login_btn_text">Войти</string>
+    <string name="create_profile">Создать профиль</string>
+    <string name="information">Информация</string>
+    <string name="name">Имя</string>
+    <string name="your_name">Ваше имя</string>
+    <string name="user_id">Пользовательский ID</string>
+    <string name="about">О себе</string>
+    <string name="write_something_about_you">Напишите что-нибудь о себе</string>
 </resources>

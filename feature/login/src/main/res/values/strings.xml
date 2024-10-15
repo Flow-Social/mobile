@@ -2,4 +2,13 @@
 <resources>
     <string name="login_unsuccessful_toast_message">Не удалось войти</string>
     <string name="google_login_btn_text">Login</string>
+    <string name="create_profile">Create profile</string>
+    <string name="information">Information</string>
+    <string name="name">Name</string>
+    <string name="your_name">Your name</string>
+    <string name="username_additional_text" translatable="false">floow.me/</string>
+    <string name="user_id">User ID</string>
+    <string name="username" translatable="false">username</string>
+    <string name="about">About</string>
+    <string name="write_something_about_you">Write something about you</string>
 </resources>

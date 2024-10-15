@@ -12,6 +12,7 @@ enum class Screen {
     Profile,
     Chats,
     Registration,
+    CreateProfile,
     Login,
 }
 
@@ -26,6 +27,8 @@ sealed class NavigationItem(val route: String) {
 
     data object Auth : NavigationItem(NavigationCluster.Auth.name) {
         data object Registration : NavigationItem(Screen.Registration.name)
+
+        data object CreateProfile : NavigationItem(Screen.CreateProfile.name)
 
         data object Login : NavigationItem(Screen.Login.name)
     }

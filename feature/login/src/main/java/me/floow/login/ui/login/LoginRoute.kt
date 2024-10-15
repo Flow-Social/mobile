@@ -1,4 +1,4 @@
-package me.floow.login.ui
+package me.floow.login.ui.login
 
 import android.widget.Toast
 import androidx.compose.material3.MaterialTheme

@@ -9,7 +9,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import me.floow.chats.ui.ChatsRoute
 import me.floow.feed.ui.FeedRoute
-import me.floow.login.ui.LoginRoute
+import me.floow.login.ui.createprofile.CreateProfileRoute
+import me.floow.login.ui.login.LoginRoute
 import me.floow.profile.ui.ProfileRoute
 import org.koin.androidx.compose.koinViewModel
 

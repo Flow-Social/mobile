@@ -1,4 +1,4 @@
-package me.floow.login.ui
+package me.floow.login.ui.login
 
 import android.content.Intent
 import android.net.Uri
@@ -14,8 +14,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import me.floow.login.ui.components.GoogleLoginButton
-import me.floow.login.ui.components.TermsAndPolicyText
+import me.floow.login.ui.login.components.GoogleLoginButton
+import me.floow.login.ui.login.components.TermsAndPolicyText
 import me.floow.login.uilogic.LoginState
 import me.floow.uikit.R
 import me.floow.uikit.theme.FlowTheme

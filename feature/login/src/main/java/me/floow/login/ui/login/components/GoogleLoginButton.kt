@@ -1,4 +1,4 @@
-package me.floow.login.ui.components
+package me.floow.login.ui.login.components
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size

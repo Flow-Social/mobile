@@ -1,4 +1,4 @@
-package me.floow.profile.uilogic
+package me.floow.profile.uilogic.profile
 
 import android.net.Uri
 import androidx.lifecycle.ViewModel

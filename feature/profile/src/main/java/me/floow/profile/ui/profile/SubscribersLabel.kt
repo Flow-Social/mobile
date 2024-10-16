@@ -1,4 +1,4 @@
-package me.floow.profile.ui
+package me.floow.profile.ui.profile
 
 import android.net.Uri
 import androidx.compose.foundation.background
@@ -19,7 +19,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import me.floow.profile.uilogic.ProfileSubscribers
+import me.floow.profile.uilogic.profile.ProfileSubscribers
 import me.floow.uikit.R
 import me.floow.uikit.theme.LocalTypography
 import me.floow.uikit.util.toShortenedString

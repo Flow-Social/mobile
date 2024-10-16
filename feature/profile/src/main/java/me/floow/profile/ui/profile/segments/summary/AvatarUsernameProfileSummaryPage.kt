@@ -1,4 +1,4 @@
-package me.floow.profile.ui.segments.summary
+package me.floow.profile.ui.profile.segments.summary
 
 import android.net.Uri
 import androidx.compose.foundation.border
@@ -12,8 +12,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import me.floow.profile.ui.SubscribersLabel
-import me.floow.profile.uilogic.ProfileSubscribers
+import me.floow.profile.ui.profile.SubscribersLabel
+import me.floow.profile.uilogic.profile.ProfileSubscribers
 import me.floow.uikit.theme.LocalTypography
 import me.floow.uikit.theme.NinehedronShape
 

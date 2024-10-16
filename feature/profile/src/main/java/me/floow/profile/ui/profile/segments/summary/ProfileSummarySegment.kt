@@ -1,4 +1,4 @@
-package me.floow.profile.ui.segments.summary
+package me.floow.profile.ui.profile.segments.summary
 
 import android.net.Uri
 import androidx.compose.foundation.background
@@ -12,15 +12,13 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import me.floow.profile.uilogic.ProfileSubscribers
+import me.floow.profile.uilogic.profile.ProfileSubscribers
 
 @Composable
 fun ProfileSummarySegment(

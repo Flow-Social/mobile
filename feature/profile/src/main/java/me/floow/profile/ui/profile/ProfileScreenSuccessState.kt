@@ -1,4 +1,4 @@
-package me.floow.profile.ui
+package me.floow.profile.ui.profile
 
 import android.net.Uri
 import androidx.compose.foundation.layout.Column
@@ -9,11 +9,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import me.floow.profile.ui.segments.buttons.ProfileButtonsSegment
-import me.floow.profile.ui.segments.content.ProfileContentSegment
-import me.floow.profile.ui.segments.summary.ProfileSummarySegment
-import me.floow.profile.uilogic.ProfileScreenState
-import me.floow.profile.uilogic.ProfileSubscribers
+import me.floow.profile.ui.profile.segments.buttons.ProfileButtonsSegment
+import me.floow.profile.ui.profile.segments.content.ProfileContentSegment
+import me.floow.profile.ui.profile.segments.summary.ProfileSummarySegment
+import me.floow.profile.uilogic.profile.ProfileScreenState
+import me.floow.profile.uilogic.profile.ProfileSubscribers
 
 @Composable
 fun ProfileScreenSuccessState(

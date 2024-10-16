@@ -11,7 +11,7 @@ import me.floow.chats.ui.ChatsRoute
 import me.floow.feed.ui.FeedRoute
 import me.floow.login.ui.createprofile.CreateProfileRoute
 import me.floow.login.ui.login.LoginRoute
-import me.floow.profile.ui.ProfileRoute
+import me.floow.profile.ui.profile.ProfileRoute
 import org.koin.androidx.compose.koinViewModel
 
 @Composable

@@ -1,4 +1,4 @@
-package me.floow.profile.ui.segments.summary
+package me.floow.profile.ui.profile.segments.summary
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Text

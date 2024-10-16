@@ -1,4 +1,4 @@
-package me.floow.profile.ui.segments.content
+package me.floow.profile.ui.profile.segments.content
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable

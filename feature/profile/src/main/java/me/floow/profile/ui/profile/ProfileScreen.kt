@@ -1,4 +1,4 @@
-package me.floow.profile.ui
+package me.floow.profile.ui.profile
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.CircularProgressIndicator
@@ -6,7 +6,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import me.floow.profile.uilogic.ProfileScreenState
+import me.floow.profile.uilogic.profile.ProfileScreenState
 
 @Composable
 fun ProfileScreen(

@@ -1,4 +1,4 @@
-package me.floow.profile.ui
+package me.floow.profile.ui.profile
 
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable

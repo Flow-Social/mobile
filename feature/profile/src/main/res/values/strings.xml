@@ -2,4 +2,13 @@
 <resources>
     <string name="new_post">New post</string>
     <string name="share">Share</string>
+    <string name="edit">Edit</string>
+    <string name="information">Information</string>
+    <string name="name">name</string>
+    <string name="your_name">Your name</string>
+    <string name="user_id">User ID</string>
+    <string name="username_additional_text" translatable="false">floow.me/</string>
+    <string name="username">username</string>
+    <string name="about">About</string>
+    <string name="write_something_about_you">Write something about you</string>
 </resources>

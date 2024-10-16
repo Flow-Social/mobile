@@ -11,6 +11,7 @@ import me.floow.chats.ui.ChatsRoute
 import me.floow.feed.ui.FeedRoute
 import me.floow.login.ui.createprofile.CreateProfileRoute
 import me.floow.login.ui.login.LoginRoute
+import me.floow.profile.ui.edit.EditProfileRoute
 import me.floow.profile.ui.profile.ProfileRoute
 import org.koin.androidx.compose.koinViewModel
 
@@ -67,9 +68,22 @@ fun FlowNavHost(
 				FeedRoute(onPostCreateClick = { TODO() }, modifier)
 			}
 
+			composable(NavigationItem.Main.EditProfile.route) {
+				EditProfileRoute(
+					onBackClick = {
+						navController.popBackStack()
+					},
+					onDoneClick = {
+						navController.popBackStack()
+					},
+					vm = koinViewModel(),
+					modifier = modifier
+				)
+			}
+
 			composable(NavigationItem.Main.Profile.route) {
 				ProfileRoute(
-					goToProfileEditScreen = { TODO() },
+					goToProfileEditScreen = { navController.navigate(NavigationItem.Main.EditProfile.route) },
 					goToAddPostScreen = { TODO() },
 					shareProfile = { TODO() },
 					viewModel = koinViewModel(),

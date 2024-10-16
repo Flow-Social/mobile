@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="new_post">New post</string>
-    <string name="share">Share</string>
+    <string name="new_post">Новый пост</string>
+    <string name="share">Поделиться</string>
+    <string name="edit">Редактировать</string>
+    <string name="information">Information</string>
+    <string name="name">name</string>
+    <string name="your_name">Your name</string>
+    <string name="user_id">User ID</string>
+    <string name="username">username</string>
+    <string name="about">About</string>
+    <string name="write_something_about_you">Write something about you</string>
 </resources>

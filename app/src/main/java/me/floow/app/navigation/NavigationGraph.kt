@@ -9,6 +9,7 @@ enum class NavigationCluster {
 
 enum class Screen {
     Feed,
+    EditProfile,
     Profile,
     Chats,
     Registration,
@@ -21,6 +22,8 @@ sealed class NavigationItem(val route: String) {
         data object Feed : NavigationItem(Screen.Feed.name)
 
         data object Chats : NavigationItem(Screen.Chats.name)
+
+        data object EditProfile : NavigationItem(Screen.EditProfile.name)
 
         data object Profile : NavigationItem(Screen.Profile.name)
     }

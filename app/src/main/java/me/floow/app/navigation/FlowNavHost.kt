@@ -31,6 +31,11 @@ fun FlowNavHost(
 
 			composable(NavigationItem.Auth.CreateProfile.route) {
 				CreateProfileRoute(
+					onDone = {
+						navController.navigate(NavigationItem.Main.route) {
+							popUpTo(NavigationItem.Auth.route) { inclusive = false }
+						}
+					},
 					vm = koinViewModel(),
 					modifier = modifier
 				)
@@ -43,8 +48,13 @@ fun FlowNavHost(
 							popUpTo(NavigationItem.Auth.route) { inclusive = false }
 						}
 					},
+					onGoToCreateProfile = {
+						navController.navigate(NavigationItem.Auth.CreateProfile.route) {
+							popUpTo(NavigationItem.Auth.route) { inclusive = false }
+						}
+					},
 					viewModel = koinViewModel(),
-					modifier
+					modifier = modifier
 				)
 			}
 		}

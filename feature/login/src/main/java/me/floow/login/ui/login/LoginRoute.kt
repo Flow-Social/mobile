@@ -15,6 +15,7 @@ import me.flowme.login.R
 
 @Composable
 fun LoginRoute(
+    onGoToCreateProfile: () -> Unit,
     onGoToHome: () -> Unit,
     viewModel: LoginViewModel,
     modifier: Modifier = Modifier
@@ -27,7 +28,8 @@ fun LoginRoute(
 
     LaunchedEffect(Unit) {
         viewModel.initialize(
-            onGoToHome,
+            onGoToCreateProfile = onGoToCreateProfile,
+            onGoToHome = onGoToHome,
             onFailure = {
                 Toast
                     .makeText(context, loginUnsuccessfulToastMessage, Toast.LENGTH_SHORT)

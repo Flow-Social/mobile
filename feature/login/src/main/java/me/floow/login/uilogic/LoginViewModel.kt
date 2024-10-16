@@ -17,6 +17,7 @@ class LoginViewModel(
 
     fun initialize(
         onGoToHome: () -> Unit,
+        onGoToCreateProfile: () -> Unit,
         onFailure: () -> Unit,
     ) {
         viewModelScope.launch {
@@ -26,9 +27,10 @@ class LoginViewModel(
                         _loginState.value = LoginState.Loading
 
                         handleAuthStateResult(
-                            state.authenticationResult,
-                            onGoToHome,
-                            onFailure
+                            result = state.authenticationResult,
+                            onGoToCreateProfile = onGoToCreateProfile,
+                            onGoToHome = onGoToHome,
+                            onFailure = onFailure
                         )
                     }
 
@@ -44,12 +46,17 @@ class LoginViewModel(
 
     private fun handleAuthStateResult(
         result: AuthenticationResult,
+        onGoToCreateProfile: () -> Unit,
         onGoToHome: () -> Unit,
         onFailure: () -> Unit,
     ) {
         when (result) {
             is AuthenticationResult.Success -> {
-                onGoToHome()
+                if (result.isRegistration) {
+                    onGoToCreateProfile()
+                } else {
+                    onGoToHome()
+                }
                 _loginState.value = LoginState.Idle
             }
 

@@ -18,51 +18,57 @@ import me.floow.domain.api.models.AuthApiResult
 
 @Serializable
 internal data class GoogleAuthorizeResponse(
-    val status: String,
-    val task: String,
-    val message: String,
-    val data: Data
+	val status: String,
+	val task: String,
+	val message: String,
+	val data: Data
 )
 
 @Serializable
 internal data class Data(
-    val token: String
+	val token: String,
+	val type: Int,
 )
 
 class AuthApiImpl(
-    private val config: ApiConfig,
-    httpClientProvider: HttpClientProvider
+	private val config: ApiConfig,
+	httpClientProvider: HttpClientProvider
 ) : AuthApi {
-    private val httpClient = httpClientProvider.getClient()
+	private val httpClient = httpClientProvider.getClient()
 
-    override suspend fun getAuthTokenByGoogleIdToken(idToken: String): AuthApiResult = withContext(Dispatchers.IO) {
-        val response = httpClient.post("${config.apiUrl}/auth/social/google") {
-            contentType(ContentType.Application.FormUrlEncoded)
+	override suspend fun getAuthTokenByGoogleIdToken(idToken: String): AuthApiResult =
+		withContext(Dispatchers.IO) {
+			val response = httpClient.post("${config.apiUrl}/auth/social/google") {
+				contentType(ContentType.Application.FormUrlEncoded)
 
-            setBody(
-                FormDataContent(
-                    Parameters.build {
-                        append("id_token", idToken)
-                        append("type", "mobile")
-                    }
-                )
-            )
-        }
+				setBody(
+					FormDataContent(
+						Parameters.build {
+							append("id_token", idToken)
+							append("type", "mobile")
+						}
+					)
+				)
+			}
 
-        val bodyText = response.bodyAsText()
+			val bodyText = response.bodyAsText()
 
-        if (response.status.isSuccess()) {
-            val jsonParser = JsonSerializer
-            val parsedResponse = jsonParser.decodeFromString<GoogleAuthorizeResponse>(bodyText)
+			if (response.status.isSuccess()) {
+				val jsonParser = JsonSerializer
+				val parsedResponse = jsonParser.decodeFromString<GoogleAuthorizeResponse>(bodyText)
 
-            return@withContext AuthApiResult.Success(
-                token = parsedResponse.data.token
-            )
-        } else {
-            println(response.status)
-            println(bodyText)
-        }
+				return@withContext AuthApiResult.Success(
+					token = parsedResponse.data.token,
+					isRegistration = when (parsedResponse.data.type) {
+						0 -> true
+						else -> false
+					}
+				)
+			} else {
+				println(response.status)
+				println(bodyText)
+			}
 
-        return@withContext AuthApiResult.Failure
-    }
+			return@withContext AuthApiResult.Failure
+		}
 }

@@ -29,7 +29,8 @@ class MockAuthenticationManager : AuthenticationManager {
         _authenticationStateFlow.update {
             AuthState.HasResult(
                 AuthenticationResult.Success(
-                    token = mockToken
+                    token = mockToken,
+                    isRegistration = true
                 )
             )
         }

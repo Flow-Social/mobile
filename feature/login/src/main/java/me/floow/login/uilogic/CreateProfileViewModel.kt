@@ -8,11 +8,15 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import me.floow.domain.api.models.EditProfileData
+import me.floow.domain.data.UpdateDataResponse
+import me.floow.domain.data.repos.ProfileRepository
 
 data class CreateProfileVmState(
-	val name: ValidatedField = ValidatedField.Valid(""),
-	val username: ValidatedField = ValidatedField.Valid(""),
-	val bio: ValidatedField = ValidatedField.Valid(""),
+	val name: ValidatedField = ValidatedField.Invalid("", errorType = ValidationErrorType.ShouldNotBeEmpty),
+	val username: ValidatedField = ValidatedField.Invalid("", errorType = ValidationErrorType.ShouldNotBeEmpty),
+	val bio: ValidatedField = ValidatedField.Invalid("", errorType = ValidationErrorType.ShouldNotBeEmpty),
 	val isUploading: Boolean = false
 ) {
 	fun toUiState(): CreateProfileState {
@@ -28,7 +32,9 @@ data class CreateProfileVmState(
 	}
 }
 
-class CreateProfileViewModel : ViewModel() {
+class CreateProfileViewModel(
+	private val _profileRepository: ProfileRepository
+) : ViewModel() {
 	private val _state = MutableStateFlow(CreateProfileVmState())
 
 	val state: StateFlow<CreateProfileState> = _state
@@ -93,6 +99,44 @@ class CreateProfileViewModel : ViewModel() {
 			it.copy(
 				bio = field
 			)
+		}
+	}
+
+	fun createProfile(onSuccess: () -> Unit, onFailure: () -> Unit) {
+		viewModelScope.launch {
+			val allValid = _state.value.bio is ValidatedField.Valid &&
+					_state.value.name is ValidatedField.Valid &&
+					_state.value.username is ValidatedField.Valid
+
+			if (!allValid) {
+				onFailure()
+				return@launch
+			}
+
+			_state.update {
+				it.copy(
+					isUploading = true
+				)
+			}
+
+			val result = _profileRepository.edit(
+				data = EditProfileData(
+					name = _state.value.name.value,
+					bio = _state.value.bio.value
+				)
+			)
+
+			if (result is UpdateDataResponse.Success) {
+				onSuccess()
+			} else {
+				onFailure()
+			}
+
+			_state.update {
+				it.copy(
+					isUploading = false
+				)
+			}
 		}
 	}
 }

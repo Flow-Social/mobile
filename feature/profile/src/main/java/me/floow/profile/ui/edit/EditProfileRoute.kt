@@ -1,6 +1,8 @@
 package me.floow.profile.ui.edit
 
 import android.widget.Toast
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -8,6 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import me.floow.profile.uilogic.edit.EditProfileViewModel
+import me.floow.uikit.util.SetNavigationBarColor
 
 @Composable
 fun EditProfileRoute(
@@ -40,5 +43,9 @@ fun EditProfileRoute(
 		onUsernameChange = vm::updateUsername,
 		onBiographyChange = vm::updateBiography,
 		modifier = modifier,
+	)
+
+	SetNavigationBarColor(
+		MaterialTheme.colorScheme.background
 	)
 }

@@ -14,6 +14,6 @@ fun ChatsRoute(
     ChatsScreen(modifier)
 
     SetNavigationBarColor(
-        MaterialTheme.colorScheme.surfaceColorAtElevation(NavigationBarDefaults.Elevation)
+        NavigationBarDefaults.containerColor
     )
 }

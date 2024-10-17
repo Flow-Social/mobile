@@ -1,8 +1,10 @@
 package me.floow.app.navigation
 
+import android.content.Intent
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -21,6 +23,8 @@ fun FlowNavHost(
 	startDestination: String,
 	modifier: Modifier = Modifier,
 ) {
+	val context = LocalContext.current
+
 	NavHost(navController = navController, startDestination = startDestination) {
 		navigation(
 			route = NavigationItem.Auth.route,
@@ -85,7 +89,18 @@ fun FlowNavHost(
 				ProfileRoute(
 					goToProfileEditScreen = { navController.navigate(NavigationItem.Main.EditProfile.route) },
 					goToAddPostScreen = { TODO() },
-					shareProfile = { TODO() },
+					shareProfile = { url ->
+						// TODO
+
+						val sendIntent = Intent().apply {
+							setAction(Intent.ACTION_SEND)
+							putExtra(Intent.EXTRA_TEXT, url)
+							setType("text/plain")
+						}
+
+						val shareIntent = Intent.createChooser(sendIntent, null)
+						context.startActivity(shareIntent)
+					},
 					viewModel = koinViewModel(),
 					modifier = modifier
 				)

@@ -14,7 +14,7 @@ import me.floow.uikit.util.SetNavigationBarColor
 fun ProfileRoute(
 	goToProfileEditScreen: () -> Unit,
 	goToAddPostScreen: () -> Unit,
-	shareProfile: () -> Unit,
+	shareProfile: (url: String) -> Unit,
 	modifier: Modifier = Modifier,
 	viewModel: ProfileScreenViewModel
 ) {
@@ -27,7 +27,12 @@ fun ProfileRoute(
 	ProfileScreen(
 		onProfileEditClick = goToProfileEditScreen,
 		onAddPostButtonClick = goToAddPostScreen,
-		onShareButtonClick = shareProfile,
+		onShareButtonClick = {
+			if (state is ProfileScreenState.Success) {
+				// TODO: use global constant for url
+				shareProfile("https://floow.me/" + (state as ProfileScreenState.Success).shortUsername)
+			}
+		},
 		modifier = modifier,
 		state = state
 	)

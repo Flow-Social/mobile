@@ -30,12 +30,12 @@ internal fun ProfileButtonsSegment(
 ) {
 	Row(
 		modifier = modifier
-			.padding(16.dp),
-//		horizontalArrangement = Arrangement.SpaceAround,
+			.padding(vertical = 16.dp),
 		verticalAlignment = Alignment.CenterVertically
 	) {
 		Column(
 			modifier = Modifier
+				.padding(horizontal = 16.dp)
 				.weight(1f)
 				.clip(RoundedCornerShape(4.dp))
 				.clickable { onAddPostButtonClick() },
@@ -59,9 +59,11 @@ internal fun ProfileButtonsSegment(
 
 		Column(
 			modifier = Modifier
+				.padding(horizontal = 16.dp)
 				.weight(1f)
 				.clip(RoundedCornerShape(4.dp))
 				.clickable { onShareButtonClick() },
+//				.padding(end = 16.dp),
 			horizontalAlignment = Alignment.CenterHorizontally
 		) {
 			Icon(

@@ -1,11 +1,10 @@
 package me.floow.profile.ui.profile.segments.buttons
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -32,12 +31,12 @@ internal fun ProfileButtonsSegment(
 	Row(
 		modifier = modifier
 			.padding(16.dp),
-//		horizontalArrangement = Arrangement.Center,
+//		horizontalArrangement = Arrangement.SpaceAround,
 		verticalAlignment = Alignment.CenterVertically
 	) {
 		Column(
 			modifier = Modifier
-				.fillMaxWidth(0.5f)
+				.weight(1f)
 				.clip(RoundedCornerShape(4.dp))
 				.clickable { onAddPostButtonClick() },
 			horizontalAlignment = Alignment.CenterHorizontally
@@ -56,11 +55,11 @@ internal fun ProfileButtonsSegment(
 			)
 		}
 
-//		VerticalDivider(Modifier.height(18.dp))
+		VerticalDivider(Modifier.height(18.dp))
 
 		Column(
 			modifier = Modifier
-				.fillMaxWidth(0.5f)
+				.weight(1f)
 				.clip(RoundedCornerShape(4.dp))
 				.clickable { onShareButtonClick() },
 			horizontalAlignment = Alignment.CenterHorizontally

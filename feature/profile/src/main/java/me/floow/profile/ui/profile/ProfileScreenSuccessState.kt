@@ -48,7 +48,7 @@ fun ProfileScreenSuccessState(
 			ProfileButtonsSegment(
 				onAddPostButtonClick = onAddPostButtonClick,
 				onShareButtonClick = onShareButtonClick,
-				Modifier.fillMaxWidth(),
+				modifier = Modifier.fillMaxWidth(),
 			)
 
 			HorizontalDivider()

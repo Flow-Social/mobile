@@ -53,7 +53,7 @@ class ProfileScreenViewModel(
 				is GetDataResponse.Success -> {
 					_state.update {
 						it.copy(
-							shortUsername = profileData.data.name, // todo
+							shortUsername = profileData.data.name, // todo: use data.username when it will be available
 							avatarUrl = Uri.parse(profileData.data.avatarUrl),
 							displayName = profileData.data.name,
 							description = profileData.data.biography,

@@ -15,18 +15,9 @@ import me.floow.domain.data.UpdateDataResponse
 import me.floow.domain.data.repos.ProfileRepository
 
 data class CreateProfileVmState(
-	val name: ValidatedField = ValidatedField.Invalid(
-		"",
-		errorType = ValidationErrorType.ShouldNotBeEmpty
-	),
-	val username: ValidatedField = ValidatedField.Invalid(
-		"",
-		errorType = ValidationErrorType.ShouldNotBeEmpty
-	),
-	val bio: ValidatedField = ValidatedField.Invalid(
-		"",
-		errorType = ValidationErrorType.ShouldNotBeEmpty
-	),
+	val name: ValidatedField = ValidatedField.Valid(""),
+	val username: ValidatedField = ValidatedField.Valid(""),
+	val bio: ValidatedField = ValidatedField.Valid(""),
 	val isUploading: Boolean = false
 ) {
 	fun toUiState(): EditProfileState {
@@ -74,6 +65,11 @@ class EditProfileViewModel(
 				value = newValue,
 				errorType = ValidationErrorType.ShouldNotBeEmpty
 			)
+		} else if (newValue.length > 32) {
+			ValidatedField.Invalid(
+				value = newValue,
+				errorType = ValidationErrorType.TextTooLong
+			)
 		} else {
 			ValidatedField.Valid(
 				value = newValue
@@ -92,6 +88,11 @@ class EditProfileViewModel(
 			ValidatedField.Invalid(
 				value = newValue,
 				errorType = ValidationErrorType.ShouldNotBeEmpty
+			)
+		} else if (newValue.length > 32) {
+			ValidatedField.Invalid(
+				value = newValue,
+				errorType = ValidationErrorType.TextTooLong
 			)
 		} else {
 			ValidatedField.Valid(
@@ -112,6 +113,11 @@ class EditProfileViewModel(
 				value = newValue,
 				errorType = ValidationErrorType.ShouldNotBeEmpty
 			)
+		} else if (newValue.length > 140) {
+			ValidatedField.Invalid(
+				value = newValue,
+				errorType = ValidationErrorType.TextTooLong
+			)
 		} else {
 			ValidatedField.Valid(
 				value = newValue
@@ -127,6 +133,8 @@ class EditProfileViewModel(
 
 	fun updateProfile(onSuccess: () -> Unit, onFailure: () -> Unit) {
 		viewModelScope.launch {
+			validateAll()
+
 			val allValid = _state.value.bio is ValidatedField.Valid &&
 					_state.value.name is ValidatedField.Valid &&
 					_state.value.username is ValidatedField.Valid
@@ -161,5 +169,11 @@ class EditProfileViewModel(
 				)
 			}
 		}
+	}
+
+	private fun validateAll() {
+		updateName(_state.value.name.value)
+		updateUsername(_state.value.username.value)
+		updateBiography(_state.value.bio.value)
 	}
 }

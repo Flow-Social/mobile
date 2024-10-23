@@ -2,6 +2,7 @@ package me.floow.profile.uilogic.edit
 
 enum class ValidationErrorType {
 	ShouldNotBeEmpty,
+	TextTooLong,
 	Other
 }
 

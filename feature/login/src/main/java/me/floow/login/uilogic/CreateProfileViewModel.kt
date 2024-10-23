@@ -1,5 +1,6 @@
 package me.floow.login.uilogic
 
+import androidx.compose.animation.core.updateTransition
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,9 +15,9 @@ import me.floow.domain.data.UpdateDataResponse
 import me.floow.domain.data.repos.ProfileRepository
 
 data class CreateProfileVmState(
-	val name: ValidatedField = ValidatedField.Invalid("", errorType = ValidationErrorType.ShouldNotBeEmpty),
-	val username: ValidatedField = ValidatedField.Invalid("", errorType = ValidationErrorType.ShouldNotBeEmpty),
-	val bio: ValidatedField = ValidatedField.Invalid("", errorType = ValidationErrorType.ShouldNotBeEmpty),
+	val name: ValidatedField = ValidatedField.Valid(""),
+	val username: ValidatedField = ValidatedField.Valid(""),
+	val bio: ValidatedField = ValidatedField.Valid(""),
 	val isUploading: Boolean = false
 ) {
 	fun toUiState(): CreateProfileState {
@@ -51,6 +52,11 @@ class CreateProfileViewModel(
 				value = newValue,
 				errorType = ValidationErrorType.ShouldNotBeEmpty
 			)
+		} else if (newValue.length > 32) {
+			ValidatedField.Invalid(
+				value = newValue,
+				errorType = ValidationErrorType.TextTooLong
+			)
 		} else {
 			ValidatedField.Valid(
 				value = newValue
@@ -69,6 +75,11 @@ class CreateProfileViewModel(
 			ValidatedField.Invalid(
 				value = newValue,
 				errorType = ValidationErrorType.ShouldNotBeEmpty
+			)
+		} else if (newValue.length > 32) {
+			ValidatedField.Invalid(
+				value = newValue,
+				errorType = ValidationErrorType.TextTooLong
 			)
 		} else {
 			ValidatedField.Valid(
@@ -89,6 +100,11 @@ class CreateProfileViewModel(
 				value = newValue,
 				errorType = ValidationErrorType.ShouldNotBeEmpty
 			)
+		} else if (newValue.length > 140) {
+			ValidatedField.Invalid(
+				value = newValue,
+				errorType = ValidationErrorType.TextTooLong
+			)
 		} else {
 			ValidatedField.Valid(
 				value = newValue
@@ -104,6 +120,8 @@ class CreateProfileViewModel(
 
 	fun createProfile(onSuccess: () -> Unit, onFailure: () -> Unit) {
 		viewModelScope.launch {
+			validateAll()
+
 			val allValid = _state.value.bio is ValidatedField.Valid &&
 					_state.value.name is ValidatedField.Valid &&
 					_state.value.username is ValidatedField.Valid
@@ -138,5 +156,11 @@ class CreateProfileViewModel(
 				)
 			}
 		}
+	}
+
+	private fun validateAll() {
+		updateName(_state.value.name.value)
+		updateUsername(_state.value.username.value)
+		updateBio(_state.value.bio.value)
 	}
 }

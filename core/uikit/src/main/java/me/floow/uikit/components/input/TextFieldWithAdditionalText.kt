@@ -1,6 +1,7 @@
 package me.floow.uikit.components.input
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,6 +15,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -21,6 +23,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import me.floow.uikit.theme.LocalTypography
@@ -28,142 +31,178 @@ import me.floow.uikit.util.ComponentPreviewBox
 
 @Composable
 fun TextFieldWithAdditionalText(
-    title: String,
-    additionalText: String,
-    value: String,
-    onValueChange: (String) -> Unit,
-    minLines: Int = 1,
-    maxLines: Int = 1,
-    singleLine: Boolean = true,
-    isError: Boolean = false,
-    errorMessage: String = "",
-    placeholder: String = "",
-    modifier: Modifier = Modifier
+	title: String,
+	additionalText: String,
+	value: String,
+	onValueChange: (String) -> Unit,
+	minLines: Int = 1,
+	maxLines: Int = 1,
+	singleLine: Boolean = true,
+	isError: Boolean = false,
+	errorMessage: String = "",
+	placeholder: String = "",
+	modifier: Modifier = Modifier
 ) {
-    val outlineVariant = MaterialTheme.colorScheme.outlineVariant
-    val outline = MaterialTheme.colorScheme.outline
+	val outlineVariant = MaterialTheme.colorScheme.outlineVariant
+	val outline = MaterialTheme.colorScheme.outline
 
-    var borderColor by remember { mutableStateOf(outlineVariant) }
-    var borderWidth by remember { mutableStateOf(1.dp) }
+	var borderColor by remember { mutableStateOf(outlineVariant) }
+	var borderWidth by remember { mutableStateOf(1.dp) }
 
-    BasicTextField(
-        value = value,
-        onValueChange = onValueChange,
-        minLines = minLines,
-        maxLines = maxLines,
-        singleLine = singleLine,
-        textStyle = LocalTypography.current.bodyMedium,
-        decorationBox = { innerTextField ->
-            Column(
-                modifier = Modifier
-                    .border(
-                        width = borderWidth,
-                        color = if (isError) MaterialTheme.colorScheme.error else borderColor,
-                        shape = RoundedCornerShape(18.dp)
-                    )
-                    .padding(14.dp)
-            ) {
-                Text(
-                    text = title,
-                    color = MaterialTheme.colorScheme.outline,
-                    style = LocalTypography.current.labelMedium,
-                    modifier = Modifier
-                )
+	val isDarkTheme = isSystemInDarkTheme()
 
-                Spacer(Modifier.height(4.dp))
+	BasicTextField(
+		value = value,
+		onValueChange = onValueChange,
+		minLines = minLines,
+		maxLines = maxLines,
+		singleLine = singleLine,
+		textStyle = LocalTypography.current.bodyMedium.copy(color = MaterialTheme.colorScheme.onBackground),
+		decorationBox = { innerTextField ->
+			Column(
+				modifier = Modifier
+					.border(
+						width = borderWidth,
+						color = borderColor(isError, borderColor, isDarkTheme),
+						shape = RoundedCornerShape(18.dp)
+					)
+					.padding(14.dp)
+			) {
+				Text(
+					text = title,
+					color = MaterialTheme.colorScheme.outline,
+					style = LocalTypography.current.labelMedium,
+					modifier = Modifier
+				)
 
-                Row(Modifier) {
-                    Text(
-                        text = additionalText,
-                        style = LocalTypography.current.bodyMedium,
-                    )
+				Spacer(Modifier.height(4.dp))
 
-                    Box {
-                        innerTextField()
+				Row(Modifier) {
+					Text(
+						text = additionalText,
+						style = LocalTypography.current.bodyMedium,
+					)
 
-                        if (value.isEmpty()) {
-                            Text(
-                                text = placeholder,
-                                style = LocalTypography.current.bodyMedium,
-                                color = MaterialTheme.colorScheme.secondary
-                            )
-                        }
-                    }
-                }
-            }
-        },
-        modifier = modifier
-            .onFocusChanged {
-                if (it.isFocused) {
-                    borderWidth = (1.5).dp
-                    borderColor = outline
-                } else {
-                    borderWidth = 1.dp
-                    borderColor = outlineVariant
-                }
-            }
-    )
+					Box {
+						innerTextField()
+
+						if (value.isEmpty()) {
+							Text(
+								text = placeholder,
+								style = LocalTypography.current.bodyMedium,
+								color = MaterialTheme.colorScheme.secondary
+							)
+						}
+					}
+				}
+			}
+		},
+		modifier = modifier
+			.onFocusChanged {
+				if (it.isFocused) {
+					borderWidth = (1.5).dp
+					borderColor = outline
+				} else {
+					borderWidth = 1.dp
+					borderColor = outlineVariant
+				}
+			}
+	)
+}
+
+@Composable
+private fun borderColor(
+	isError: Boolean,
+	borderColor: Color,
+	isDarkTheme: Boolean,
+): Color {
+	return if (!isDarkTheme) {
+		if (isError) MaterialTheme.colorScheme.error else borderColor
+	} else {
+		if (isError) MaterialTheme.colorScheme.error else Color.White
+	}
 }
 
 @Preview
 @Composable
 internal fun TextFieldWithAdditionalTextPreview() {
-    var value by remember { mutableStateOf("demn") }
-    ComponentPreviewBox(Modifier.size(400.dp)) {
-        TextFieldWithAdditionalText(
-            title = "Username",
-            additionalText = "floow.me/",
-            value = value,
-            placeholder = "username",
-            onValueChange = { value = it },
-            modifier = Modifier.fillMaxWidth()
-        )
-    }
+	var value by remember { mutableStateOf("demn") }
+	ComponentPreviewBox(Modifier.size(400.dp)) {
+		TextFieldWithAdditionalText(
+			title = "Username",
+			additionalText = "floow.me/",
+			value = value,
+			placeholder = "username",
+			onValueChange = { value = it },
+			modifier = Modifier.fillMaxWidth()
+		)
+	}
 }
 
 @Preview
 @Composable
 internal fun TextFieldWithAdditionalTextPreview_WithoutEnteredText() {
-    var value by remember { mutableStateOf("") }
+	var value by remember { mutableStateOf("") }
 
-    ComponentPreviewBox(Modifier.size(400.dp)) {
-        Column(Modifier.fillMaxSize()) {
-            TextFieldWithAdditionalText(
-                title = "Username",
-                additionalText = "floow.me/",
-                value = value,
-                placeholder = "username",
-                onValueChange = { value = it },
-                modifier = Modifier.fillMaxWidth()
-            )
+	ComponentPreviewBox(Modifier.size(400.dp)) {
+		Column(Modifier.fillMaxSize()) {
+			TextFieldWithAdditionalText(
+				title = "Username",
+				additionalText = "floow.me/",
+				value = value,
+				placeholder = "username",
+				onValueChange = { value = it },
+				modifier = Modifier.fillMaxWidth()
+			)
 
-            TextFieldWithAdditionalText(
-                title = "Username",
-                additionalText = "floow.me/",
-                value = "value",
-                placeholder = "username",
-                onValueChange = { },
-                modifier = Modifier.fillMaxWidth()
-            )
-        }
-    }
+			TextFieldWithAdditionalText(
+				title = "Username",
+				additionalText = "floow.me/",
+				value = "value",
+				placeholder = "username",
+				onValueChange = { },
+				modifier = Modifier.fillMaxWidth()
+			)
+		}
+	}
 }
 
 @Preview
 @Composable
 internal fun TextFieldWithAdditionalTextPreview_WithoutAdditionalText() {
-    var value by remember { mutableStateOf("") }
+	var value by remember { mutableStateOf("") }
 
-    ComponentPreviewBox(Modifier.size(400.dp)) {
-        TextFieldWithAdditionalText(
-            title = "Username",
-            additionalText = "",
-            value = value,
-            isError = true,
-            onValueChange = { value = it },
-            singleLine = false,
-            maxLines = 5,
-            modifier = Modifier.fillMaxWidth()
-        )
-    }
+	ComponentPreviewBox(Modifier.size(400.dp)) {
+		TextFieldWithAdditionalText(
+			title = "Username",
+			additionalText = "",
+			value = value,
+			isError = true,
+			onValueChange = { value = it },
+			singleLine = false,
+			maxLines = 5,
+			modifier = Modifier.fillMaxWidth()
+		)
+	}
+}
+
+@Preview
+@Composable
+internal fun TextFieldWithAdditionalTextPreview_DarkTheme() {
+	var value by remember { mutableStateOf("") }
+
+	MaterialTheme(darkColorScheme()) {
+		ComponentPreviewBox(Modifier.size(400.dp)) {
+			TextFieldWithAdditionalText(
+				title = "Username",
+				additionalText = "",
+				value = value,
+				isError = false,
+				onValueChange = { value = it },
+				singleLine = false,
+				maxLines = 5,
+				modifier = Modifier.fillMaxWidth()
+			)
+		}
+	}
 }

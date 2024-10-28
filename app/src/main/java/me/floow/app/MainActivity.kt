@@ -41,7 +41,7 @@ class MainActivity : ComponentActivity() {
 			startKoin {
 				androidContext(this@MainActivity)
 
-				val mockDependencies = true // TODO: make build flavors with and without mocks
+				val mockDependencies = false // TODO: make build flavors with and without mocks
 
 				if (!mockDependencies) {
 					modules(

@@ -15,6 +15,7 @@ import me.floow.api.util.HttpClientProvider
 import me.floow.api.util.JsonSerializer
 import me.floow.domain.api.AuthApi
 import me.floow.domain.api.models.AuthApiResult
+import me.floow.domain.utils.Logger
 
 @Serializable
 internal data class GoogleAuthorizeResponse(
@@ -32,12 +33,15 @@ internal data class Data(
 
 class AuthApiImpl(
 	private val config: ApiConfig,
+	private val logger: Logger,
 	httpClientProvider: HttpClientProvider
 ) : AuthApi {
 	private val httpClient = httpClientProvider.getClient()
 
 	override suspend fun getAuthTokenByGoogleIdToken(idToken: String): AuthApiResult =
 		withContext(Dispatchers.IO) {
+			logger.d("getAuthTokenByGoogleIdToken", "POST \"${config.apiUrl}/auth/social/google\"")
+
 			val response = httpClient.post("${config.apiUrl}/auth/social/google") {
 				contentType(ContentType.Application.FormUrlEncoded)
 
@@ -53,6 +57,8 @@ class AuthApiImpl(
 
 			val bodyText = response.bodyAsText()
 
+			logger.d("getAuthTokenByGoogleIdToken", "Body text: $bodyText")
+
 			if (response.status.isSuccess()) {
 				val jsonParser = JsonSerializer
 				val parsedResponse = jsonParser.decodeFromString<GoogleAuthorizeResponse>(bodyText)
@@ -65,8 +71,7 @@ class AuthApiImpl(
 					}
 				)
 			} else {
-				println(response.status)
-				println(bodyText)
+				logger.d("getAuthTokenByGoogleIdToken", "Failure: ${response.status}")
 			}
 
 			return@withContext AuthApiResult.Failure

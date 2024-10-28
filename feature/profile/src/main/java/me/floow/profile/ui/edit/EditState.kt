@@ -25,10 +25,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import me.floow.profile.R
 import me.floow.profile.uilogic.edit.EditProfileState
-import me.floow.profile.uilogic.edit.ValidatedField
 import me.floow.uikit.components.input.TextFieldWithAdditionalText
 import me.floow.uikit.theme.ElevanagonShape
 import me.floow.uikit.theme.LocalTypography
+import me.floow.uikit.util.state.ValidatedField
 
 @Composable
 internal fun EditState(

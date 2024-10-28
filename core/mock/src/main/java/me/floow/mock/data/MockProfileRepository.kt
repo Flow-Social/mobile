@@ -5,14 +5,16 @@ import me.floow.domain.data.GetDataResponse
 import me.floow.domain.data.UpdateDataResponse
 import me.floow.domain.data.repos.ProfileRepository
 import me.floow.domain.models.SelfProfile
+import me.floow.domain.values.ProfileDescription
+import me.floow.domain.values.ProfileName
 
 class MockProfileRepository : ProfileRepository {
 	private var userProfile = SelfProfile(
 		id = 1337L,
-		name = "Demn",
+		name = ProfileName("Demn"),
 		email = "demn@gmail.com",
 		avatarUrl = "https://http.cat/images/200.jpg",
-		biography = "Hi. My name is demn. I like coding: Kotlin, F#, Jetpack Compose, SwiftUI and etc. Welcome to my profile screen!"
+		description = ProfileDescription("Hi. My name is demn. I like coding: Kotlin, F#, Jetpack Compose, SwiftUI and etc. Welcome to my profile screen!")
 	)
 
 	override suspend fun getSelfData(): GetDataResponse<SelfProfile> {
@@ -23,7 +25,7 @@ class MockProfileRepository : ProfileRepository {
 
 	override suspend fun edit(data: EditProfileData): UpdateDataResponse {
 		userProfile = userProfile.copy(
-			biography = data.bio,
+			description = data.description,
 			name = data.name
 		)
 

@@ -23,10 +23,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import me.floow.login.uilogic.CreateProfileState
-import me.floow.login.uilogic.ValidatedField
 import me.floow.uikit.components.input.TextFieldWithAdditionalText
 import me.floow.uikit.theme.ElevanagonShape
 import me.floow.uikit.theme.LocalTypography
+import me.floow.uikit.util.state.ValidatedField
 import me.flowme.login.R
 
 @Composable

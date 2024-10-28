@@ -3,6 +3,8 @@ package me.floow.database.sharedpref
 import android.content.Context
 import me.floow.domain.cache.ProfileCacheProvider
 import me.floow.domain.models.SelfProfile
+import me.floow.domain.values.ProfileDescription
+import me.floow.domain.values.ProfileName
 
 class ProfileCacheProviderImpl(
 	context: Context
@@ -16,7 +18,8 @@ class ProfileCacheProviderImpl(
 		private const val PROFILE_EMAIL = "profile_email"
 	}
 
-	private val sharedPreferences = context.getSharedPreferences(PROFILE_CACHE_NAME, Context.MODE_PRIVATE)
+	private val sharedPreferences =
+		context.getSharedPreferences(PROFILE_CACHE_NAME, Context.MODE_PRIVATE)
 
 	override fun getSelfProfile(): SelfProfile? {
 		val id = sharedPreferences.getLong(PROFILE_ID, -1L)
@@ -29,18 +32,18 @@ class ProfileCacheProviderImpl(
 
 		return SelfProfile(
 			id = id,
-			name = name,
+			name = name?.let { ProfileName(it) },
 			email = email,
 			avatarUrl = avatarUrl,
-			biography = bio
+			description = bio?.let { ProfileDescription(it) }
 		)
 	}
 
 	override fun updateSelfProfile(profile: SelfProfile) {
 		sharedPreferences.edit().apply {
 			putLong(PROFILE_ID, profile.id)
-			putString(PROFILE_NAME, profile.name)
-			putString(PROFILE_BIO, profile.biography)
+			putString(PROFILE_NAME, profile.name?.value)
+			putString(PROFILE_BIO, profile.description?.value)
 			putString(PROFILE_AVATAR_URL, profile.avatarUrl)
 			putString(PROFILE_EMAIL, profile.email)
 
@@ -53,7 +56,7 @@ class ProfileCacheProviderImpl(
 			SelfProfile(
 				id = -1L,
 				name = null,
-				biography = null,
+				description = null,
 				avatarUrl = null,
 				email = null,
 			)

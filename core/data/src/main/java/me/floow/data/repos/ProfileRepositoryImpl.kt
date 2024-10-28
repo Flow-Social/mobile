@@ -2,7 +2,6 @@ package me.floow.data.repos
 
 import me.floow.domain.api.ProfileApi
 import me.floow.domain.api.models.EditProfileData
-import me.floow.domain.api.models.EditProfileResponse
 import me.floow.domain.api.models.EditProfileResponseStatus
 import me.floow.domain.api.models.GetSelfResponse
 import me.floow.domain.data.GetDataError
@@ -10,6 +9,8 @@ import me.floow.domain.data.GetDataResponse
 import me.floow.domain.data.UpdateDataResponse
 import me.floow.domain.data.repos.ProfileRepository
 import me.floow.domain.models.SelfProfile
+import me.floow.domain.values.ProfileDescription
+import me.floow.domain.values.ProfileName
 
 class ProfileRepositoryImpl(
 	private val profileApi: ProfileApi,
@@ -20,9 +21,9 @@ class ProfileRepositoryImpl(
 				return GetDataResponse.Success(
 					SelfProfile(
 						id = selfData.id,
-						name = selfData.name,
+						name = selfData.name?.let { ProfileName(it) },
 						email = selfData.email,
-						biography = selfData.biography,
+						description = selfData.biography?.let { ProfileDescription(it) },
 						avatarUrl = selfData.avatarUrl,
 					)
 				)

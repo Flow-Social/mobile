@@ -39,7 +39,6 @@ fun TextFieldWithAdditionalText(
 	maxLines: Int = 1,
 	singleLine: Boolean = true,
 	isError: Boolean = false,
-	errorMessage: String = "",
 	placeholder: String = "",
 	modifier: Modifier = Modifier
 ) {

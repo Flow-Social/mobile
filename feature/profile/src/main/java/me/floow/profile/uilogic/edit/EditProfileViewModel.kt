@@ -2,7 +2,9 @@ package me.floow.profile.uilogic.edit
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
@@ -13,11 +15,18 @@ import me.floow.domain.api.models.EditProfileData
 import me.floow.domain.data.GetDataResponse
 import me.floow.domain.data.UpdateDataResponse
 import me.floow.domain.data.repos.ProfileRepository
+import me.floow.domain.values.ProfileDescription
+import me.floow.domain.values.ProfileName
+import me.floow.domain.values.ProfileUsername
+import me.floow.uikit.util.state.ValidatedField
+import me.floow.uikit.util.state.ValidatedField.Companion.initialField
+import me.floow.uikit.util.state.ValidationErrorType
+import java.lang.IllegalStateException
 
 data class CreateProfileVmState(
-	val name: ValidatedField = ValidatedField.Valid(""),
-	val username: ValidatedField = ValidatedField.Valid(""),
-	val bio: ValidatedField = ValidatedField.Valid(""),
+	val name: ValidatedField = initialField,
+	val username: ValidatedField = initialField,
+	val bio: ValidatedField = initialField,
 	val isUploading: Boolean = false
 ) {
 	fun toUiState(): EditProfileState {
@@ -42,16 +51,19 @@ class EditProfileViewModel(
 		.map(CreateProfileVmState::toUiState)
 		.stateIn(viewModelScope, SharingStarted.Eagerly, EditProfileState.Edit())
 
+	private val _hapticFeedbackFlow = MutableSharedFlow<Unit>()
+	val hapticFeedbackFlow: SharedFlow<Unit> = _hapticFeedbackFlow
+
 	fun loadData() {
 		viewModelScope.launch {
 			when (val result = _profileRepository.getSelfData()) {
 				is GetDataResponse.Success -> _state.update {
 					it.copy(
 						name = ValidatedField.Valid(
-							value = result.data.name ?: ""
+							value = result.data.name?.value ?: ""
 						),
 						bio = ValidatedField.Valid(
-							value = result.data.biography ?: ""
+							value = result.data.description?.value ?: ""
 						),
 					)
 				}
@@ -60,74 +72,80 @@ class EditProfileViewModel(
 	}
 
 	fun updateName(newValue: String) {
-		val field: ValidatedField = if (newValue.isEmpty()) {
-			ValidatedField.Invalid(
-				value = newValue,
-				errorType = ValidationErrorType.ShouldNotBeEmpty
-			)
-		} else if (newValue.length > 32) {
-			ValidatedField.Invalid(
-				value = newValue,
-				errorType = ValidationErrorType.TextTooLong
-			)
-		} else {
-			ValidatedField.Valid(
-				value = newValue
-			)
-		}
+		try {
+			ProfileName(newValue)
 
-		_state.update {
-			it.copy(
-				name = field
-			)
+			_state.update {
+				it.copy(
+					name = ValidatedField.Valid(
+						value = newValue,
+					)
+				)
+			}
+		} catch (ex: IllegalStateException) {
+			_state.update {
+				it.copy(
+					name = ValidatedField.Invalid(
+						value = newValue,
+					)
+				)
+			}
+
+			viewModelScope.launch {
+				_hapticFeedbackFlow.emit(Unit)
+			}
 		}
 	}
 
 	fun updateUsername(newValue: String) {
-		val field: ValidatedField = if (newValue.isEmpty()) {
-			ValidatedField.Invalid(
-				value = newValue,
-				errorType = ValidationErrorType.ShouldNotBeEmpty
-			)
-		} else if (newValue.length > 32) {
-			ValidatedField.Invalid(
-				value = newValue,
-				errorType = ValidationErrorType.TextTooLong
-			)
-		} else {
-			ValidatedField.Valid(
-				value = newValue
-			)
-		}
+		try {
+			ProfileUsername(newValue)
 
-		_state.update {
-			it.copy(
-				username = field
-			)
+			_state.update {
+				it.copy(
+					username = ValidatedField.Valid(
+						value = newValue,
+					)
+				)
+			}
+		} catch (ex: IllegalStateException) {
+			_state.update {
+				it.copy(
+					username = ValidatedField.Invalid(
+						value = newValue,
+					)
+				)
+			}
+
+			viewModelScope.launch {
+				_hapticFeedbackFlow.emit(Unit)
+			}
 		}
 	}
 
 	fun updateBiography(newValue: String) {
-		val field: ValidatedField = if (newValue.isEmpty()) {
-			ValidatedField.Invalid(
-				value = newValue,
-				errorType = ValidationErrorType.ShouldNotBeEmpty
-			)
-		} else if (newValue.length > 140) {
-			ValidatedField.Invalid(
-				value = newValue,
-				errorType = ValidationErrorType.TextTooLong
-			)
-		} else {
-			ValidatedField.Valid(
-				value = newValue
-			)
-		}
+		try {
+			ProfileDescription(newValue)
 
-		_state.update {
-			it.copy(
-				bio = field
-			)
+			_state.update {
+				it.copy(
+					bio = ValidatedField.Valid(
+						value = newValue,
+					)
+				)
+			}
+		} catch (ex: IllegalStateException) {
+			_state.update {
+				it.copy(
+					bio = ValidatedField.Invalid(
+						value = newValue,
+					)
+				)
+			}
+
+			viewModelScope.launch {
+				_hapticFeedbackFlow.emit(Unit)
+			}
 		}
 	}
 
@@ -152,8 +170,8 @@ class EditProfileViewModel(
 
 			val result = _profileRepository.edit(
 				data = EditProfileData(
-					name = _state.value.name.value,
-					bio = _state.value.bio.value
+					name = ProfileName(_state.value.name.value),
+					description = ProfileDescription(_state.value.bio.value)
 				)
 			)
 

@@ -1,23 +1,6 @@
 package me.floow.profile.uilogic.edit
 
-enum class ValidationErrorType {
-	ShouldNotBeEmpty,
-	TextTooLong,
-	Other
-}
-
-interface ValidatedField {
-	val value: String
-
-	data class Valid(
-		override val value: String
-	) : ValidatedField
-
-	data class Invalid(
-		override val value: String,
-		val errorType: ValidationErrorType
-	) : ValidatedField
-}
+import me.floow.uikit.util.state.ValidatedField
 
 interface EditProfileState {
 	data class Edit(

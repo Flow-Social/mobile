@@ -13,13 +13,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -49,7 +46,7 @@ fun TextFieldWithAdditionalText(
 	val outlineVariant = MaterialTheme.colorScheme.outlineVariant
 	val outline = MaterialTheme.colorScheme.outline
 
-	var borderColor by remember { mutableStateOf(outlineVariant) }
+	var highlightColor by remember { mutableStateOf(outlineVariant) }
 	var borderWidth by remember { mutableStateOf(1.dp) }
 
 	val isDarkTheme = isSystemInDarkTheme()
@@ -67,14 +64,14 @@ fun TextFieldWithAdditionalText(
 				modifier = Modifier
 					.border(
 						width = borderWidth,
-						color = borderColor(isError, borderColor, isDarkTheme),
+						color = borderColor(isError, highlightColor, isDarkTheme),
 						shape = RoundedCornerShape(18.dp)
 					)
 					.padding(14.dp)
 			) {
 				Text(
 					text = title,
-					color = MaterialTheme.colorScheme.outline,
+					color = highlightColor,
 					style = LocalTypography.current.labelMedium,
 					modifier = Modifier
 				)
@@ -105,10 +102,18 @@ fun TextFieldWithAdditionalText(
 			.onFocusChanged {
 				if (it.isFocused) {
 					borderWidth = (1.5).dp
-					borderColor = outline
+					highlightColor = if (isDarkTheme) {
+						Color.White
+					} else {
+						outline
+					}
 				} else {
 					borderWidth = 1.dp
-					borderColor = outlineVariant
+					highlightColor = if (isDarkTheme) {
+						outlineVariant
+					} else {
+						outlineVariant
+					}
 				}
 			}
 	)
@@ -123,7 +128,7 @@ private fun borderColor(
 	return if (!isDarkTheme) {
 		if (isError) MaterialTheme.colorScheme.error else borderColor
 	} else {
-		if (isError) MaterialTheme.colorScheme.error else Color.White
+		if (isError) MaterialTheme.colorScheme.error else borderColor
 	}
 }
 

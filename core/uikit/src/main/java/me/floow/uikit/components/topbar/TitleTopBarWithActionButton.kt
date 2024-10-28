@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import me.floow.uikit.components.buttons.WideOutlinedIconButton
@@ -32,10 +33,11 @@ fun TitleTopBarWithActionButton(
         ) {
             Text(
                 text = titleText,
-                style = LocalTypography.current.titleMedium
+                overflow = TextOverflow.Ellipsis,
+                style = LocalTypography.current.titleMedium,
+                maxLines = 1,
+                modifier = Modifier.weight(1f)
             )
-
-            Spacer(Modifier.weight(1f))
 
             WideOutlinedIconButton(
                 onClick = onActionButtonClick,
@@ -55,6 +57,25 @@ private fun TitleIconTopBarPreview(modifier: Modifier = Modifier) {
     ComponentPreviewBox(Modifier.fillMaxSize()) {
         TitleTopBarWithActionButton(
             titleText = "Chats",
+            icon = {
+                Icon(
+                    painterResource(R.drawable.chats_icon),
+                    null
+                )
+            },
+            onActionButtonClick = {},
+            modifier = Modifier
+                .fillMaxSize()
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun TitleIconTopBarPreview_TextOverflow(modifier: Modifier = Modifier) {
+    ComponentPreviewBox(Modifier.fillMaxSize()) {
+        TitleTopBarWithActionButton(
+            titleText = "Lorem ipsum dolor sit amet very very long text.. I don't know what to say",
             icon = {
                 Icon(
                     painterResource(R.drawable.chats_icon),

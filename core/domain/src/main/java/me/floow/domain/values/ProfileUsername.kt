@@ -7,7 +7,7 @@ value class ProfileUsername(
 	init {
 		check(value.isNotBlank())
 
-		check(value.contains(Regex("^[a-zA-Z0-9]+$")))
+		check(value.contains(Regex("^[a-zA-Z0-9_]+$")))
 
 		check(value.length in 3..32)
 	}

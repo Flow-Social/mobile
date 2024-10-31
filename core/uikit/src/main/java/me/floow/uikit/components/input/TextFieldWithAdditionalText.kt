@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import me.floow.uikit.theme.FlowTypography
 import me.floow.uikit.theme.LocalTypography
 import me.floow.uikit.util.ComponentPreviewBox
 
@@ -40,6 +41,7 @@ fun TextFieldWithAdditionalText(
 	maxLines: Int = 1,
 	singleLine: Boolean = true,
 	isError: Boolean = false,
+	supportingText: String = "",
 	placeholder: String = "",
 	modifier: Modifier = Modifier
 ) {
@@ -51,72 +53,90 @@ fun TextFieldWithAdditionalText(
 
 	val isDarkTheme = isSystemInDarkTheme()
 
-	BasicTextField(
-		value = value,
-		onValueChange = onValueChange,
-		minLines = minLines,
-		maxLines = maxLines,
-		singleLine = singleLine,
-		textStyle = LocalTypography.current.bodyMedium.copy(color = MaterialTheme.colorScheme.onBackground),
-		cursorBrush = SolidColor(MaterialTheme.colorScheme.onBackground),
-		decorationBox = { innerTextField ->
-			Column(
-				modifier = Modifier
-					.border(
-						width = borderWidth,
-						color = borderColor(isError, highlightColor, isDarkTheme),
-						shape = RoundedCornerShape(18.dp)
-					)
-					.padding(14.dp)
-			) {
-				Text(
-					text = title,
-					color = highlightColor,
-					style = LocalTypography.current.labelMedium,
+	Column(
+		modifier = modifier
+	) {
+		BasicTextField(
+			value = value,
+			onValueChange = onValueChange,
+			minLines = minLines,
+			maxLines = maxLines,
+			singleLine = singleLine,
+			textStyle = LocalTypography.current.bodyMedium.copy(color = MaterialTheme.colorScheme.onBackground),
+			cursorBrush = SolidColor(MaterialTheme.colorScheme.onBackground),
+			decorationBox = { innerTextField ->
+				Column(
 					modifier = Modifier
-				)
-
-				Spacer(Modifier.height(4.dp))
-
-				Row(Modifier) {
+						.border(
+							width = borderWidth,
+							color = borderColor(isError, highlightColor, isDarkTheme),
+							shape = RoundedCornerShape(18.dp)
+						)
+						.padding(14.dp)
+				) {
 					Text(
-						text = additionalText,
-						style = LocalTypography.current.bodyMedium,
+						text = title,
+						color = highlightColor,
+						style = LocalTypography.current.labelMedium,
+						modifier = Modifier
 					)
 
-					Box {
-						innerTextField()
+					Spacer(Modifier.height(4.dp))
 
-						if (value.isEmpty()) {
-							Text(
-								text = placeholder,
-								style = LocalTypography.current.bodyMedium,
-								color = MaterialTheme.colorScheme.secondary
-							)
+					Row(Modifier) {
+						Text(
+							text = additionalText,
+							style = LocalTypography.current.bodyMedium,
+						)
+
+						Box {
+							innerTextField()
+
+							if (value.isEmpty()) {
+								Text(
+									text = placeholder,
+									style = LocalTypography.current.bodyMedium,
+									color = MaterialTheme.colorScheme.secondary
+								)
+							}
 						}
 					}
 				}
-			}
-		},
-		modifier = modifier
-			.onFocusChanged {
-				if (it.isFocused) {
-					borderWidth = (1.5).dp
-					highlightColor = if (isDarkTheme) {
-						Color.White
+			},
+			modifier = Modifier
+				.onFocusChanged {
+					if (it.isFocused) {
+						borderWidth = (1.5).dp
+						highlightColor = if (isDarkTheme) {
+							Color.White
+						} else {
+							outline
+						}
 					} else {
-						outline
-					}
-				} else {
-					borderWidth = 1.dp
-					highlightColor = if (isDarkTheme) {
-						outlineVariant
-					} else {
-						outlineVariant
+						borderWidth = 1.dp
+						highlightColor = if (isDarkTheme) {
+							outlineVariant
+						} else {
+							outlineVariant
+						}
 					}
 				}
-			}
-	)
+				.fillMaxWidth()
+		)
+
+		if (supportingText.isNotBlank()) {
+			Spacer(Modifier.height(6.dp))
+
+			Text(
+				text = supportingText,
+				style = LocalTypography.current.labelMedium,
+				modifier = Modifier
+					.padding(
+						horizontal = 7.dp
+					)
+			)
+		}
+	}
 }
 
 @Composable
@@ -190,6 +210,7 @@ internal fun TextFieldWithAdditionalTextPreview_WithoutAdditionalText() {
 			onValueChange = { value = it },
 			singleLine = false,
 			maxLines = 5,
+			supportingText = "Lorem ipsum dolor sit amet. Test supporting text",
 			modifier = Modifier.fillMaxWidth()
 		)
 	}
@@ -210,6 +231,7 @@ internal fun TextFieldWithAdditionalTextPreview_DarkTheme() {
 				onValueChange = { value = it },
 				singleLine = false,
 				maxLines = 5,
+				supportingText = "Lorem ipsum dolor sit amet. Test supporting text",
 				modifier = Modifier.fillMaxWidth()
 			)
 		}

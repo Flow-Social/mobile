@@ -12,4 +12,5 @@
     <string name="one_subscriber">1 подписчик</string>
     <string name="subscribers_label">подписчиков</string>
     <string name="no_subscribers">Нет подписчиков</string>
+    <string name="username_field_supporting_text">Вы можете использовать символы a&#8211;z, 0&#8211;9 и нижние подчеркивания</string>
 </resources>

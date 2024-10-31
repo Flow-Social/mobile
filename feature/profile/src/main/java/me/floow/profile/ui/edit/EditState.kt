@@ -99,6 +99,7 @@ internal fun EditState(
 			isError = state.username is ValidatedField.Invalid,
 			placeholder = stringResource(R.string.username),
 			onValueChange = onUsernameChange,
+			supportingText = stringResource(me.floow.uikit.R.string.username_field_supporting_text),
 			modifier = Modifier
 				.fillMaxWidth()
 		)

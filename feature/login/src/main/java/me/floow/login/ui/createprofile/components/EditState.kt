@@ -46,7 +46,7 @@ fun EditState(
             contentAlignment = Alignment.Center,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(128.dp)
+                .height(160.dp)
                 .clip(RoundedCornerShape(16.dp))
                 .background(MaterialTheme.colorScheme.secondaryContainer)
                 .clickable {

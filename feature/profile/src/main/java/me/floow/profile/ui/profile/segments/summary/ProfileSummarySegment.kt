@@ -22,9 +22,9 @@ import me.floow.profile.uilogic.profile.ProfileSubscribers
 
 @Composable
 fun ProfileSummarySegment(
-	profileAvatarUri: Uri,
-	displayName: String,
-	description: String,
+	profileAvatarUri: Uri?,
+	displayName: String?,
+	description: String?,
 	subscribers: ProfileSubscribers,
 	modifier: Modifier = Modifier
 ) {

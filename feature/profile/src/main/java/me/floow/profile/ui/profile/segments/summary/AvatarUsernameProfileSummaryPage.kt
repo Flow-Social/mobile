@@ -10,8 +10,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import me.floow.profile.R
 import me.floow.profile.ui.profile.SubscribersLabel
 import me.floow.profile.uilogic.profile.ProfileSubscribers
 import me.floow.uikit.theme.LocalTypography
@@ -19,8 +21,8 @@ import me.floow.uikit.theme.NinehedronShape
 
 @Composable
 internal fun AvatarUsernameProfileSummaryPage(
-	profileAvatarUri: Uri,
-	displayName: String,
+	profileAvatarUri: Uri?,
+	displayName: String?,
 	subscribers: ProfileSubscribers,
 	modifier: Modifier = Modifier
 ) {
@@ -42,7 +44,7 @@ internal fun AvatarUsernameProfileSummaryPage(
 		Spacer(Modifier.height(9.dp))
 
 		Text(
-			text = displayName,
+			text = displayName ?: stringResource(R.string.no_display_name),
 			style = LocalTypography.current.titleMedium,
 			color = Color.White,
 		)

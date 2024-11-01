@@ -1,34 +1,34 @@
 package me.floow.api
 
-import io.ktor.client.*
-import io.ktor.client.engine.cio.*
-import io.ktor.client.request.*
-import io.ktor.client.request.forms.*
-import io.ktor.client.statement.*
-import io.ktor.http.*
+import io.ktor.client.request.forms.FormDataContent
+import io.ktor.client.request.post
+import io.ktor.client.request.setBody
+import io.ktor.client.statement.bodyAsText
+import io.ktor.client.statement.request
+import io.ktor.http.ContentType
+import io.ktor.http.Parameters
+import io.ktor.http.contentType
+import io.ktor.http.isSuccess
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
 import me.floow.api.util.ApiConfig
 import me.floow.api.util.HttpClientProvider
 import me.floow.api.util.JsonSerializer
+import me.floow.api.util.extensions.logKtorRequest
 import me.floow.domain.api.AuthApi
 import me.floow.domain.api.models.AuthApiResult
 import me.floow.domain.utils.Logger
 
 @Serializable
 internal data class GoogleAuthorizeResponse(
-	val status: String,
-	val task: String,
-	val message: String,
 	val data: Data
 )
 
 @Serializable
 internal data class Data(
 	val token: String,
-	val type: Int,
+	val status: Int
 )
 
 class AuthApiImpl(
@@ -40,20 +40,20 @@ class AuthApiImpl(
 
 	override suspend fun getAuthTokenByGoogleIdToken(idToken: String): AuthApiResult =
 		withContext(Dispatchers.IO) {
-			logger.d("getAuthTokenByGoogleIdToken", "POST \"${config.apiUrl}/auth/social/google\"")
-
-			val response = httpClient.post("${config.apiUrl}/auth/social/google") {
+			val response = httpClient.post("${config.apiUrl}/auth/google") {
 				contentType(ContentType.Application.FormUrlEncoded)
 
 				setBody(
 					FormDataContent(
 						Parameters.build {
-							append("id_token", idToken)
 							append("type", "mobile")
-						}
+							append("id_token", idToken)
+ 						}
 					)
 				)
 			}
+
+			logger.logKtorRequest("getAuthTokenByGoogleIdToken", response.request)
 
 			val bodyText = response.bodyAsText()
 
@@ -65,7 +65,7 @@ class AuthApiImpl(
 
 				return@withContext AuthApiResult.Success(
 					token = parsedResponse.data.token,
-					isRegistration = when (parsedResponse.data.type) {
+					isRegistration = when (parsedResponse.data.status) {
 						0 -> true
 						else -> false
 					}

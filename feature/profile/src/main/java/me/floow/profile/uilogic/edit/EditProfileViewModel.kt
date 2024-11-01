@@ -65,6 +65,9 @@ class EditProfileViewModel(
 						bio = ValidatedField.Valid(
 							value = result.data.description?.value ?: ""
 						),
+						username = ValidatedField.Valid(
+							value = result.data.description?.value ?: ""
+						)
 					)
 				}
 			}
@@ -171,6 +174,7 @@ class EditProfileViewModel(
 			val result = _profileRepository.edit(
 				data = EditProfileData(
 					name = ProfileName(_state.value.name.value),
+					username = ProfileUsername(_state.value.username.value),
 					description = ProfileDescription(_state.value.bio.value)
 				)
 			)

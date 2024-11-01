@@ -6,11 +6,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import me.floow.profile.R
 import me.floow.uikit.theme.LocalTypography
 
 @Composable
-internal fun AboutMeProfileSummaryPage(description: String, modifier: Modifier = Modifier) {
+internal fun AboutMeProfileSummaryPage(description: String?, modifier: Modifier = Modifier) {
 	Column(
 		modifier = modifier
 			.padding(horizontal = 24.dp),
@@ -26,7 +28,7 @@ internal fun AboutMeProfileSummaryPage(description: String, modifier: Modifier =
 		Spacer(Modifier.height(9.dp))
 
 		Text(
-			text = description,
+			text = description ?: stringResource(R.string.no_profile_description),
 			style = LocalTypography.current.bodyMedium,
 			color = Color.White,
 		)

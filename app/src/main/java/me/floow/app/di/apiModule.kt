@@ -11,7 +11,7 @@ import org.koin.dsl.module
 
 val apiModule = module {
     single<HttpClientProvider> { HttpClientProvider() }
-    factory<ProfileApi> { ProfileApiImpl(get(), get(), get()) }
+    factory<ProfileApi> { ProfileApiImpl(get(), get(), get(), get()) }
     factory<AuthApi> { AuthApiImpl(get(), get(), get()) }
     factory<GoogleOAuth> { GoogleOAuthImpl(get(), get()) }
 }

@@ -6,7 +6,7 @@ import me.floow.mock.auth.MockAuthenticationManager
 import org.koin.dsl.module
 
 val authModule = module {
-    single<AuthenticationManager> { AuthenticationManagerImpl(get(), get(), get()) }
+    single<AuthenticationManager> { AuthenticationManagerImpl(get(), get(), get(), get()) }
 }
 
 val mockAuthModule = module {

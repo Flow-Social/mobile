@@ -9,20 +9,24 @@ import me.floow.domain.data.GetDataResponse
 import me.floow.domain.data.UpdateDataResponse
 import me.floow.domain.data.repos.ProfileRepository
 import me.floow.domain.models.SelfProfile
+import me.floow.domain.utils.Logger
 import me.floow.domain.values.ProfileDescription
 import me.floow.domain.values.ProfileName
+import me.floow.domain.values.ProfileUsername
 
 class ProfileRepositoryImpl(
+	private val logger: Logger,
 	private val profileApi: ProfileApi,
 ) : ProfileRepository {
 	override suspend fun getSelfData(): GetDataResponse<SelfProfile> {
-		when (val selfData = profileApi.getSelf()) {
+		return when (val selfData = profileApi.getSelf()) {
 			is GetSelfResponse.Success -> {
-				return GetDataResponse.Success(
+				logger.d("ProfileRepositoryImpl.getSelfData", "Success response: $selfData")
+
+				GetDataResponse.Success(
 					SelfProfile(
-						id = selfData.id,
 						name = selfData.name?.let { ProfileName(it) },
-						email = selfData.email,
+						username = selfData.username?.let { ProfileUsername(it) },
 						description = selfData.biography?.let { ProfileDescription(it) },
 						avatarUrl = selfData.avatarUrl,
 					)
@@ -30,7 +34,9 @@ class ProfileRepositoryImpl(
 			}
 
 			is GetSelfResponse.Error -> {
-				return GetDataResponse.Error(error = GetDataError.Other)
+				logger.d("ProfileRepositoryImpl.getSelfData", "Failure response: $selfData")
+
+				GetDataResponse.Error(error = GetDataError.Other)
 			}
 		}
 	}

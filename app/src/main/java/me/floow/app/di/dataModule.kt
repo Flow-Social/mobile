@@ -6,7 +6,7 @@ import me.floow.mock.data.MockProfileRepository
 import org.koin.dsl.module
 
 val dataModule = module {
-	single<ProfileRepository> { ProfileRepositoryImpl(get()) }
+	single<ProfileRepository> { ProfileRepositoryImpl(get(), get()) }
 }
 
 val mockDataModule = module {

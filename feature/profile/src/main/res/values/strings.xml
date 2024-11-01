@@ -11,4 +11,7 @@
     <string name="username">username</string>
     <string name="about">About</string>
     <string name="write_something_about_you">Write something about you</string>
+    <string name="no_username_topbar_title">No username</string>
+    <string name="no_profile_description">no description</string>
+    <string name="no_display_name">No name</string>
 </resources>

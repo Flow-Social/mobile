@@ -12,9 +12,11 @@ import me.floow.domain.auth.GoogleOAuth
 import me.floow.domain.auth.models.AuthState
 import me.floow.domain.auth.models.AuthenticationResult
 import me.floow.domain.auth.models.GoogleOAuthResult
+import me.floow.domain.utils.Logger
 
 class AuthenticationManagerImpl(
 	context: Context,
+	private val logger: Logger,
 	private val googleOAuth: GoogleOAuth,
 	private val authApi: AuthApi,
 ) : AuthenticationManager {
@@ -34,6 +36,11 @@ class AuthenticationManagerImpl(
 		)
 
 	override suspend fun handleGoogleOAuthCode(code: String) {
+		logger.d(
+			"AuthenticationManagerImpl.handleGoogleOAuthCode",
+			"Start handling Google OAuth code"
+		)
+
 		_authenticationStateFlow.update {
 			AuthState.HandlingOAuth
 		}
@@ -41,20 +48,28 @@ class AuthenticationManagerImpl(
 		when (val googleOAuthResult = googleOAuth.handleGoogleOAuthCode(code)) {
 			is GoogleOAuthResult.Success -> {
 				val authApiResult = authApi.getAuthTokenByGoogleIdToken(googleOAuthResult.idToken)
-				println(authApiResult)
 
 				if (authApiResult is AuthApiResult.Success) {
+					logger.d(
+						"AuthenticationManagerImpl.handleGoogleOAuthCode",
+						"Success auth api result. Token: ${authApiResult.token}, isRegistration: ${authApiResult.isRegistration}"
+					)
+
 					_authenticationStateFlow.update {
 						AuthState.HasResult(
 							AuthenticationResult.Success(
 								token = authApiResult.token,
-                                isRegistration = authApiResult.isRegistration
+								isRegistration = authApiResult.isRegistration
 							)
 						)
 					}
-					println(authApiResult.token)
 					writeAuthToken(authApiResult.token)
 				} else {
+					logger.d(
+						"AuthenticationManagerImpl.handleGoogleOAuthCode",
+						"Failure auth api result"
+					)
+
 					_authenticationStateFlow.update {
 						AuthState.HasResult(AuthenticationResult.Failure)
 					}
@@ -62,6 +77,11 @@ class AuthenticationManagerImpl(
 			}
 
 			is GoogleOAuthResult.Failure -> {
+				logger.d(
+					"AuthenticationManagerImpl.handleGoogleOAuthCode",
+					"Failed to get Google OAuth ID token"
+				)
+
 				_authenticationStateFlow.update {
 					AuthState.HasResult(AuthenticationResult.Failure)
 				}
@@ -74,6 +94,8 @@ class AuthenticationManagerImpl(
 			putString(AUTH_TOKEN_PREF_KEY, token)
 			apply()
 		}
+
+		logger.d("AuthenticationManagerImpl.writeAuthToken", "Wrote authentication token")
 	}
 
 	override suspend fun getAuthTokenOrNull(): String? {
@@ -85,6 +107,11 @@ class AuthenticationManagerImpl(
 	}
 
 	override suspend fun startGoogleAuthentication() {
+		logger.d(
+			"AuthenticationManagerImpl.startGoogleAuthentication",
+			"Started google authentication"
+		)
+
 		googleOAuth.startSignIn()
 	}
 }

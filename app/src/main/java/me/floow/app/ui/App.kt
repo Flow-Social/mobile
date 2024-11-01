@@ -14,57 +14,59 @@ import me.floow.app.navigation.*
 
 @Composable
 fun App(
-    startDestination: String,
-    modifier: Modifier = Modifier
+	startDestination: String,
+	modifier: Modifier = Modifier
 ) {
-    val navController = rememberNavController()
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentDestination = navBackStackEntry?.destination
+	val navController = rememberNavController()
+	val navBackStackEntry by navController.currentBackStackEntryAsState()
+	val currentDestination = navBackStackEntry?.destination
 
-    Scaffold(
-        bottomBar = {
-            if (currentDestination?.route in mainBottomBarNavigationDestinations) {
-                BottomBar(
-                    currentRoute = navController.currentDestination?.route ?: "",
-                    navigationItems = bottomNavigationItems,
-                    onClick = {
-                        navController.navigate(it) {
-                            launchSingleTop = true
-                            popUpTo(it)
-                        }
-                    }
-                )
-            }
-        },
-        modifier = modifier
-    ) { innerPadding ->
-        FlowNavHost(
-            navController = navController,
-            startDestination = startDestination,
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-        )
-    }
+	Scaffold(
+		bottomBar = {
+			if (currentDestination?.route in mainBottomBarNavigationDestinations) {
+				BottomBar(
+					currentRoute = navController.currentDestination?.route ?: "",
+					navigationItems = bottomNavigationItems,
+					onClick = {
+						navController.navigate(it) {
+							launchSingleTop = true
+						}
+					}
+				)
+			}
+		},
+		modifier = modifier
+	) { innerPadding ->
+		FlowNavHost(
+			navController = navController,
+			startDestination = startDestination,
+			modifier = Modifier
+				.fillMaxSize()
+				.padding(innerPadding)
+		)
+	}
 }
 
 @Composable
 private fun BottomBar(
-    currentRoute: String,
-    navigationItems: List<BottomNavigationItem>,
-    onClick: (route: String) -> Unit,
-    modifier: Modifier = Modifier
+	currentRoute: String,
+	navigationItems: List<BottomNavigationItem>,
+	onClick: (route: String) -> Unit,
+	modifier: Modifier = Modifier
 ) {
-    NavigationBar(modifier) {
-        navigationItems.forEach { item ->
-            NavigationBarItem(
-                selected = currentRoute == item.route,
-                onClick = { onClick(item.route) },
-                icon = {
-                    Icon(painterResource(item.drawableIconId), null)
-                },
-                label = { Text(text = stringResource(item.titleId)) }
-            )
-        }
-    }
+	NavigationBar(modifier) {
+		navigationItems.forEach { item ->
+			val selected = currentRoute == item.route
+			NavigationBarItem(
+				selected = selected,
+				onClick = {
+					if (!selected) onClick(item.route)
+				},
+				icon = {
+					Icon(painterResource(item.drawableIconId), null)
+				},
+				label = { Text(text = stringResource(item.titleId)) }
+			)
+		}
+	}
 }

@@ -18,6 +18,7 @@ import me.floow.domain.data.repos.ProfileRepository
 import me.floow.domain.values.ProfileDescription
 import me.floow.domain.values.ProfileName
 import me.floow.domain.values.ProfileUsername
+import me.floow.profile.ui.edit.EditProfileRouteInitialData
 import me.floow.uikit.util.state.ValidatedField
 import me.floow.uikit.util.state.ValidatedField.Companion.initialField
 import me.floow.uikit.util.state.ValidationErrorType
@@ -197,5 +198,11 @@ class EditProfileViewModel(
 		updateName(_state.value.name.value)
 		updateUsername(_state.value.username.value)
 		updateBiography(_state.value.bio.value)
+	}
+
+	fun setInitialData(initialData: EditProfileRouteInitialData) {
+		updateName(initialData.name)
+		updateUsername(initialData.username)
+		updateBiography(initialData.description)
 	}
 }

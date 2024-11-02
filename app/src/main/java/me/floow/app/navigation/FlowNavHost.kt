@@ -3,42 +3,45 @@ package me.floow.app.navigation
 import android.content.Intent
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
+import androidx.navigation.toRoute
 import me.floow.chats.ui.ChatsRoute
 import me.floow.feed.ui.FeedRoute
 import me.floow.login.ui.createprofile.CreateProfileRoute
 import me.floow.login.ui.login.LoginRoute
 import me.floow.profile.ui.edit.EditProfileRoute
+import me.floow.profile.ui.edit.EditProfileRouteInitialData
 import me.floow.profile.ui.profile.ProfileRoute
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun FlowNavHost(
 	navController: NavHostController,
-	startDestination: String,
+	startDestination: NavigationRoute,
 	modifier: Modifier = Modifier,
 ) {
 	val context = LocalContext.current
+	val backStackEntry = navController.currentBackStackEntry
 
 	NavHost(navController = navController, startDestination = startDestination) {
-		navigation(
-			route = NavigationItem.Auth.route,
-			startDestination = NavigationItem.Auth.Login.route
+		navigation<AuthDestinationsCluster>(
+			startDestination = LoginScreen
 		) {
-			composable(NavigationItem.Auth.Registration.route) {
+			composable<RegistrationScreen> {
 				Text(text = "Registration")
 			}
 
-			composable(NavigationItem.Auth.CreateProfile.route) {
+			composable<CreateProfileScreen> {
 				CreateProfileRoute(
 					onDone = {
-						navController.navigate(NavigationItem.Main.route) {
-							popUpTo(NavigationItem.Auth.route) { inclusive = false }
+						navController.navigate(MainDestinationsCluster) {
+							popUpTo<AuthDestinationsCluster> { inclusive = false }
 						}
 					},
 					vm = koinViewModel(),
@@ -46,16 +49,16 @@ fun FlowNavHost(
 				)
 			}
 
-			composable(NavigationItem.Auth.Login.route) {
+			composable<LoginScreen> {
 				LoginRoute(
 					onGoToHome = {
-						navController.navigate(NavigationItem.Main.route) {
-							popUpTo(NavigationItem.Auth.route) { inclusive = false }
+						navController.navigate(MainDestinationsCluster) {
+							popUpTo<AuthDestinationsCluster> { inclusive = false }
 						}
 					},
 					onGoToCreateProfile = {
-						navController.navigate(NavigationItem.Auth.CreateProfile.route) {
-							popUpTo(NavigationItem.Auth.route) { inclusive = false }
+						navController.navigate(CreateProfileScreen) {
+							popUpTo<AuthDestinationsCluster> { inclusive = false }
 						}
 					},
 					viewModel = koinViewModel(),
@@ -64,16 +67,23 @@ fun FlowNavHost(
 			}
 		}
 
-		navigation(
-			route = NavigationItem.Main.route,
-			startDestination = NavigationItem.Main.Feed.route
+		navigation<MainDestinationsCluster>(
+			startDestination = FeedScreen
 		) {
-			composable(NavigationItem.Main.Feed.route) {
+			composable<FeedScreen> {
 				FeedRoute(onPostCreateClick = { TODO() }, modifier)
 			}
 
-			composable(NavigationItem.Main.EditProfile.route) {
+			composable<EditProfileScreen> {
+				val editProfileScreen: EditProfileScreen =
+					backStackEntry!!.toRoute()
+
 				EditProfileRoute(
+					initialData = EditProfileRouteInitialData(
+						name = editProfileScreen.name,
+						username = editProfileScreen.username,
+						description = editProfileScreen.description,
+					),
 					onBackClick = {
 						navController.popBackStack()
 					},
@@ -85,9 +95,17 @@ fun FlowNavHost(
 				)
 			}
 
-			composable(NavigationItem.Main.Profile.route) {
+			composable<ProfileScreen> {
 				ProfileRoute(
-					goToProfileEditScreen = { navController.navigate(NavigationItem.Main.EditProfile.route) },
+					goToProfileEditScreen = { name, username, description ->
+						navController.navigate(
+							EditProfileScreen(
+								name = name,
+								username = username,
+								description = description
+							)
+						)
+					},
 					goToAddPostScreen = { TODO() },
 					shareProfile = { url ->
 						// TODO
@@ -106,7 +124,7 @@ fun FlowNavHost(
 				)
 			}
 
-			composable(NavigationItem.Main.Chats.route) {
+			composable<ChatsScreen> {
 				ChatsRoute(modifier)
 			}
 		}

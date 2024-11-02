@@ -18,7 +18,7 @@ import me.floow.profile.uilogic.edit.EditProfileState
 import me.floow.uikit.components.topbar.TitleTopBarWithActionButtonWithNavBack
 
 @Composable
-fun EditProfileScreen(
+internal fun EditProfileScreen(
 	state: EditProfileState,
 	onBackClick: () -> Unit,
 	onDoneClick: () -> Unit,

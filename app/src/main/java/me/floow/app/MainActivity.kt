@@ -17,7 +17,10 @@ import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import me.floow.app.di.*
-import me.floow.app.navigation.NavigationItem
+import me.floow.app.navigation.AuthDestinationsCluster
+import me.floow.app.navigation.FeedScreen
+import me.floow.app.navigation.MainDestinationsCluster
+//import me.floow.app.navigation.NavigationItem
 import me.floow.app.ui.App
 import me.floow.domain.auth.AuthenticationManager
 import me.floow.login.di.loginModule
@@ -77,8 +80,8 @@ class MainActivity : ComponentActivity() {
 		enableEdgeToEdge()
 
 		val startDestination = when (authenticationManager.isSignedIn()) {
-			false -> NavigationItem.Auth.route
-			true -> NavigationItem.Main.route
+			false -> AuthDestinationsCluster
+			true -> MainDestinationsCluster
 		}
 
 		setContent {

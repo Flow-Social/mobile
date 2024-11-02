@@ -8,13 +8,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.navigation.NavDestination
+import androidx.navigation.NavDestination.Companion.hasRoute
+import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import me.floow.app.navigation.*
 
 @Composable
 fun App(
-	startDestination: String,
+	startDestination: NavigationRoute,
 	modifier: Modifier = Modifier
 ) {
 	val navController = rememberNavController()
@@ -23,9 +26,15 @@ fun App(
 
 	Scaffold(
 		bottomBar = {
-			if (currentDestination?.route in mainBottomBarNavigationDestinations) {
+			val bottomBarVisible = currentDestination?.hierarchy?.any { hierarchyItem ->
+				mainBottomBarNavigationDestinations.any { mainDestination ->
+					hierarchyItem.hasRoute(mainDestination::class)
+				}
+			} == true
+
+			if (bottomBarVisible) {
 				BottomBar(
-					currentRoute = navController.currentDestination?.route ?: "",
+					currentDestination = navController.currentDestination,
 					navigationItems = bottomNavigationItems,
 					onClick = {
 						navController.navigate(it) {
@@ -49,14 +58,15 @@ fun App(
 
 @Composable
 private fun BottomBar(
-	currentRoute: String,
+	currentDestination: NavDestination?,
 	navigationItems: List<BottomNavigationItem>,
-	onClick: (route: String) -> Unit,
+	onClick: (route: NavigationRoute) -> Unit,
 	modifier: Modifier = Modifier
 ) {
 	NavigationBar(modifier) {
 		navigationItems.forEach { item ->
-			val selected = currentRoute == item.route
+			val selected = currentDestination?.hierarchy?.any { it.hasRoute(item.route::class) } ?: false
+
 			NavigationBarItem(
 				selected = selected,
 				onClick = {

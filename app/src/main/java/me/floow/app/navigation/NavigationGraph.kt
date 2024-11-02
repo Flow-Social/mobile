@@ -1,62 +1,61 @@
 package me.floow.app.navigation
 
+import kotlinx.serialization.Serializable
 import me.floow.app.R
 
-enum class NavigationCluster {
-    Main,
-    Auth
-}
+sealed interface NavigationRoute
 
-enum class Screen {
-    Feed,
-    EditProfile,
-    Profile,
-    Chats,
-    Registration,
-    CreateProfile,
-    Login,
-}
+@Serializable
+data object AuthDestinationsCluster : NavigationRoute
 
-sealed class NavigationItem(val route: String) {
-    data object Main : NavigationItem(NavigationCluster.Main.name) {
-        data object Feed : NavigationItem(Screen.Feed.name)
+@Serializable
+data object MainDestinationsCluster : NavigationRoute
 
-        data object Chats : NavigationItem(Screen.Chats.name)
+@Serializable
+data object RegistrationScreen : NavigationRoute
 
-        data object EditProfile : NavigationItem(Screen.EditProfile.name)
+@Serializable
+data object CreateProfileScreen : NavigationRoute
 
-        data object Profile : NavigationItem(Screen.Profile.name)
-    }
+@Serializable
+data object LoginScreen : NavigationRoute
 
-    data object Auth : NavigationItem(NavigationCluster.Auth.name) {
-        data object Registration : NavigationItem(Screen.Registration.name)
+@Serializable
+data object FeedScreen : NavigationRoute
 
-        data object CreateProfile : NavigationItem(Screen.CreateProfile.name)
+@Serializable
+data object ChatsScreen : NavigationRoute
 
-        data object Login : NavigationItem(Screen.Login.name)
-    }
-}
+@Serializable
+data object ProfileScreen : NavigationRoute
+
+@Serializable
+data class EditProfileScreen(
+    val name: String,
+    val username: String,
+    val description: String
+) : NavigationRoute
 
 val bottomNavigationItems = listOf(
     BottomNavigationItem(
-        route = NavigationItem.Main.Feed.route,
+        route = FeedScreen,//NavigationItem.Main.Feed.route,
         titleId = R.string.feed_bottom_nav_label,
         drawableIconId = me.floow.uikit.R.drawable.feed_icon,
     ),
     BottomNavigationItem(
-        route = NavigationItem.Main.Chats.route,
+        route = ChatsScreen,
         titleId = R.string.chats_bottom_nav_label,
         drawableIconId = me.floow.uikit.R.drawable.chats_icon,
     ),
     BottomNavigationItem(
-        route = NavigationItem.Main.Profile.route,
+        route = ProfileScreen,
         titleId = R.string.profile_bottom_nav_label,
         drawableIconId = me.floow.uikit.R.drawable.profile_icon,
     ),
 )
 
 val mainBottomBarNavigationDestinations = listOf(
-    NavigationItem.Main.Feed.route,
-    NavigationItem.Main.Chats.route,
-    NavigationItem.Main.Profile.route,
+    FeedScreen,
+    ChatsScreen,
+    ProfileScreen
 )

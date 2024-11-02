@@ -12,7 +12,7 @@ import me.floow.uikit.util.SetNavigationBarColor
 
 @Composable
 fun ProfileRoute(
-	goToProfileEditScreen: () -> Unit,
+	goToProfileEditScreen: (name: String, username: String, description: String) -> Unit,
 	goToAddPostScreen: () -> Unit,
 	shareProfile: (url: String) -> Unit,
 	modifier: Modifier = Modifier,
@@ -25,7 +25,15 @@ fun ProfileRoute(
 	}
 
 	ProfileScreen(
-		onProfileEditClick = goToProfileEditScreen,
+		onProfileEditClick = {
+			if (state is ProfileScreenState.Success) {
+				goToProfileEditScreen(
+					(state as ProfileScreenState.Success).displayName ?: "",
+					(state as ProfileScreenState.Success).shortUsername ?: "",
+					(state as ProfileScreenState.Success).description ?: "",
+				)
+			}
+		},
 		onAddPostButtonClick = goToAddPostScreen,
 		onShareButtonClick = {
 			if (state is ProfileScreenState.Success) {

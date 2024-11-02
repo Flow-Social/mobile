@@ -19,8 +19,15 @@ import kotlinx.coroutines.launch
 import me.floow.profile.uilogic.edit.EditProfileViewModel
 import me.floow.uikit.util.SetNavigationBarColor
 
+data class EditProfileRouteInitialData(
+	val name: String,
+	val username: String,
+	val description: String,
+)
+
 @Composable
 fun EditProfileRoute(
+	initialData: EditProfileRouteInitialData,
 	onBackClick: () -> Unit,
 	onDoneClick: () -> Unit,
 	vm: EditProfileViewModel,
@@ -32,7 +39,7 @@ fun EditProfileRoute(
 	val lifecycle = LocalLifecycleOwner.current.lifecycle
 
 	LaunchedEffect(Unit) {
-		vm.loadData()
+		vm.setInitialData(initialData)
 
 		lifecycle.repeatOnLifecycle(state = Lifecycle.State.STARTED) {
 			launch {

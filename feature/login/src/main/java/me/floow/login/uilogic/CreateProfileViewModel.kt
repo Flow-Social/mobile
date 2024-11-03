@@ -17,6 +17,8 @@ import me.floow.domain.data.repos.ProfileRepository
 import me.floow.domain.values.ProfileDescription
 import me.floow.domain.values.ProfileName
 import me.floow.domain.values.ProfileUsername
+import me.floow.domain.values.util.ValidationError
+import me.floow.domain.values.util.ValueValidationResult
 import me.floow.uikit.util.state.ValidatedField
 import me.floow.uikit.util.state.ValidatedField.Companion.initialField
 import java.lang.IllegalStateException
@@ -57,9 +59,23 @@ class CreateProfileViewModel(
 	val hapticFeedbackFlow: SharedFlow<Unit> = _hapticFeedbackFlow
 
 	fun updateName(newValue: String) {
-		try {
-			ProfileName(newValue)
+		val validationResult = ProfileName.create(newValue)
 
+		if (validationResult is ValueValidationResult.Invalid) {
+			viewModelScope.launch {
+				_hapticFeedbackFlow.emit(Unit)
+			}
+
+			if (validationResult.error == ValidationError.TooLarge) return
+
+			_state.update {
+				it.copy(
+					name = ValidatedField.Invalid(
+						value = newValue,
+					)
+				)
+			}
+		} else {
 			_state.update {
 				it.copy(
 					name = ValidatedField.Valid(
@@ -67,25 +83,27 @@ class CreateProfileViewModel(
 					)
 				)
 			}
-		} catch (ex: IllegalStateException) {
-			_state.update {
-				it.copy(
-					name = ValidatedField.Invalid(
-						value = it.name.value,
-					)
-				)
-			}
-
-			viewModelScope.launch {
-				_hapticFeedbackFlow.emit(Unit)
-			}
 		}
 	}
 
 	fun updateUsername(newValue: String) {
-		try {
-			ProfileUsername(newValue)
+		val validationResult = ProfileUsername.create(newValue)
 
+		if (validationResult is ValueValidationResult.Invalid) {
+			viewModelScope.launch {
+				_hapticFeedbackFlow.emit(Unit)
+			}
+
+			if (validationResult.error == ValidationError.TooLarge) return
+
+			_state.update {
+				it.copy(
+					username = ValidatedField.Invalid(
+						value = newValue,
+					)
+				)
+			}
+		} else {
 			_state.update {
 				it.copy(
 					username = ValidatedField.Valid(
@@ -93,43 +111,33 @@ class CreateProfileViewModel(
 					)
 				)
 			}
-		} catch (ex: IllegalStateException) {
-			_state.update {
-				it.copy(
-					username = ValidatedField.Invalid(
-						value = it.username.value,
-					)
-				)
-			}
-
-			viewModelScope.launch {
-				_hapticFeedbackFlow.emit(Unit)
-			}
 		}
 	}
 
 	fun updateBio(newValue: String) {
-		try {
-			ProfileDescription(newValue)
+		val validationResult = ProfileDescription.create(newValue)
 
+		if (validationResult is ValueValidationResult.Invalid) {
+			viewModelScope.launch {
+				_hapticFeedbackFlow.emit(Unit)
+			}
+
+			if (validationResult.error == ValidationError.TooLarge) return
+
+			_state.update {
+				it.copy(
+					bio = ValidatedField.Invalid(
+						value = newValue,
+					)
+				)
+			}
+		} else {
 			_state.update {
 				it.copy(
 					bio = ValidatedField.Valid(
 						value = newValue,
 					)
 				)
-			}
-		} catch (ex: IllegalStateException) {
-			_state.update {
-				it.copy(
-					bio = ValidatedField.Invalid(
-						value = it.bio.value,
-					)
-				)
-			}
-
-			viewModelScope.launch {
-				_hapticFeedbackFlow.emit(Unit)
 			}
 		}
 	}

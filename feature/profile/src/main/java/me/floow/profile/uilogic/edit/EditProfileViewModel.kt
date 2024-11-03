@@ -90,7 +90,7 @@ class EditProfileViewModel(
 			_state.update {
 				it.copy(
 					name = ValidatedField.Invalid(
-						value = newValue,
+						value = it.name.value,
 					)
 				)
 			}
@@ -116,7 +116,7 @@ class EditProfileViewModel(
 			_state.update {
 				it.copy(
 					username = ValidatedField.Invalid(
-						value = newValue,
+						value = it.username.value,
 					)
 				)
 			}
@@ -142,7 +142,7 @@ class EditProfileViewModel(
 			_state.update {
 				it.copy(
 					bio = ValidatedField.Invalid(
-						value = newValue,
+						value = it.bio.value,
 					)
 				)
 			}

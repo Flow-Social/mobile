@@ -27,7 +27,6 @@ fun FlowNavHost(
 	modifier: Modifier = Modifier,
 ) {
 	val context = LocalContext.current
-	val backStackEntry = navController.currentBackStackEntry
 
 	NavHost(navController = navController, startDestination = startDestination) {
 		navigation<AuthDestinationsCluster>(
@@ -75,14 +74,14 @@ fun FlowNavHost(
 			}
 
 			composable<EditProfileScreen> {
-				val editProfileScreen: EditProfileScreen =
-					backStackEntry!!.toRoute()
+				val backStackEntry = navController.currentBackStackEntry
+				val editProfileScreen: EditProfileScreen? = backStackEntry?.toRoute<EditProfileScreen>()
 
 				EditProfileRoute(
 					initialData = EditProfileRouteInitialData(
-						name = editProfileScreen.name,
-						username = editProfileScreen.username,
-						description = editProfileScreen.description,
+						name = editProfileScreen?.name ?: "",
+						username = editProfileScreen?.username ?: "",
+						description = editProfileScreen?.description ?: "",
 					),
 					onBackClick = {
 						navController.popBackStack()

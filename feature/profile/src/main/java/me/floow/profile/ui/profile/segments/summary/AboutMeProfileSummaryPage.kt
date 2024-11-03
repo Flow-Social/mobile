@@ -7,6 +7,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import me.floow.profile.R
 import me.floow.uikit.theme.LocalTypography
@@ -29,6 +30,7 @@ internal fun AboutMeProfileSummaryPage(description: String?, modifier: Modifier 
 
 		Text(
 			text = description ?: stringResource(R.string.no_profile_description),
+			textAlign = TextAlign.Center,
 			style = LocalTypography.current.bodyMedium,
 			color = Color.White,
 		)

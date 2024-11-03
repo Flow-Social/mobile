@@ -1,5 +1,8 @@
 package me.floow.app.ui
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
@@ -32,7 +35,11 @@ fun App(
 				}
 			} == true
 
-			if (bottomBarVisible) {
+			AnimatedVisibility(
+				bottomBarVisible,
+				enter = fadeIn(),
+				exit = fadeOut()
+			) {
 				BottomBar(
 					currentDestination = navController.currentDestination,
 					navigationItems = bottomNavigationItems,
@@ -65,7 +72,8 @@ private fun BottomBar(
 ) {
 	NavigationBar(modifier) {
 		navigationItems.forEach { item ->
-			val selected = currentDestination?.hierarchy?.any { it.hasRoute(item.route::class) } ?: false
+			val selected =
+				currentDestination?.hierarchy?.any { it.hasRoute(item.route::class) } ?: false
 
 			NavigationBarItem(
 				selected = selected,

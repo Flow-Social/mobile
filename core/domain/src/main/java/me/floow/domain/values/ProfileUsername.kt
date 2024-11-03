@@ -28,7 +28,7 @@ value class ProfileUsername(
 
 				in 3..32 -> {
 					if (value.contains(Regex("^[a-zA-Z0-9_]+$"))) {
-						ValueValidationResult.Invalid(ValidationError.ShouldNotBeBlank)
+						ValueValidationResult.Invalid(ValidationError.ShouldNotContainIllegalCharacters)
 					} else {
 						ValueValidationResult.Valid(ProfileUsername(value))
 					}

@@ -24,7 +24,7 @@ value class ProfileName(
 
 				in 1..32 -> {
 					if (value.contains(Regex("[<>&\"']"))) {
-						ValueValidationResult.Invalid(ValidationError.ShouldNotBeBlank)
+						ValueValidationResult.Invalid(ValidationError.ShouldNotContainIllegalCharacters)
 					} else {
 						ValueValidationResult.Valid(ProfileName(value))
 					}

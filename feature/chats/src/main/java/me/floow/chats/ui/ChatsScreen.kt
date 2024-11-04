@@ -12,13 +12,14 @@ import me.floow.uikit.components.topbar.TitleTopBarWithActionButton
 
 @Composable
 internal fun ChatsScreen(
+    onSearchClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
         topBar = {
             TitleTopBarWithActionButton(
                 titleText = "Чаты",
-                onActionButtonClick = { TODO() },
+                onActionButtonClick = onSearchClick,
                 icon = {
                     Icon(
                         painterResource(R.drawable.search_icon),
@@ -54,6 +55,7 @@ internal fun ChatsScreen(
 @Composable
 private fun ChatsScreenPreview() {
     ChatsScreen(
+        onSearchClick = {},
         modifier = Modifier.fillMaxSize()
     )
 }

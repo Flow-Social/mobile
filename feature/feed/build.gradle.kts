@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.flowme.feed"
+    namespace = "me.flowme.feed"
     compileSdk = 34
 
     defaultConfig {
@@ -36,9 +36,6 @@ dependencies {
     implementation(project(":core:uikit"))
 
     implementation(libs.appcompat)
-
-    implementation(libs.ui.tooling)
-    implementation(libs.ui.tooling.preview)
 
     testImplementation(libs.junit)
 

@@ -1,32 +1,49 @@
+import java.util.*
+
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.serialization)
+    alias(libs.plugins.googleGmsGoogleServices)
+    alias(libs.plugins.firebaseCrashlytics)
 }
 
 android {
-    namespace = "com.flowme.flow"
+    namespace = "me.floow.app"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.flowme.flow"
+        applicationId = "me.floow.app"
         minSdk = 28
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        val secretsFile = project.rootProject.file("secrets.properties")
+        val secretsProperties = Properties()
+        secretsProperties.load(secretsFile.inputStream())
+
+        val googleClientId = secretsProperties.getProperty("googleClientId") ?: ""
+        buildConfigField(
+            type = "String",
+            name = "GOOGLE_CLIENT_ID",
+            value = googleClientId
+        )
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {
@@ -38,8 +55,7 @@ android {
     }
     buildFeatures {
         compose = true
-    }
-    composeOptions {
+        buildConfig = true
     }
     packaging {
         resources {
@@ -50,18 +66,37 @@ android {
 
 dependencies {
     implementation(project(":core:uikit"))
+    implementation(project(":core:domain"))
     implementation(project(":core:api"))
     implementation(project(":core:database"))
     implementation(project(":core:data"))
+    implementation(project(":core:auth"))
 
+    implementation(project(":feature:login"))
     implementation(project(":feature:chats"))
     implementation(project(":feature:feed"))
     implementation(project(":feature:explore"))
+    implementation(project(":feature:profile"))
+    implementation(project(":feature:usersearch"))
+
+    implementation(libs.androidx.core.splashscreen)
+
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.crashlytics)
 
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.appcompat)
+
+    implementation(platform(libs.koin.bom))
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
+    implementation(libs.koin.compose)
+    implementation(project(":core:mock"))
 
     testImplementation(libs.junit)
 

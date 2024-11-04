@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.flowme.uikit"
+    namespace = "me.floow.uikit"
     compileSdk = 34
 
     defaultConfig {
@@ -45,6 +45,9 @@ dependencies {
     api(libs.material3)
 
     api(libs.activity.compose)
+
+    api(libs.coil)
+    api(libs.coil.compose)
 
     testImplementation(libs.junit)
 

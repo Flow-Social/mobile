@@ -7,5 +7,7 @@ plugins {
     alias(libs.plugins.androidLibrary) apply false
     alias(libs.plugins.composeCompiler) apply false
     alias(libs.plugins.serialization) apply false
+    alias(libs.plugins.googleGmsGoogleServices) apply false
+    alias(libs.plugins.firebaseCrashlytics) apply false
 }
 true // Needed to make the Suppress annotation work for the plugins block

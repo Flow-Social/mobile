@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="to_the_profile">в профиль</string>
+    <string name="to_the_profile">to the profile</string>
+    <string name="privacy_policy" translatable="false">Privacy Policy</string>
+    <string name="terms_and_conditions" translatable="false">Terms &amp; Conditions</string>
+    <string name="auth_accepting_by_continuing">By continuing,&#160;</string>
+    <string name="auth_accepting_and">&#160;and&#160;</string>
+    <string name="auth_accepting_will_be_applied">&#160;will be applied.</string>
+    <string name="social_media_flow_exclamation">Social network Flow!</string>
+    <string name="flow_onboarding_explanation">A platform with an interactive feed and personalised recommendations.</string>
+    <string name="feed_topbar_title">Feed</string>
+    <string name="one_subscriber">1 subscriber</string>
+    <string name="subscribers_label">subscribers</string>
+    <string name="no_subscribers">No subscribers</string>
+    <string name="username_field_supporting_text">You can use the characters a-z, 0-9, and underscores</string>
 </resources>

@@ -2,10 +2,11 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.ksp)
 }
 
 android {
-    namespace = "com.flowme.database"
+    namespace = "me.floow.database"
     compileSdk = 34
 
     defaultConfig {
@@ -34,6 +35,11 @@ dependencies {
 
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
+
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    implementation(project(":core:domain"))
+    ksp(libs.room.compiler)
 
     testImplementation(libs.junit)
 

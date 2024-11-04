@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.flowme.chats"
+    namespace = "me.flowme.chats"
     compileSdk = 34
 
     defaultConfig {
@@ -34,6 +34,7 @@ android {
 
 dependencies {
     implementation(project(":core:uikit"))
+
     implementation(libs.appcompat)
     implementation(libs.ui.tooling)
     implementation(libs.ui.tooling.preview)

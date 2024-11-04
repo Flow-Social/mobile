@@ -10,17 +10,21 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
+import com.demn.usersearch.di.usersearchModule
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import me.floow.app.di.*
+import me.floow.app.di.apiModule
+import me.floow.app.di.appModule
+import me.floow.app.di.authModule
+import me.floow.app.di.dataModule
+import me.floow.app.di.databaseModule
+import me.floow.app.di.domainModule
+import me.floow.app.di.mockAuthModule
+import me.floow.app.di.mockDataModule
+import me.floow.app.di.mockModule
 import me.floow.app.navigation.AuthDestinationsCluster
-import me.floow.app.navigation.FeedScreen
 import me.floow.app.navigation.MainDestinationsCluster
-//import me.floow.app.navigation.NavigationItem
 import me.floow.app.ui.App
 import me.floow.domain.auth.AuthenticationManager
 import me.floow.login.di.loginModule
@@ -30,7 +34,7 @@ import org.koin.android.ext.android.getKoin
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.GlobalContext
 import org.koin.core.context.startKoin
-import java.util.*
+import java.util.Locale
 
 class MainActivity : ComponentActivity() {
 	private lateinit var coroutineScope: CoroutineScope
@@ -56,7 +60,8 @@ class MainActivity : ComponentActivity() {
 						domainModule,
 						mockModule,
 						loginModule,
-						profileModule
+						profileModule,
+						usersearchModule
 					)
 				} else {
 					modules(
@@ -68,7 +73,8 @@ class MainActivity : ComponentActivity() {
 						domainModule,
 						mockModule,
 						loginModule,
-						profileModule
+						profileModule,
+						usersearchModule
 					)
 				}
 			}

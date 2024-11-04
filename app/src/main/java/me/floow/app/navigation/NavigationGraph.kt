@@ -27,6 +27,9 @@ data object FeedScreen : NavigationRoute
 data object ChatsScreen : NavigationRoute
 
 @Serializable
+data object SearchUsersScreen : NavigationRoute
+
+@Serializable
 data object ProfileScreen : NavigationRoute
 
 @Serializable

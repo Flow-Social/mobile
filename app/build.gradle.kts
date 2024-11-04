@@ -77,6 +77,7 @@ dependencies {
     implementation(project(":feature:feed"))
     implementation(project(":feature:explore"))
     implementation(project(":feature:profile"))
+    implementation(project(":feature:usersearch"))
 
     implementation(libs.androidx.core.splashscreen)
 

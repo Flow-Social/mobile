@@ -31,9 +31,9 @@ data object ProfileScreen : NavigationRoute
 
 @Serializable
 data class EditProfileScreen(
-    val name: String,
-    val username: String,
-    val description: String
+    val name: String = "",
+    val username: String = "",
+    val description: String = ""
 ) : NavigationRoute
 
 val bottomNavigationItems = listOf(

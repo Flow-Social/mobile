@@ -18,6 +18,7 @@ private data class SearchUsersScreenVmState(
 	val searchField: String = "",
 	val isLoading: Boolean = false,
 	val globalSearchResults: List<UserSearchResult>? = null,
+	val messageSearchResults: List<MessageResult>? = null,
 	val recentUsers: List<RecentUser>? = null,
 ) {
 	fun toUiState(): SearchUsersScreenUiState {
@@ -28,10 +29,11 @@ private data class SearchUsersScreenVmState(
 			recentUsers = recentUsers
 		)
 
-		if (globalSearchResults != null) {
+		if (globalSearchResults != null && messageSearchResults != null) {
 			return SearchUsersScreenUiState.HasResults(
 				searchField,
 				globalSearchResults,
+				messageSearchResults
 			)
 		}
 
@@ -88,9 +90,57 @@ class SearchUsersScreenViewModel : ViewModel() {
 			_state.update {
 				it.copy(
 					globalSearchResults = generateRandomUserSearchResults(),
+					messageSearchResults = generateRandomMessageSearchResults(),
 					isLoading = false
 				)
 			}
+		}
+	}
+
+	private fun generateRandomMessageSearchResults(): List<MessageResult> {
+		val names = listOf(
+			"Alice",
+			"Bob",
+			"Charlie",
+			"David",
+			"Eve",
+			"Frank",
+			"Grace",
+			"Heidi",
+			"Ivan",
+			"Judy"
+		)
+		val messages = listOf(
+			"Привет, как дела?",
+			"Что нового?",
+			"Можем встретиться завтра?",
+			"Извините, я опаздываю!",
+			"Видел новый фильм?",
+			"Давай перекусим вместе.",
+			"Мне нужна твоя помощь.",
+			"Как прошли выходные?",
+			"Есть планы на вечер?",
+			"Нашел отличный новый ресторан.",
+			"Можешь прислать отчет?",
+			"Следующую неделю уезжаю в отпуск.",
+			"Хочешь присоединиться к нам на ужин?",
+			"Застрял в пробке, скоро буду.",
+			"Пробовал новую кофейню?",
+			"Нужно перенести нашу встречу.",
+			"Получил мое письмо?",
+			"Давай встретимся как-нибудь.",
+			"С нетерпением жду поездки!",
+			"Есть рекомендации по книгам?"
+		)
+
+		return List(Random.nextInt(200)) {
+			val randomName = names[Random.nextInt(names.size)]
+			val randomMessage = messages[Random.nextInt(messages.size)]
+
+			MessageResult(
+				name = ProfileName(randomName),
+				messageText = randomMessage
+			)
 		}
 	}
 

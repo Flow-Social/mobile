@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -20,32 +20,30 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.demn.usersearch.uilogic.UserSearchResult
+import com.demn.usersearch.uilogic.MessageResult
 import me.floow.domain.values.ProfileName
-import me.floow.domain.values.ProfileUsername
-import me.floow.uikit.R
 import me.floow.uikit.theme.LocalTypography
 import me.floow.uikit.util.ComponentPreviewBox
 
 @Composable
-fun UserGlobalSearchResult(
-	userSearchResult: UserSearchResult,
-	onClick: (UserSearchResult) -> Unit,
+fun MessageResult(
+	result: MessageResult,
+	onClick: (MessageResult) -> Unit,
 	modifier: Modifier = Modifier
 ) {
 	Row(
 		modifier = modifier
-			.clickable { onClick(userSearchResult) }
+			.clickable { onClick(result) }
 			.padding(horizontal = 20.dp, vertical = 4.dp),
 		verticalAlignment = Alignment.CenterVertically
 	) {
 		Box(
 			Modifier
-				.size(50.dp)
+				.size(56.dp)
 				.clip(CircleShape)
 				.background(Color.LightGray)
 		)
@@ -57,7 +55,7 @@ fun UserGlobalSearchResult(
 			verticalArrangement = Arrangement.Center
 		) {
 			Text(
-				text = userSearchResult.name.value,
+				text = result.name.value,
 				style = LocalTypography.current.bodyMedium,
 				fontWeight = FontWeight.Bold
 			)
@@ -65,9 +63,11 @@ fun UserGlobalSearchResult(
 			Spacer(Modifier.height(2.dp))
 
 			Text(
-				text = stringResource(if (userSearchResult.isOnline) R.string.online else R.string.offline),
+				text = result.messageText,
 				style = LocalTypography.current.bodyMedium,
-				color = MaterialTheme.colorScheme.secondary
+				color = MaterialTheme.colorScheme.secondary,
+				maxLines = 2,
+				overflow = TextOverflow.Ellipsis,
 			)
 		}
 	}
@@ -75,18 +75,14 @@ fun UserGlobalSearchResult(
 
 @Preview
 @Composable
-private fun UserGlobalSearchResultPreview() {
-	ComponentPreviewBox(Modifier.fillMaxWidth()) {
-		UserGlobalSearchResult(
-			userSearchResult = UserSearchResult(
-				ProfileName("Demn"),
-				ProfileUsername(
-					"demndevel"
-				),
-				isOnline = false
+fun MessageResultPreview() {
+	ComponentPreviewBox(Modifier.fillMaxSize()) {
+		MessageResult(
+			result = MessageResult(
+				name = ProfileName("Богдан"),
+				messageText = "Привет, дружище. Как у тебя дела? У меня всё отлично. Сегодня сделал огромный пласт задач по дизайну, сейчас тебе скину пару примеров."
 			),
-			onClick = {},
-			modifier = Modifier.fillMaxWidth()
+			onClick = {}
 		)
 	}
 }

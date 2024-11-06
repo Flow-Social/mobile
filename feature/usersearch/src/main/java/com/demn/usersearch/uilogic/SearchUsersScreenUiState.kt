@@ -13,6 +13,11 @@ data class RecentUser(
 	val name: ProfileName,
 )
 
+data class MessageResult(
+	val name: ProfileName,
+	val messageText: String,
+)
+
 interface SearchUsersScreenUiState {
 	val searchField: String
 
@@ -25,6 +30,7 @@ interface SearchUsersScreenUiState {
 
 	data class HasResults(
 		override val searchField: String,
-		val results: List<UserSearchResult>
+		val userResults: List<UserSearchResult>,
+		val messageResults: List<MessageResult>
 	) : SearchUsersScreenUiState
 }

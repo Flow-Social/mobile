@@ -1,6 +1,8 @@
 package me.floow.app.navigation
 
+import android.content.Context
 import android.content.Intent
+import android.widget.Toast
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -70,12 +72,18 @@ fun FlowNavHost(
 			startDestination = FeedScreen
 		) {
 			composable<FeedScreen> {
-				FeedRoute(onPostCreateClick = { TODO() }, modifier)
+				FeedRoute(
+					onPostCreateClick = {
+						showNotImplementedToast(context)
+					},
+					modifier
+				)
 			}
 
 			composable<EditProfileScreen> {
 				val backStackEntry = navController.currentBackStackEntry
-				val editProfileScreen: EditProfileScreen? = backStackEntry?.toRoute<EditProfileScreen>()
+				val editProfileScreen: EditProfileScreen? =
+					backStackEntry?.toRoute<EditProfileScreen>()
 
 				EditProfileRoute(
 					initialData = EditProfileRouteInitialData(
@@ -105,7 +113,9 @@ fun FlowNavHost(
 							)
 						)
 					},
-					goToAddPostScreen = { TODO() },
+					goToAddPostScreen = {
+						showNotImplementedToast(context)
+					},
 					shareProfile = { url ->
 						// TODO
 
@@ -134,11 +144,20 @@ fun FlowNavHost(
 
 			composable<SearchUsersScreen> {
 				SearchUsersRoute(
-					onUserPick = { TODO() },
+					onBackClick = {
+						navController.popBackStack()
+					},
+					onUserPick = {
+						showNotImplementedToast(context)
+					},
 					vm = koinViewModel(),
 					modifier = modifier
 				)
 			}
 		}
 	}
+}
+
+private fun showNotImplementedToast(context: Context) {
+	Toast.makeText(context, "Фича ещё разрабатывается…", Toast.LENGTH_SHORT).show()
 }

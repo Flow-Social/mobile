@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_field_placeholder">Поиск</string>
+    <string name="global_search">Глобальный поиск</string>
+    <string name="show_more">Показать больше</string>
+    <string name="show_less">Показать меньше</string>
+</resources>

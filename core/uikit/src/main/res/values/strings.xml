@@ -13,4 +13,6 @@
     <string name="subscribers_label">subscribers</string>
     <string name="no_subscribers">No subscribers</string>
     <string name="username_field_supporting_text">You can use the characters a-z, 0-9, and underscores</string>
+    <string name="online">Online</string>
+    <string name="offline">Offline</string>
 </resources>

@@ -56,8 +56,7 @@ fun MessageResult(
 		) {
 			Text(
 				text = result.name.value,
-				style = LocalTypography.current.bodyMedium,
-				fontWeight = FontWeight.Bold
+				style = LocalTypography.current.titleMedium,
 			)
 
 			Spacer(Modifier.height(2.dp))

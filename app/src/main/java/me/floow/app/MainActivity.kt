@@ -26,6 +26,7 @@ import me.floow.app.di.mockModule
 import me.floow.app.navigation.AuthDestinationsCluster
 import me.floow.app.navigation.MainDestinationsCluster
 import me.floow.app.ui.App
+import me.floow.chats.di.chatsModule
 import me.floow.domain.auth.AuthenticationManager
 import me.floow.login.di.loginModule
 import me.floow.profile.di.profileModule
@@ -61,7 +62,8 @@ class MainActivity : ComponentActivity() {
 						mockModule,
 						loginModule,
 						profileModule,
-						usersearchModule
+						usersearchModule,
+						chatsModule
 					)
 				} else {
 					modules(
@@ -74,7 +76,8 @@ class MainActivity : ComponentActivity() {
 						mockModule,
 						loginModule,
 						profileModule,
-						usersearchModule
+						usersearchModule,
+						chatsModule
 					)
 				}
 			}

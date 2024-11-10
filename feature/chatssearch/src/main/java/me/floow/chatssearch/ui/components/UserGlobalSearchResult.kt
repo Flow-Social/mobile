@@ -58,8 +58,7 @@ fun UserGlobalSearchResult(
 		) {
 			Text(
 				text = userSearchResult.name.value,
-				style = LocalTypography.current.bodyMedium,
-				fontWeight = FontWeight.Bold
+				style = LocalTypography.current.titleMedium,
 			)
 
 			Spacer(Modifier.height(2.dp))

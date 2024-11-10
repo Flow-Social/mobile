@@ -16,7 +16,8 @@ import androidx.navigation.compose.navigation
 import androidx.navigation.navDeepLink
 import androidx.navigation.toRoute
 import me.floow.chatssearch.ui.SearchUsersRoute
-import me.floow.chats.ui.ChatsRoute
+import me.floow.chats.ChatsRoute
+import me.floow.chats.uilogic.chats.ChatsScreenViewModel
 import me.floow.feed.ui.FeedRoute
 import me.floow.login.ui.createprofile.CreateProfileRoute
 import me.floow.login.ui.login.LoginRoute
@@ -24,6 +25,7 @@ import me.floow.profile.ui.edit.EditProfileRoute
 import me.floow.profile.ui.edit.EditProfileRouteInitialData
 import me.floow.profile.ui.profile.ProfileRoute
 import org.koin.androidx.compose.koinViewModel
+import org.koin.compose.koinInject
 
 @Composable
 fun FlowNavHost(
@@ -156,6 +158,7 @@ fun FlowNavHost(
 					onSearchClick = {
 						navController.navigate(SearchUsersScreen)
 					},
+					vm = koinInject(),
 					modifier = modifier
 				)
 			}

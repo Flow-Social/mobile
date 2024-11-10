@@ -36,19 +36,23 @@ fun SearchResultsState(
 		LazyColumn(
 			modifier = Modifier.fillMaxSize(),
 		) {
-			globalSearchUsersList(
-				isExpanded = isGlobalUsersSearchExpanded,
-				onExpandedToggle = { isGlobalUsersSearchExpanded = !isGlobalUsersSearchExpanded },
-				results = state.userResults,
-				onClick = { result ->
-					Toast.makeText(context, result.toString(), Toast.LENGTH_SHORT).show()
+			if (state.userResults.isNotEmpty()) {
+				globalSearchUsersList(
+					isExpanded = isGlobalUsersSearchExpanded,
+					onExpandedToggle = {
+						isGlobalUsersSearchExpanded = !isGlobalUsersSearchExpanded
+					},
+					results = state.userResults,
+					onClick = { result ->
+						Toast.makeText(context, result.toString(), Toast.LENGTH_SHORT).show()
+					}
+				)
+
+				item {
+					Spacer(Modifier.height(12.dp))
+
+					HorizontalDivider()
 				}
-			)
-
-			item {
-				Spacer(Modifier.height(12.dp))
-
-				HorizontalDivider()
 			}
 
 			messageResultsList(

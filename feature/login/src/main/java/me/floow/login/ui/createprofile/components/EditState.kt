@@ -40,7 +40,7 @@ fun EditState(
 ) {
     Column(
         modifier = modifier
-            .padding(24.dp)
+            .padding(14.dp)
     ) {
         Box(
             contentAlignment = Alignment.Center,

@@ -3,6 +3,8 @@ package me.floow.app.navigation
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -11,6 +13,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
+import androidx.navigation.navDeepLink
 import androidx.navigation.toRoute
 import me.floow.chatssearch.ui.SearchUsersRoute
 import me.floow.chats.ui.ChatsRoute
@@ -102,7 +105,22 @@ fun FlowNavHost(
 				)
 			}
 
-			composable<ProfileScreen> {
+			composable<ProfileScreen>(
+				deepLinks = listOf(
+					navDeepLink<ProfileScreen>(
+						basePath = profileDeeplinkUri
+					)
+				)
+			) {
+				val username = navController.currentBackStackEntry
+					?.toRoute<ProfileScreen>()?.username
+
+				Box(Modifier.fillMaxSize()) {
+					Text(text = username ?: "no username, invalid input")
+				}
+			}
+
+			composable<SelfProfileScreen> {
 				ProfileRoute(
 					goToProfileEditScreen = { name, username, description ->
 						navController.navigate(

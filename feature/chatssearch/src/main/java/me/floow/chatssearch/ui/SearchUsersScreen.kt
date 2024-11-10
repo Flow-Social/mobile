@@ -1,15 +1,22 @@
 package me.floow.chatssearch.ui
 
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import me.floow.chatssearch.ui.components.SearchUsersScreenTopBar
 import me.floow.chatssearch.ui.states.NoSearchInputState
 import me.floow.chatssearch.ui.states.LoadingState
 import me.floow.chatssearch.ui.states.SearchResultsState
+import me.floow.chatssearch.uilogic.MessageResult
 import me.floow.chatssearch.uilogic.SearchUsersScreenUiState
+import me.floow.chatssearch.uilogic.UserSearchResult
+import me.floow.domain.values.ProfileName
+import me.floow.domain.values.ProfileUsername
 
 @Composable
 internal fun SearchUsersScreen(
@@ -26,6 +33,7 @@ internal fun SearchUsersScreen(
 				onSearchFieldUpdate = onSearchFieldUpdate,
 			)
 		},
+		contentWindowInsets = WindowInsets(0.dp),
 		modifier = modifier,
 	) { innerPadding ->
 		val contentModifier = Modifier
@@ -54,4 +62,50 @@ internal fun SearchUsersScreen(
 			}
 		}
 	}
+}
+
+@Preview
+@Composable
+private fun SearchUsersScreenPreview() {
+	SearchUsersScreen(
+		onBackClick = { },
+		onSearchFieldUpdate = { },
+		state = SearchUsersScreenUiState.HasResults(
+			searchField = "test",
+			userResults = listOf(
+				UserSearchResult(
+					name = ProfileName("Demn"),
+					username = ProfileUsername("demndevel"),
+					isOnline = false
+				)
+			),
+			messageResults = listOf(
+				MessageResult(
+					name = ProfileName("Finsi"),
+					messageText = "Some example text. Some example text. Some example text. Some example text. Some example text. Some example text. Some example text. "
+				),
+				MessageResult(
+					name = ProfileName("Demn"),
+					messageText = "Some example text"
+				),
+				MessageResult(
+					name = ProfileName("Finsi"),
+					messageText = "Some example text. Some example text. Some example text. Some example text. Some example text. Some example text. Some example text. "
+				),
+				MessageResult(
+					name = ProfileName("Demn"),
+					messageText = "Some example text"
+				),
+				MessageResult(
+					name = ProfileName("Finsi"),
+					messageText = "Some example text. Some example text. Some example text. Some example text. Some example text. Some example text. Some example text. "
+				),
+				MessageResult(
+					name = ProfileName("Demn"),
+					messageText = "Some example text"
+				),
+			)
+		),
+		modifier = Modifier.fillMaxSize()
+	)
 }

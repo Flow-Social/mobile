@@ -14,10 +14,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import me.floow.chatssearch.ui.components.globalSearchUsersList
 import me.floow.chatssearch.ui.components.messageResultsList
+import me.floow.chatssearch.uilogic.MessageResult
 import me.floow.chatssearch.uilogic.SearchUsersScreenUiState
+import me.floow.chatssearch.uilogic.UserSearchResult
+import me.floow.domain.values.ProfileName
+import me.floow.domain.values.ProfileUsername
 
 @Composable
 fun SearchResultsState(
@@ -54,4 +59,44 @@ fun SearchResultsState(
 			)
 		}
 	}
+}
+
+@Preview
+@Composable
+private fun SearchResultsStatePreview() {
+	SearchResultsState(
+		state = SearchUsersScreenUiState.HasResults(
+			searchField = "test",
+			userResults = listOf(
+				UserSearchResult(
+					name = ProfileName("Demn"),
+					username = ProfileUsername("demndevel"),
+					isOnline = false
+				)
+			),
+			messageResults = listOf(
+				MessageResult(
+					name = ProfileName("Finsi"),
+					messageText = "Some example text. Some example text. Some example text. Some example text. Some example text. Some example text. Some example text. "
+				),
+				MessageResult(
+					name = ProfileName("Demn"),
+					messageText = "Some example text"
+				),
+				MessageResult(
+					name = ProfileName("Finsi"),
+					messageText = "Some example text. Some example text. Some example text. Some example text. Some example text. Some example text. Some example text. "
+				),
+				MessageResult(
+					name = ProfileName("Demn"),
+					messageText = "Some example text"
+				),
+				MessageResult(
+					name = ProfileName("Finsi"),
+					messageText = "Some example text. Some example text. Some example text. Some example text. Some example text. Some example text. Some example text. "
+				)
+			)
+		),
+		Modifier.fillMaxSize()
+	)
 }

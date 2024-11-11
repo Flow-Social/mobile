@@ -149,7 +149,7 @@ private fun AvatarBox(avatarUrl: Uri?, isOnline: Boolean, modifier: Modifier.Com
 	Box(modifier = modifier) {
 		Box(
 			Modifier
-				.size(54.dp)
+				.size(56.dp)
 				.clip(CircleShape)
 				.background(Color.LightGray)
 		)

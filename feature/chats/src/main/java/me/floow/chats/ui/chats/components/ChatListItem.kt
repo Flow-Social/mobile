@@ -144,8 +144,6 @@ internal fun ChatListItem(
 
 @Composable
 private fun AvatarBox(avatarUrl: Uri?, isOnline: Boolean, modifier: Modifier.Companion) {
-	// todo isOnline handling
-
 	Box(modifier = modifier) {
 		Box(
 			Modifier

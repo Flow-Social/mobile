@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import me.floow.profile.R
 import me.floow.profile.uilogic.edit.EditProfileState
 import me.floow.uikit.components.input.TextFieldWithAdditionalText
+import me.floow.uikit.components.pickers.AvatarAndBackgroundPicker
 import me.floow.uikit.theme.ElevanagonShape
 import me.floow.uikit.theme.LocalTypography
 import me.floow.uikit.util.state.ValidatedField
@@ -43,31 +44,11 @@ internal fun EditState(
 			.fillMaxSize()
 			.padding(14.dp)
 	) {
-		Box(
-			contentAlignment = Alignment.Center,
-			modifier = Modifier
-				.fillMaxWidth()
-				.height(160.dp)
-				.clip(RoundedCornerShape(16.dp))
-				.background(MaterialTheme.colorScheme.secondaryContainer)
-				.clickable {
-					onAvatarPickerClick()
-				},
-		) {
-			Image(
-				painter = painterResource(me.floow.uikit.R.drawable.cute_girl),
-				contentDescription = null,
-				modifier = Modifier
-					.size(120.dp)
-					.clip(ElevanagonShape)
-			)
-
-			Icon(
-				painter = painterResource(me.floow.uikit.R.drawable.photo_icon),
-				contentDescription = null,
-				tint = Color.White,
-			)
-		}
+		AvatarAndBackgroundPicker(
+			onAvatarPickerClick,
+			{},
+			modifier = Modifier.fillMaxWidth()
+		)
 
 		Spacer(Modifier.height(24.dp))
 

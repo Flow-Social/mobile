@@ -29,6 +29,7 @@ room = "2.6.1"
 ksp = "2.0.20-1.0.24"
 coil = "2.7.0"
 materialVersion = "1.10.0"
+textflow = "1.2.1"
 
 [libraries]
 androidx-browser = { group = "androidx.browser", name = "browser", version.ref = "androidx-browser" }
@@ -78,6 +79,8 @@ room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 material = { group = "com.google.android.material", name = "material", version.ref = "materialVersion" }
+
+textflow-material3 = { group = "io.github.oleksandrbalan", name = "textflow-material3", version.ref = "textflow" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

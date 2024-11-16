@@ -173,6 +173,7 @@ private fun ChatListItemPreview() {
 	ComponentPreviewBox(Modifier.fillMaxSize()) {
 		ChatListItem(
 			chat = Chat(
+				id = 2L,
 				name = ProfileName("Demn"),
 				lastMessageText = "Some message text idk",
 				isOnline = true,

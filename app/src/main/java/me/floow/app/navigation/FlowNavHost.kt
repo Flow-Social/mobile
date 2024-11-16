@@ -2,6 +2,7 @@ package me.floow.app.navigation
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,9 +16,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.navDeepLink
 import androidx.navigation.toRoute
+import me.floow.chats.ChatRoute
+import me.floow.chats.ChatRouteInitialData
 import me.floow.chatssearch.ui.SearchUsersRoute
 import me.floow.chats.ChatsRoute
-import me.floow.chats.uilogic.chats.ChatsScreenViewModel
 import me.floow.feed.ui.FeedRoute
 import me.floow.login.ui.createprofile.CreateProfileRoute
 import me.floow.login.ui.login.LoginRoute
@@ -155,10 +157,35 @@ fun FlowNavHost(
 
 			composable<ChatsScreen> {
 				ChatsRoute(
+					onChatClick = { chatToNavigate ->
+						navController.navigate(
+							ChatScreen(
+								interlocutorId = chatToNavigate.id,
+								interlocutorName = chatToNavigate.name.value,
+								interlocutorAvatarUri = chatToNavigate.avatarUrl.toString()
+							)
+						)
+					},
 					onSearchClick = {
 						navController.navigate(SearchUsersScreen)
 					},
 					vm = koinInject(),
+					modifier = modifier
+				)
+			}
+
+			composable<ChatScreen> {
+				val backStackEntry = navController.currentBackStackEntry
+				val chatScreen: ChatScreen? =
+					backStackEntry?.toRoute<ChatScreen>()
+
+				ChatRoute(
+					initialData = ChatRouteInitialData(
+						chatInterlocutorId = chatScreen?.interlocutorId ?: -1L,
+						chatInterlocutorName = chatScreen?.interlocutorName ?: "",
+						chatInterlocutorAvatarUrl = chatScreen?.interlocutorAvatarUri?.let { Uri.parse(it) }
+					),
+					vm = koinViewModel(),
 					modifier = modifier
 				)
 			}

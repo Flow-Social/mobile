@@ -49,6 +49,8 @@ dependencies {
     api(libs.coil)
     api(libs.coil.compose)
 
+    api(libs.textflow.material3)
+
     testImplementation(libs.junit)
 
     androidTestImplementation(libs.androidx.test.ext.junit)

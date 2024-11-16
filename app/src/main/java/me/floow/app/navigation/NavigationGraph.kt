@@ -24,6 +24,13 @@ data object LoginScreen : NavigationRoute
 data object FeedScreen : NavigationRoute
 
 @Serializable
+data class ChatScreen(
+    val interlocutorId: Long = 0L,
+    val interlocutorName: String = "",
+    val interlocutorAvatarUri: String? = null,
+) : NavigationRoute
+
+@Serializable
 data object ChatsScreen : NavigationRoute
 
 @Serializable
@@ -44,7 +51,7 @@ data class EditProfileScreen(
 
 val bottomNavigationItems = listOf(
     BottomNavigationItem(
-        route = FeedScreen,//NavigationItem.Main.Feed.route,
+        route = FeedScreen,
         titleId = R.string.feed_bottom_nav_label,
         drawableIconId = me.floow.uikit.R.drawable.feed_icon,
     ),

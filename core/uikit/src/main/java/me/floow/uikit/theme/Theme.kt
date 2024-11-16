@@ -38,6 +38,20 @@ data class FlowTypography(
         lineHeight = 20.sp,
         letterSpacing = (-0.24).sp
     ),
+    val captionSmall: TextStyle = TextStyle(
+        fontFamily = roboto,
+        fontWeight = FontWeight.Normal,
+        fontSize = 9.sp,
+        lineHeight = 14.sp,
+        letterSpacing = 0.2.sp
+    ),
+    val captionMedium: TextStyle = TextStyle(
+        fontFamily = roboto,
+        fontWeight = FontWeight.Normal,
+        fontSize = 13.sp,
+        lineHeight = 14.sp,
+        letterSpacing = 0.sp
+    ),
     val labelMedium: TextStyle = TextStyle(
         fontFamily = roboto,
         fontWeight = FontWeight.Normal,

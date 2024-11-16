@@ -23,8 +23,6 @@ import me.floow.domain.values.util.ValueValidationResult
 import me.floow.profile.ui.edit.EditProfileRouteInitialData
 import me.floow.uikit.util.state.ValidatedField
 import me.floow.uikit.util.state.ValidatedField.Companion.initialField
-import me.floow.uikit.util.state.ValidationErrorType
-import java.lang.IllegalStateException
 
 data class CreateProfileVmState(
 	val name: ValidatedField = initialField,
@@ -78,7 +76,7 @@ class EditProfileViewModel(
 	}
 
 	fun updateName(newValue: String) {
-		val validationResult = ProfileName.create(newValue)
+		val validationResult = ProfileName.createWithValidation(newValue)
 
 		if (validationResult is ValueValidationResult.Invalid) {
 			viewModelScope.launch {
@@ -106,7 +104,7 @@ class EditProfileViewModel(
 	}
 
 	fun updateUsername(newValue: String) {
-		val validationResult = ProfileUsername.create(newValue)
+		val validationResult = ProfileUsername.createWithValidation(newValue)
 
 		if (validationResult is ValueValidationResult.Invalid) {
 			viewModelScope.launch {
@@ -134,7 +132,7 @@ class EditProfileViewModel(
 	}
 
 	fun updateBiography(newValue: String) {
-		val validationResult = ProfileDescription.create(newValue)
+		val validationResult = ProfileDescription.createWithValidation(newValue)
 
 		if (validationResult is ValueValidationResult.Invalid) {
 			viewModelScope.launch {
@@ -182,9 +180,9 @@ class EditProfileViewModel(
 
 			val result = _profileRepository.edit(
 				data = EditProfileData(
-					name = ProfileName(_state.value.name.value),
-					username = ProfileUsername(_state.value.username.value),
-					description = ProfileDescription(_state.value.bio.value)
+					name = ProfileName.create(_state.value.name.value),
+					username = ProfileUsername.create(_state.value.username.value),
+					description = ProfileDescription.create(_state.value.bio.value)
 				)
 			)
 

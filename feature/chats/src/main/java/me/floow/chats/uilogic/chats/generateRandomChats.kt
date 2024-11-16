@@ -36,7 +36,7 @@ fun generateRandomChats(n: Int): List<Chat> {
 	val chats = mutableListOf<Chat>()
 
 	for (i in 1..n) {
-		val profileName = ProfileName(
+		val profileName = ProfileName.create(
 			value = firstNames.random(),
 		)
 		val lastMessageText = messages.random()

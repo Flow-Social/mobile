@@ -73,30 +73,30 @@ private fun SearchResultsStatePreview() {
 			searchField = "test",
 			userResults = listOf(
 				UserSearchResult(
-					name = ProfileName("Demn"),
-					username = ProfileUsername("demndevel"),
+					name = ProfileName.create("Demn"),
+					username = ProfileUsername.create("demndevel"),
 					isOnline = false
 				)
 			),
 			messageResults = listOf(
 				MessageResult(
-					name = ProfileName("Finsi"),
+					name = ProfileName.create("Finsi"),
 					messageText = "Some example text. Some example text. Some example text. Some example text. Some example text. Some example text. Some example text. "
 				),
 				MessageResult(
-					name = ProfileName("Demn"),
+					name = ProfileName.create("Demn"),
 					messageText = "Some example text"
 				),
 				MessageResult(
-					name = ProfileName("Finsi"),
+					name = ProfileName.create("Finsi"),
 					messageText = "Some example text. Some example text. Some example text. Some example text. Some example text. Some example text. Some example text. "
 				),
 				MessageResult(
-					name = ProfileName("Demn"),
+					name = ProfileName.create("Demn"),
 					messageText = "Some example text"
 				),
 				MessageResult(
-					name = ProfileName("Finsi"),
+					name = ProfileName.create("Finsi"),
 					messageText = "Some example text. Some example text. Some example text. Some example text. Some example text. Some example text. Some example text. "
 				)
 			)

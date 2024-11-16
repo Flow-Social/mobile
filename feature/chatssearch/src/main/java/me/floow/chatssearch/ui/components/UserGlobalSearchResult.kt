@@ -78,8 +78,8 @@ private fun UserGlobalSearchResultPreview() {
 	ComponentPreviewBox(Modifier.fillMaxWidth()) {
 		UserGlobalSearchResult(
 			userSearchResult = UserSearchResult(
-				ProfileName("Demn"),
-				ProfileUsername(
+				ProfileName.create("Demn"),
+				ProfileUsername.create(
 					"demndevel"
 				),
 				isOnline = false

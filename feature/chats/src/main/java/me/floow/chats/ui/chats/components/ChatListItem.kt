@@ -174,7 +174,7 @@ private fun ChatListItemPreview() {
 		ChatListItem(
 			chat = Chat(
 				id = 2L,
-				name = ProfileName("Demn"),
+				name = ProfileName.create("Demn"),
 				lastMessageText = "Some message text idk",
 				isOnline = true,
 				lastMessageDateTime = LocalDateTime.now().minusHours(3),

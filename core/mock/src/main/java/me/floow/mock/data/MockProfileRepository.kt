@@ -8,13 +8,15 @@ import me.floow.domain.models.SelfProfile
 import me.floow.domain.values.ProfileDescription
 import me.floow.domain.values.ProfileName
 import me.floow.domain.values.ProfileUsername
+import me.floow.domain.values.util.RawValueObjectCreate
 
 class MockProfileRepository : ProfileRepository {
+	@OptIn(RawValueObjectCreate::class)
 	private var userProfile = SelfProfile(
-		name = ProfileName("Demn"),
+		name = ProfileName.createRaw("Demn"),
 		avatarUrl = "https://http.cat/images/200.jpg",
-		username = ProfileUsername("demndevel"),
-		description = ProfileDescription("Hi. My name is demn. I like coding: Kotlin, F#, Jetpack Compose, SwiftUI and etc. Welcome to my profile screen!")
+		username = ProfileUsername.createRaw("demndevel"),
+		description = ProfileDescription.createRaw("Hi. My name is demn. I like coding: Kotlin, F#, Jetpack Compose, SwiftUI and etc. Welcome to my profile screen!")
 	)
 
 	override suspend fun getSelfData(): GetDataResponse<SelfProfile> {

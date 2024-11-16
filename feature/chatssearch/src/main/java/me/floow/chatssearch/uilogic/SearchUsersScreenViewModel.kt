@@ -138,7 +138,7 @@ class SearchUsersScreenViewModel : ViewModel() {
 			val randomMessage = messages[Random.nextInt(messages.size)]
 
 			MessageResult(
-				name = ProfileName(randomName),
+				name = ProfileName.create(randomName),
 				messageText = randomMessage
 			)
 		}
@@ -176,8 +176,8 @@ class SearchUsersScreenViewModel : ViewModel() {
 			val isOnline = Random.nextBoolean()
 
 			UserSearchResult(
-				name = ProfileName(randomName),
-				username = ProfileUsername(randomUsername),
+				name = ProfileName.create(randomName),
+				username = ProfileUsername.create(randomUsername),
 				isOnline = isOnline
 			)
 		}
@@ -201,7 +201,7 @@ class SearchUsersScreenViewModel : ViewModel() {
 			val randomName = names[Random.nextInt(names.size)]
 
 			RecentUser(
-				name = ProfileName(randomName),
+				name = ProfileName.create(randomName),
 			)
 		}
 	}

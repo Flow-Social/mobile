@@ -78,7 +78,7 @@ fun MessageResultPreview() {
 	ComponentPreviewBox(Modifier.fillMaxSize()) {
 		MessageResult(
 			result = MessageResult(
-				name = ProfileName("Богдан"),
+				name = ProfileName.create("Богдан"),
 				messageText = "Привет, дружище. Как у тебя дела? У меня всё отлично. Сегодня сделал огромный пласт задач по дизайну, сейчас тебе скину пару примеров."
 			),
 			onClick = {}

@@ -32,6 +32,8 @@ fun EditState(
 			.padding(14.dp)
 	) {
 		AvatarAndBackgroundPicker(
+			avatarImagePainter = null,
+			backgroundImagePainter = null,
 			onAvatarPickerClick = onAvatarPickerClick,
 			onBackgroundPickerClick = {},
 			modifier = Modifier.fillMaxWidth()

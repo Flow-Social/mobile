@@ -1,6 +1,5 @@
 package me.floow.uikit.components.pickers
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -19,7 +18,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -29,6 +31,8 @@ import me.floow.uikit.theme.LocalTypography
 
 @Composable
 fun AvatarAndBackgroundPicker(
+	avatarImagePainter: Painter? = null,
+	backgroundImagePainter: Painter? = null,
 	onAvatarPickerClick: () -> Unit,
 	onBackgroundPickerClick: () -> Unit,
 	modifier: Modifier = Modifier
@@ -39,7 +43,7 @@ fun AvatarAndBackgroundPicker(
 			.fillMaxWidth()
 			.height(160.dp)
 			.clip(RoundedCornerShape(16.dp))
-			.background(MaterialTheme.colorScheme.secondaryContainer)
+			.setBackgroundBoxImage(backgroundImagePainter)
 			.clickable {
 				onBackgroundPickerClick()
 			},
@@ -65,27 +69,58 @@ fun AvatarAndBackgroundPicker(
 			)
 		}
 
-		Image(
-			painter = painterResource(me.floow.uikit.R.drawable.cute_girl),
-			contentDescription = null,
+		Box(
+			contentAlignment = Alignment.Center,
 			modifier = Modifier
 				.size(120.dp)
 				.clip(ElevanagonShape)
+				.setAvatarBoxImage(avatarImagePainter)
 				.clickable {
 					onAvatarPickerClick()
 				}
-		)
+		) {
+			Icon(
+				painter = painterResource(R.drawable.photo_icon),
+				contentDescription = null,
+				tint = Color.White,
+			)
+		}
+	}
+}
 
-		Icon(
-			painter = painterResource(me.floow.uikit.R.drawable.photo_icon),
-			contentDescription = null,
-			tint = Color.White,
+private fun Modifier.setAvatarBoxImage(avatarImagePainter: Painter?): Modifier {
+	return if (avatarImagePainter == null) {
+		this.then(
+			Modifier
+				.background(Color.LightGray)
 		)
+	} else {
+		Modifier
+			.paint(
+				painter = avatarImagePainter,
+				contentScale = ContentScale.FillBounds
+			)
+	}
+}
+
+@Composable
+private fun Modifier.setBackgroundBoxImage(backgroundImagePainter: Painter?): Modifier {
+	return if (backgroundImagePainter == null) {
+		this.then(
+			Modifier
+				.background(MaterialTheme.colorScheme.primaryContainer)
+		)
+	} else {
+		Modifier
+			.paint(
+				painter = backgroundImagePainter,
+				contentScale = ContentScale.FillBounds
+			)
 	}
 }
 
 @Preview
 @Composable
 fun AvatarAndBackgroundPickerPreview() {
-	AvatarAndBackgroundPicker({}, {}, Modifier.fillMaxWidth())
+	AvatarAndBackgroundPicker(null, null, {}, {}, Modifier.fillMaxWidth())
 }

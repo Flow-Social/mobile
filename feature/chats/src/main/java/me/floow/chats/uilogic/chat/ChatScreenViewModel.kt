@@ -19,7 +19,7 @@ data class ChatScreenVmState(
 	val chatInterlocutorAvatarUrl: Uri? = null,
 	val isLoading: Boolean = false,
 	val isError: Boolean = false,
-	val messages: List<ChatMessage>? = null,
+	val messages: List<DatedChatMessages>? = null,
 	val messageFieldReply: MessageFieldReply? = null
 ) {
 	fun toUiState(): ChatScreenUiState {
@@ -87,7 +87,11 @@ class ChatScreenViewModel() : ViewModel() {
 			)
 		)
 
-	fun setInitialData(chatInterlocutorId: Long, chatInterlocutorName: String, chatInterlocutorAvatarUrl: Uri?) {
+	fun setInitialData(
+		chatInterlocutorId: Long,
+		chatInterlocutorName: String,
+		chatInterlocutorAvatarUrl: Uri?
+	) {
 		_state.update {
 			it.copy(
 				chatInterlocutorId = chatInterlocutorId,
@@ -111,8 +115,58 @@ class ChatScreenViewModel() : ViewModel() {
 				it.copy(
 					isLoading = false,
 					messages = generateChatMessages()
+						.sortedBy { it.dateTime }
+						.groupBy { it.dateTime.toLocalDate() }
+						.map { (datetime, messages) ->
+							DatedChatMessages(
+								datetime = datetime,
+								messages = messages
+							)
+						}
 				)
 			}
+		}
+	}
+
+	fun closeCurrentReply() {
+		_state.update {
+			it.copy(
+				messageFieldReply = null
+			)
+		}
+	}
+
+	fun updateMessageInputField(newValue: String) {
+		_state.update {
+			it.copy(
+				messageFieldValue = newValue
+			)
+		}
+	}
+
+	fun sendMessage() {
+		TODO("Not yet implemented")
+	}
+
+	fun addCurrentReply(chatMessage: ChatMessage) {
+		val replyAuthorName = when (chatMessage) {
+			is PrimaryInMessage, is ReplyInMessage -> {
+				_state.value.chatInterlocutorName
+			}
+
+			else -> {
+				"You" // TODO
+			}
+		}
+
+		_state.update {
+			it.copy(
+				messageFieldReply = MessageFieldReply(
+					replyId = chatMessage.id,
+					replyAuthorName = replyAuthorName,
+					replyMessageText = chatMessage.messageText
+				)
+			)
 		}
 	}
 }

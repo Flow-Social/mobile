@@ -58,7 +58,7 @@ data class ChatBubbleColors(
 
 		val Outlined: ChatBubbleColors
 			@Composable get() = ChatBubbleColors(
-				backgroundColor = MaterialTheme.colorScheme.background,
+				backgroundColor = MaterialTheme.colorScheme.surfaceContainer,
 				borderColor = Color(0xFFBEBEBE),
 				textColor = MaterialTheme.colorScheme.onBackground,
 				timeColor = Color(0xFFBEBEBE),
@@ -74,7 +74,6 @@ fun ChatBubble(
 	onReplyClick: (ChatMessage) -> Unit,
 	modifier: Modifier = Modifier
 ) {
-	val isReply: Boolean = chatMessage is ChatReplyMessage
 	val isOut: Boolean = chatMessage is PrimaryOutMessage || chatMessage is ReplyOutMessage
 
 	val colors = if (!isOut) ChatBubbleColors.Outlined else ChatBubbleColors.Default
@@ -86,7 +85,7 @@ fun ChatBubble(
 		Column(
 			modifier = Modifier
 				.clip(RoundedCornerShape(20.dp))
-				.clickable { onClick(chatMessage) }
+//				.clickable { onClick(chatMessage) } TODO
 				.background(colors.backgroundColor)
 				.addBorderIfIn(isOut, colors)
 				.padding(vertical = 8.dp, horizontal = 10.dp)
@@ -119,7 +118,7 @@ fun ChatBubble(
 			Row(
 				horizontalArrangement = if (isOut) Arrangement.End else Arrangement.Start,
 				modifier = Modifier
-					.width(324.dp)
+					.widthIn(74.dp, 324.dp)
 			) {
 				ReplyContent(
 					replyMessageText = chatMessage.replyMessageText,

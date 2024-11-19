@@ -12,7 +12,7 @@ plugins {
 
 android {
     namespace = "me.floow.app"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "me.floow.app"

@@ -3,6 +3,7 @@ package me.floow.app.ui
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
@@ -59,6 +60,7 @@ fun App(
 			modifier = Modifier
 				.fillMaxSize()
 				.padding(innerPadding)
+				.consumeWindowInsets(innerPadding)
 		)
 	}
 }

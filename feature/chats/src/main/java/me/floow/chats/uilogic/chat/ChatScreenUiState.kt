@@ -4,6 +4,7 @@ import android.net.Uri
 
 data class MessageFieldReply(
 	val replyId: Long,
+	val replyAuthorName: String,
 	val replyMessageText: String,
 )
 
@@ -39,7 +40,7 @@ interface ChatScreenUiState {
 	) : ChatScreenUiState
 
 	data class HasData(
-		val messages: List<ChatMessage>,
+		val messages: List<DatedChatMessages>,
 		override val chatInterlocutorId: Long,
 		override val chatInterlocutorAvatarUrl: Uri?,
 		override val messageFieldValue: String,

@@ -7,7 +7,7 @@ plugins {
 
 android {
 	namespace = "me.flowme.chats"
-	compileSdk = 34
+	compileSdk = 35
 
 	defaultConfig {
 		minSdk = 28

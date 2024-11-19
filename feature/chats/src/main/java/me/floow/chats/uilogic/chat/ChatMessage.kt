@@ -8,7 +8,7 @@ sealed interface ChatMessage {
 	val dateTime: LocalDateTime
 }
 
-interface ChatReplyMessage : ChatMessage {
+sealed interface ChatReplyMessage : ChatMessage {
 	val replyMessageId: Long
 	val replyMessageText: String
 }

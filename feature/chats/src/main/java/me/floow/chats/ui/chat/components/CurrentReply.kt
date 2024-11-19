@@ -52,6 +52,7 @@ fun CurrentReply(
 
 			Text(
 				text = replyMessageText,
+				maxLines = 1,
 				overflow = TextOverflow.Ellipsis,
 				style = LocalTypography.current.captionMedium,
 				color = Color.Gray

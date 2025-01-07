@@ -6,11 +6,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 object FileUtils {
-    suspend fun getBytesFromUri(uri: Uri, context: Context): ByteArray {
-        val bytes = withContext(Dispatchers.IO) {
+    suspend fun getBytesFromUri(uri: Uri, context: Context): ByteArray =
+        withContext(Dispatchers.IO) {
             context.contentResolver.openInputStream(uri)
                 ?.use { inputStream -> inputStream.readBytes() } ?: byteArrayOf()
         }
-        return bytes
-    }
 }

@@ -1,5 +1,6 @@
 package me.floow.login.ui.createprofile
 
+import android.net.Uri
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -19,7 +20,7 @@ import me.flowme.login.R
 @Composable
 fun CreateProfileScreen(
 	state: CreateProfileState,
-	onAvatarPickerClick: () -> Unit = {},
+	onAvatarChanged: (Uri) -> Unit = {},
 	onNameChange: (String) -> Unit = {},
 	onUsernameChange: (String) -> Unit = {},
 	onBiographyChange: (String) -> Unit = {},
@@ -48,7 +49,7 @@ fun CreateProfileScreen(
 				is CreateProfileState.Edit -> {
 					EditState(
 						state = state,
-						onAvatarPickerClick = onAvatarPickerClick,
+						onAvatarChanged = onAvatarChanged,
 						onNameChange = onNameChange,
 						onBiographyChange = onBiographyChange,
 						onUsernameChange = onUsernameChange,
@@ -80,7 +81,7 @@ fun CreateProfileScreenTopBar(onDoneClick: () -> Unit) {
 fun CreateProfileScreenPreview() {
 	CreateProfileScreen(
 		state = CreateProfileState.Edit(),
-		onAvatarPickerClick = {},
+		onAvatarChanged = {},
 		modifier = Modifier.fillMaxSize()
 	)
 }

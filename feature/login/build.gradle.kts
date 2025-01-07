@@ -40,6 +40,7 @@ dependencies {
     api(platform(libs.koin.bom))
     api(libs.koin.core)
     api(libs.koin.android)
+    implementation(project(":core:database"))
 
     testImplementation(libs.junit)
 

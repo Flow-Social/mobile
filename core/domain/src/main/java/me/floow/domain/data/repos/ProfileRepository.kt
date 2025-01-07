@@ -9,4 +9,6 @@ interface ProfileRepository {
 	suspend fun getSelfData(): GetDataResponse<SelfProfile>
 
 	suspend fun edit(data: EditProfileData): UpdateDataResponse
+
+	suspend fun uploadAvatar(avatarBytes: ByteArray): UpdateDataResponse
 }

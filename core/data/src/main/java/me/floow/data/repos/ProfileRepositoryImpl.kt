@@ -4,6 +4,7 @@ import me.floow.domain.api.ProfileApi
 import me.floow.domain.api.models.EditProfileData
 import me.floow.domain.api.models.EditProfileResponseStatus
 import me.floow.domain.api.models.GetSelfResponse
+import me.floow.domain.api.models.UploadAvatarResponseStatus
 import me.floow.domain.data.GetDataError
 import me.floow.domain.data.GetDataResponse
 import me.floow.domain.data.UpdateDataResponse
@@ -53,5 +54,18 @@ class ProfileRepositoryImpl(
 
 			EditProfileResponseStatus.SUCCESS -> UpdateDataResponse.Success
 		}
+	}
+
+	override suspend fun uploadAvatar(
+		avatarBytes: ByteArray,
+	): UpdateDataResponse {
+		val result = profileApi.uploadAvatar(avatarBytes)
+
+		return when (result.status) {
+			UploadAvatarResponseStatus.ERROR -> UpdateDataResponse.Failure()
+
+			UploadAvatarResponseStatus.SUCCESS -> UpdateDataResponse.Success
+		}
+
 	}
 }

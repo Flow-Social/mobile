@@ -2,7 +2,6 @@ package me.floow.profile.ui.edit
 
 import android.widget.Toast
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -23,6 +22,7 @@ data class EditProfileRouteInitialData(
 	val name: String,
 	val username: String,
 	val description: String,
+	val avatarUrl: String,
 )
 
 @Composable
@@ -62,8 +62,15 @@ fun EditProfileRoute(
 				}
 			)
 		},
-		onAvatarPickerClick = {
-			Toast.makeText(context, "Фича ещё разрабатывается…", Toast.LENGTH_SHORT).show()
+		onAvatarChanged = {
+			vm.uploadAvatar(
+				newAvatarUri = it,
+				onFailure = {
+					Toast.makeText(context, "Failure", Toast.LENGTH_SHORT).show()
+				},
+				context = context,
+			)
+
 		},
 		onNameChange = vm::updateName,
 		onUsernameChange = vm::updateUsername,

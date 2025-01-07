@@ -1,5 +1,6 @@
 package me.floow.profile.ui.edit
 
+import android.net.Uri
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,7 +22,7 @@ import me.floow.uikit.util.state.ValidatedField
 
 @Composable
 internal fun EditState(
-	onAvatarPickerClick: () -> Unit,
+	onAvatarChanged: (Uri) -> Unit,
 	state: EditProfileState.Edit,
 	onNameChange: (String) -> Unit,
 	onUsernameChange: (String) -> Unit,
@@ -33,9 +34,9 @@ internal fun EditState(
 			.padding(14.dp)
 	) {
 		AvatarAndBackgroundPicker(
-			avatarImagePainter = null,
 			backgroundImagePainter = null,
-			onAvatarPickerClick = onAvatarPickerClick,
+			avatarUri = state.avatarUri,
+			onAvatarChanged = onAvatarChanged,
 			onBackgroundPickerClick = {},
 			modifier = Modifier.fillMaxWidth()
 		)

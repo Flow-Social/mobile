@@ -97,6 +97,7 @@ fun FlowNavHost(
 						name = editProfileScreen?.name ?: "",
 						username = editProfileScreen?.username ?: "",
 						description = editProfileScreen?.description ?: "",
+						avatarUrl = editProfileScreen?.avatarUrl ?: "",
 					),
 					onBackClick = {
 						navController.popBackStack()
@@ -126,12 +127,13 @@ fun FlowNavHost(
 
 			composable<SelfProfileScreen> {
 				ProfileRoute(
-					goToProfileEditScreen = { name, username, description ->
+					goToProfileEditScreen = { name, username, description, avatarUrl ->
 						navController.navigate(
 							EditProfileScreen(
 								name = name,
 								username = username,
-								description = description
+								description = description,
+								avatarUrl = avatarUrl
 							)
 						)
 					},

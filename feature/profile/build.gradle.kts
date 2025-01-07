@@ -34,6 +34,7 @@ android {
 dependencies {
 	implementation(project(":core:uikit"))
 	implementation(project(":core:domain"))
+	implementation(project(":core:database"))
 
 	implementation(libs.appcompat)
 

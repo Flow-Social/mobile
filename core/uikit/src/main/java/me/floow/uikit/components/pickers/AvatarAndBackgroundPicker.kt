@@ -1,5 +1,9 @@
 package me.floow.uikit.components.pickers
 
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -25,15 +29,16 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.rememberAsyncImagePainter
 import me.floow.uikit.R
 import me.floow.uikit.theme.ElevanagonShape
 import me.floow.uikit.theme.LocalTypography
 
 @Composable
 fun AvatarAndBackgroundPicker(
-	avatarImagePainter: Painter? = null,
 	backgroundImagePainter: Painter? = null,
-	onAvatarPickerClick: () -> Unit,
+	avatarUri: Uri? = null,
+	onAvatarChanged: (Uri) -> Unit,
 	onBackgroundPickerClick: () -> Unit,
 	modifier: Modifier = Modifier
 ) {
@@ -69,17 +74,22 @@ fun AvatarAndBackgroundPicker(
 			)
 		}
 
+		val pickMediaLauncher =
+			rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+				if (uri != null) onAvatarChanged(uri)
+			}
+
 		Box(
 			contentAlignment = Alignment.Center,
 			modifier = Modifier
 				.size(120.dp)
 				.clip(ElevanagonShape)
-				.setAvatarBoxImage(avatarImagePainter)
+				.setAvatarBoxImage(avatarUri)
 				.clickable {
-					onAvatarPickerClick()
+					pickMediaLauncher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
 				}
 		) {
-			Icon(
+			if (avatarUri == null) Icon(
 				painter = painterResource(R.drawable.photo_icon),
 				contentDescription = null,
 				tint = Color.White,
@@ -88,18 +98,21 @@ fun AvatarAndBackgroundPicker(
 	}
 }
 
-private fun Modifier.setAvatarBoxImage(avatarImagePainter: Painter?): Modifier {
-	return if (avatarImagePainter == null) {
+@Composable
+private fun Modifier.setAvatarBoxImage(avatarUri: Uri?): Modifier {
+	return if (avatarUri == null) {
 		this.then(
 			Modifier
 				.background(Color.LightGray)
 		)
 	} else {
-		Modifier
-			.paint(
-				painter = avatarImagePainter,
-				contentScale = ContentScale.FillBounds
-			)
+		this.then(
+			Modifier
+				.paint(
+					painter = rememberAsyncImagePainter(avatarUri.toString()),
+					contentScale = ContentScale.FillBounds
+				)
+		)
 	}
 }
 

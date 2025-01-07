@@ -1,5 +1,7 @@
 package me.floow.login.uilogic
 
+import android.content.Context
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -11,6 +13,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import me.floow.database.utils.FileUtils
 import me.floow.domain.api.models.EditProfileData
 import me.floow.domain.data.UpdateDataResponse
 import me.floow.domain.data.repos.ProfileRepository
@@ -26,6 +29,7 @@ data class CreateProfileVmState(
 	val name: ValidatedField = initialField,
 	val username: ValidatedField = initialField,
 	val bio: ValidatedField = initialField,
+	val avatarUri: Uri? = null,
 	val isUploading: Boolean = false
 ) {
 	fun toUiState(): CreateProfileState {
@@ -35,7 +39,8 @@ data class CreateProfileVmState(
 			CreateProfileState.Edit(
 				name = name,
 				username = username,
-				bio = bio
+				bio = bio,
+				avatarUri = avatarUri
 			)
 		}
 	}
@@ -81,6 +86,41 @@ class CreateProfileViewModel(
 						value = newValue,
 					)
 				)
+			}
+		}
+	}
+
+	fun uploadAvatar(
+		newAvatarUri: Uri,
+		context: Context,
+		onFailure: () -> Unit,
+	) {
+		viewModelScope.launch {
+			_state.update {
+				it.copy(
+					isUploading = true
+				)
+			}
+
+			val avatarBytes = FileUtils.getBytesFromUri(uri = newAvatarUri, context = context)
+
+			val result =
+				_profileRepository.uploadAvatar(avatarBytes)
+
+			if (result is UpdateDataResponse.Success) {
+				_state.update {
+					it.copy(
+						avatarUri = newAvatarUri,
+						isUploading = false
+					)
+				}
+			} else {
+				_state.update {
+					it.copy(
+						isUploading = false
+					)
+				}
+				onFailure()
 			}
 		}
 	}

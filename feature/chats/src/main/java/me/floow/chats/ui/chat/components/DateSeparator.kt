@@ -1,6 +1,7 @@
 package me.floow.chats.ui.chat.components
 
 import android.view.RoundedCorner
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -23,6 +24,7 @@ fun DateSeparator(
 		style = LocalTypography.current.labelMedium,
 		color = MaterialTheme.colorScheme.outline,
 		modifier = modifier
+			.background(MaterialTheme.colorScheme.surfaceContainer, RoundedCornerShape(20.dp))
 			.border(1.dp, MaterialTheme.colorScheme.outline, RoundedCornerShape(20.dp))
 			.padding(
 				horizontal = 10.dp,

@@ -12,6 +12,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import me.floow.uikit.R
+import me.floow.uikit.components.misc.BlankContentBox
 import me.floow.uikit.components.topbar.TitleTopBarWithActionButton
 
 @Composable
@@ -39,16 +40,7 @@ internal fun FeedScreen(
 				.padding(8.dp)
 				.padding(innerPadding)
 		) {
-			Text(
-				"Flow!",
-				style = MaterialTheme.typography.titleLarge,
-			)
-
-			Spacer(Modifier.height(4.dp))
-
-			Text(
-				text = "Feed"
-			)
+			BlankContentBox(Modifier.fillMaxSize())
 		}
 	}
 }

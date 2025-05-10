@@ -24,13 +24,23 @@ data object LoginScreen : NavigationRoute
 data object FeedScreen : NavigationRoute
 
 @Serializable
+data class ChatScreen(
+    val interlocutorId: Long = 0L,
+    val interlocutorName: String = "",
+    val interlocutorAvatarUri: String? = null,
+) : NavigationRoute
+
+@Serializable
 data object ChatsScreen : NavigationRoute
 
 @Serializable
 data object SearchUsersScreen : NavigationRoute
 
 @Serializable
-data object ProfileScreen : NavigationRoute
+data class ProfileScreen(val username: String) : NavigationRoute
+
+@Serializable
+data object SelfProfileScreen : NavigationRoute
 
 @Serializable
 data class EditProfileScreen(
@@ -41,7 +51,7 @@ data class EditProfileScreen(
 
 val bottomNavigationItems = listOf(
     BottomNavigationItem(
-        route = FeedScreen,//NavigationItem.Main.Feed.route,
+        route = FeedScreen,
         titleId = R.string.feed_bottom_nav_label,
         drawableIconId = me.floow.uikit.R.drawable.feed_icon,
     ),
@@ -51,7 +61,7 @@ val bottomNavigationItems = listOf(
         drawableIconId = me.floow.uikit.R.drawable.chats_icon,
     ),
     BottomNavigationItem(
-        route = ProfileScreen,
+        route = SelfProfileScreen,
         titleId = R.string.profile_bottom_nav_label,
         drawableIconId = me.floow.uikit.R.drawable.profile_icon,
     ),
@@ -60,5 +70,5 @@ val bottomNavigationItems = listOf(
 val mainBottomBarNavigationDestinations = listOf(
     FeedScreen,
     ChatsScreen,
-    ProfileScreen
+    SelfProfileScreen
 )

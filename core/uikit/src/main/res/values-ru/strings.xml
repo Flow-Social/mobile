@@ -13,4 +13,8 @@
     <string name="subscribers_label">подписчиков</string>
     <string name="no_subscribers">Нет подписчиков</string>
     <string name="username_field_supporting_text">Вы можете использовать символы a&#8211;z, 0&#8211;9 и нижние подчеркивания</string>
+    <string name="online">Онлайн</string>
+    <string name="offline">Оффлайн</string>
+    <string name="there_is_nothing">Ничего нет.</string>
+    <string name="but_it_will_be_soon_we_promise">Но скоро будет, обещаем!</string>
 </resources>

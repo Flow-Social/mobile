@@ -6,6 +6,7 @@ import me.floow.domain.models.SelfProfile
 import me.floow.domain.values.ProfileDescription
 import me.floow.domain.values.ProfileName
 import me.floow.domain.values.ProfileUsername
+import me.floow.domain.values.util.RawValueObjectCreate
 
 class ProfileCacheProviderImpl(
 	context: Context
@@ -22,6 +23,7 @@ class ProfileCacheProviderImpl(
 	private val sharedPreferences =
 		context.getSharedPreferences(PROFILE_CACHE_NAME, Context.MODE_PRIVATE)
 
+	@OptIn(RawValueObjectCreate::class)
 	override fun getSelfProfile(): SelfProfile {
 		val name = sharedPreferences.getString(PROFILE_NAME, null)
 		val username = sharedPreferences.getString(PROFILE_NAME, null)
@@ -29,10 +31,10 @@ class ProfileCacheProviderImpl(
 		val avatarUrl = sharedPreferences.getString(PROFILE_AVATAR_URL, null)
 
 		return SelfProfile(
-			name = name?.let { ProfileName(it) },
+			name = name?.let { ProfileName.createRaw(it) },
 			avatarUrl = avatarUrl,
-			username = username?.let { ProfileUsername(it) },
-			description = bio?.let { ProfileDescription(it) }
+			username = username?.let { ProfileUsername.createRaw(it) },
+			description = bio?.let { ProfileDescription.createRaw(it) }
 		)
 	}
 

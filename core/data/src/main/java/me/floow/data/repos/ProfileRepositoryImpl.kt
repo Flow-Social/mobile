@@ -13,11 +13,13 @@ import me.floow.domain.utils.Logger
 import me.floow.domain.values.ProfileDescription
 import me.floow.domain.values.ProfileName
 import me.floow.domain.values.ProfileUsername
+import me.floow.domain.values.util.RawValueObjectCreate
 
 class ProfileRepositoryImpl(
 	private val logger: Logger,
 	private val profileApi: ProfileApi,
 ) : ProfileRepository {
+	@OptIn(RawValueObjectCreate::class)
 	override suspend fun getSelfData(): GetDataResponse<SelfProfile> {
 		return when (val selfData = profileApi.getSelf()) {
 			is GetSelfResponse.Success -> {
@@ -25,9 +27,9 @@ class ProfileRepositoryImpl(
 
 				GetDataResponse.Success(
 					SelfProfile(
-						name = selfData.name?.let { ProfileName(it) },
-						username = selfData.username?.let { ProfileUsername(it) },
-						description = selfData.biography?.let { ProfileDescription(it) },
+						name = selfData.name?.let { ProfileName.createRaw(it) },
+						username = selfData.username?.let { ProfileUsername.createRaw(it) },
+						description = selfData.biography?.let { ProfileDescription.createRaw(it) },
 						avatarUrl = selfData.avatarUrl,
 					)
 				)

@@ -34,7 +34,7 @@ fun TitleTopBarWithActionButton(
             Text(
                 text = titleText,
                 overflow = TextOverflow.Ellipsis,
-                style = LocalTypography.current.titleMedium,
+                style = LocalTypography.current.titleLarge,
                 maxLines = 1,
                 modifier = Modifier.weight(1f)
             )

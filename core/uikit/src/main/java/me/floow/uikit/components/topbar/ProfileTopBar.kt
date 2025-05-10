@@ -42,7 +42,7 @@ fun ProfileTopBar(
             Column {
                 Text(
                     text = profileUsername,
-                    style = LocalTypography.current.titleMedium
+                    style = LocalTypography.current.titleLarge
                 )
 
                 Text(

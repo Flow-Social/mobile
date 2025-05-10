@@ -1,77 +1,133 @@
 package me.floow.uikit.components.topbar
 
-import androidx.compose.material3.ColorScheme
-import androidx.compose.material3.DockedSearchBar
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.SearchBar
-import androidx.compose.material3.SearchBarColors
-import androidx.compose.material3.SearchBarDefaults
-import androidx.compose.material3.Surface
-import androidx.compose.material3.TextField
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.Constraints
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import me.floow.uikit.R
+import me.floow.uikit.theme.LocalTypography
 
-/**
- * <a href="https://m3.material.io/components/search/overview" class="external"
- * target="_blank">Material Design search</a>.
- *
- * A search bar represents a floating search field that allows users to enter a keyword or phrase
- * and get relevant information. It can be used as a way to navigate through an app via search
- * queries.
- *
- * A search bar expands into a search "view" and can be used to display dynamic suggestions or
- * search results.
- *
- * @see <img src="https://developer.android.com/images/reference/androidx/compose/material3/search-bar.png"/>
- *
- * A [SearchBar] tries to occupy the entirety of its allowed size in the expanded state. For
- * full-screen behavior as specified by Material guidelines, parent layouts of the [SearchBar] must
- * not pass any [Constraints] that limit its size, and the host activity should set
- * `WindowCompat.setDecorFitsSystemWindows(window, false)`.
- *
- * If this expansion behavior is undesirable, for example on large tablet screens, [DockedSearchBar]
- * can be used instead.
- *
- * An example looks like:
- *
- * @sample androidx.compose.material3.samples.SearchBarSample
- *
- * @param inputField the input field of this search bar that allows entering a query, typically a
- *   [SearchBarDefaults.InputField].
- * @param expanded whether this search bar is expanded and showing search results.
- * @param onExpandedChange the callback to be invoked when this search bar's expanded state is
- *   changed.
- * @param modifier the [Modifier] to be applied to this search bar.
- * @param shape the shape of this search bar when it is not [expanded]. When [expanded], the shape
- *   will always be [SearchBarDefaults.fullScreenShape].
- * @param colors [SearchBarColors] that will be used to resolve the colors used for this search bar
- *   in different states. See [SearchBarDefaults.colors].
- * @param tonalElevation when [SearchBarColors.containerColor] is [ColorScheme.surface], a
- *   translucent primary color overlay is applied on top of the container. A higher tonal elevation
- *   value will result in a darker color in light theme and lighter color in dark theme. See also:
- *   [Surface].
- * @param shadowElevation the elevation for the shadow below this search bar
- * @param windowInsets the window insets that this search bar will respect
- * @param content the content of this search bar to display search results below the [inputField].
- */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchTopBar(
+	onBackClick: () -> Unit,
+	placeholder: String,
 	searchFieldValue: String,
 	onSearchFieldUpdate: (String) -> Unit,
 	modifier: Modifier = Modifier
 ) {
-	SearchBar(
-		inputField = {
-			TextField(
+	Column(
+		modifier = modifier
+	) {
+		Row(
+			verticalAlignment = Alignment.CenterVertically,
+			modifier = Modifier
+				.height(80.dp)
+				.padding(horizontal = 24.dp),
+		) {
+			IconButton(
+				onClick = onBackClick,
+				modifier = Modifier.size(24.dp)
+			) {
+				Icon(
+					painter = painterResource(R.drawable.nav_back_icon),
+					contentDescription = null,
+					modifier = Modifier.size(16.dp)
+				)
+			}
+
+			Spacer(Modifier.width(10.dp))
+
+			BasicTextField(
 				value = searchFieldValue,
 				onValueChange = onSearchFieldUpdate,
+				singleLine = true,
+				cursorBrush = SolidColor(MaterialTheme.colorScheme.onBackground),
+				textStyle = LocalTypography.current.bodyMedium.copy(
+					color = MaterialTheme.colorScheme.onBackground
+				),
+				decorationBox = { innerTextField ->
+					Row(
+						modifier = Modifier
+							.padding(
+								horizontal = 14.dp,
+								vertical = 20.dp
+							)
+							.fillMaxWidth()
+					) {
+						Box(Modifier.fillMaxWidth()) {
+							innerTextField()
+
+							if (searchFieldValue.isEmpty()) {
+								Text(
+									text = placeholder,
+									style = LocalTypography.current.bodyMedium,
+									color = MaterialTheme.colorScheme.secondary,
+									modifier = Modifier
+								)
+							}
+						}
+					}
+				},
+				modifier = Modifier
+					.weight(1f)
+					.height(58.dp)
+			)
+		}
+
+		HorizontalDivider()
+	}
+}
+
+@Preview
+@Composable
+private fun SearchTopBarPreview() {
+	var searchBarValue by remember { mutableStateOf("") }
+
+	Scaffold(
+		topBar = {
+			SearchTopBar(
+				onBackClick = {},
+				searchFieldValue = searchBarValue,
+				placeholder = "Search…",
+				onSearchFieldUpdate = { searchBarValue = it }
 			)
 		},
-		expanded = false,
-		onExpandedChange = {},
-	) {
-
+		modifier = Modifier.fillMaxSize()
+	) { innerPadding ->
+		Box(
+			Modifier
+				.padding(innerPadding)
+				.fillMaxSize()
+				.background(Color.LightGray)
+		)
 	}
 }

@@ -22,7 +22,7 @@ internal fun AboutMeProfileSummaryPage(description: String?, modifier: Modifier 
 	) {
 		Text(
 			text = "обо мне",
-			style = LocalTypography.current.titleMedium,
+			style = LocalTypography.current.titleLarge,
 			color = Color.White,
 		)
 

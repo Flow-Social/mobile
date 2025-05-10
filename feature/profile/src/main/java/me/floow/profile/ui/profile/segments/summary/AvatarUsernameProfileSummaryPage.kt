@@ -45,7 +45,7 @@ internal fun AvatarUsernameProfileSummaryPage(
 
 		Text(
 			text = displayName ?: stringResource(R.string.no_display_name),
-			style = LocalTypography.current.titleMedium,
+			style = LocalTypography.current.titleLarge,
 			color = Color.White,
 		)
 

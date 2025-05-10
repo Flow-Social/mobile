@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="in_reply_to">В ответ</string>
+    <string name="message_input_field_placeholder">Сообщение</string>
+    <string name="today">Сегодня</string>
+</resources>

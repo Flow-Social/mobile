@@ -17,12 +17,19 @@ import androidx.core.view.WindowCompat
 
 @Immutable
 data class FlowTypography(
-    val titleMedium: TextStyle = TextStyle(
+    val titleLarge: TextStyle = TextStyle(
         fontFamily = roboto,
         fontWeight = FontWeight.Black,
         fontSize = 20.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.38.sp
+    ),
+    val titleMedium: TextStyle = TextStyle(
+        fontFamily = roboto,
+        fontWeight = FontWeight.Medium,
+        fontSize = 16.sp,
+        lineHeight = 20.sp,
+        letterSpacing = (-0.32).sp
     ),
     val bodyMedium: TextStyle = TextStyle(
         fontFamily = roboto,
@@ -30,6 +37,20 @@ data class FlowTypography(
         fontSize = 15.sp,
         lineHeight = 20.sp,
         letterSpacing = (-0.24).sp
+    ),
+    val captionSmall: TextStyle = TextStyle(
+        fontFamily = roboto,
+        fontWeight = FontWeight.Normal,
+        fontSize = 9.sp,
+        lineHeight = 14.sp,
+        letterSpacing = 0.2.sp
+    ),
+    val captionMedium: TextStyle = TextStyle(
+        fontFamily = roboto,
+        fontWeight = FontWeight.Normal,
+        fontSize = 13.sp,
+        lineHeight = 14.sp,
+        letterSpacing = 0.sp
     ),
     val labelMedium: TextStyle = TextStyle(
         fontFamily = roboto,

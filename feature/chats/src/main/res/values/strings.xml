@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="in_reply_to">In reply to</string>
+    <string name="message_input_field_placeholder">Message</string>
+    <string name="today">Today</string>
+</resources>

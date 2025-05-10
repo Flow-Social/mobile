@@ -21,7 +21,6 @@ import me.floow.domain.values.util.ValidationError
 import me.floow.domain.values.util.ValueValidationResult
 import me.floow.uikit.util.state.ValidatedField
 import me.floow.uikit.util.state.ValidatedField.Companion.initialField
-import java.lang.IllegalStateException
 
 data class CreateProfileVmState(
 	val name: ValidatedField = initialField,
@@ -59,7 +58,7 @@ class CreateProfileViewModel(
 	val hapticFeedbackFlow: SharedFlow<Unit> = _hapticFeedbackFlow
 
 	fun updateName(newValue: String) {
-		val validationResult = ProfileName.create(newValue)
+		val validationResult = ProfileName.createWithValidation(newValue)
 
 		if (validationResult is ValueValidationResult.Invalid) {
 			viewModelScope.launch {
@@ -87,7 +86,7 @@ class CreateProfileViewModel(
 	}
 
 	fun updateUsername(newValue: String) {
-		val validationResult = ProfileUsername.create(newValue)
+		val validationResult = ProfileUsername.createWithValidation(newValue)
 
 		if (validationResult is ValueValidationResult.Invalid) {
 			viewModelScope.launch {
@@ -115,7 +114,7 @@ class CreateProfileViewModel(
 	}
 
 	fun updateBio(newValue: String) {
-		val validationResult = ProfileDescription.create(newValue)
+		val validationResult = ProfileDescription.createWithValidation(newValue)
 
 		if (validationResult is ValueValidationResult.Invalid) {
 			viewModelScope.launch {
@@ -163,9 +162,9 @@ class CreateProfileViewModel(
 
 			val result = _profileRepository.edit(
 				data = EditProfileData(
-					name = ProfileName(_state.value.name.value),
-					username = ProfileUsername(_state.value.username.value),
-					description = ProfileDescription(_state.value.bio.value)
+					name = ProfileName.create(_state.value.name.value),
+					username = ProfileUsername.create(_state.value.username.value),
+					description = ProfileDescription.create(_state.value.bio.value)
 				)
 			)
 

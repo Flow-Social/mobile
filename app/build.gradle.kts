@@ -12,7 +12,7 @@ plugins {
 
 android {
     namespace = "me.floow.app"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "me.floow.app"
@@ -77,7 +77,7 @@ dependencies {
     implementation(project(":feature:feed"))
     implementation(project(":feature:explore"))
     implementation(project(":feature:profile"))
-    implementation(project(":feature:usersearch"))
+    implementation(project(":feature:chatssearch"))
 
     implementation(libs.androidx.core.splashscreen)
 

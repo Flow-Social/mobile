@@ -55,7 +55,7 @@ fun TitleTopBarWithActionButtonWithNavBack(
 
 			Text(
 				text = titleText,
-				style = LocalTypography.current.titleMedium
+				style = LocalTypography.current.titleLarge
 			)
 
 			Spacer(Modifier.weight(1f))

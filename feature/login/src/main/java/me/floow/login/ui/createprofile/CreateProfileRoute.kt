@@ -39,7 +39,9 @@ fun CreateProfileRoute(
 
 	CreateProfileScreen(
 		state = state,
-		onAvatarPickerClick = { TODO() },
+		onAvatarPickerClick = {
+			Toast.makeText(context, "Фича ещё разрабатывается…", Toast.LENGTH_SHORT).show()
+		},
 		onNameChange = vm::updateName,
 		onUsernameChange = vm::updateUsername,
 		onBiographyChange = vm::updateBio,

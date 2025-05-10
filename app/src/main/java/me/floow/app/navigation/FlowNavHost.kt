@@ -1,18 +1,25 @@
 package me.floow.app.navigation
 
+import android.content.Context
 import android.content.Intent
+import android.net.Uri
+import android.widget.Toast
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
+import androidx.navigation.navDeepLink
 import androidx.navigation.toRoute
-import com.demn.usersearch.ui.SearchUsersRoute
-import me.floow.chats.ui.ChatsRoute
+import me.floow.chats.ChatRoute
+import me.floow.chats.ChatRouteInitialData
+import me.floow.chatssearch.ui.SearchUsersRoute
+import me.floow.chats.ChatsRoute
 import me.floow.feed.ui.FeedRoute
 import me.floow.login.ui.createprofile.CreateProfileRoute
 import me.floow.login.ui.login.LoginRoute
@@ -20,6 +27,7 @@ import me.floow.profile.ui.edit.EditProfileRoute
 import me.floow.profile.ui.edit.EditProfileRouteInitialData
 import me.floow.profile.ui.profile.ProfileRoute
 import org.koin.androidx.compose.koinViewModel
+import org.koin.compose.koinInject
 
 @Composable
 fun FlowNavHost(
@@ -71,12 +79,18 @@ fun FlowNavHost(
 			startDestination = FeedScreen
 		) {
 			composable<FeedScreen> {
-				FeedRoute(onPostCreateClick = { TODO() }, modifier)
+				FeedRoute(
+					onPostCreateClick = {
+						showNotImplementedToast(context)
+					},
+					modifier
+				)
 			}
 
 			composable<EditProfileScreen> {
 				val backStackEntry = navController.currentBackStackEntry
-				val editProfileScreen: EditProfileScreen? = backStackEntry?.toRoute<EditProfileScreen>()
+				val editProfileScreen: EditProfileScreen? =
+					backStackEntry?.toRoute<EditProfileScreen>()
 
 				EditProfileRoute(
 					initialData = EditProfileRouteInitialData(
@@ -95,7 +109,22 @@ fun FlowNavHost(
 				)
 			}
 
-			composable<ProfileScreen> {
+			composable<ProfileScreen>(
+				deepLinks = listOf(
+					navDeepLink<ProfileScreen>(
+						basePath = profileDeeplinkUri
+					)
+				)
+			) {
+				val username = navController.currentBackStackEntry
+					?.toRoute<ProfileScreen>()?.username
+
+				Box(Modifier.fillMaxSize()) {
+					Text(text = username ?: "no username, invalid input")
+				}
+			}
+
+			composable<SelfProfileScreen> {
 				ProfileRoute(
 					goToProfileEditScreen = { name, username, description ->
 						navController.navigate(
@@ -106,7 +135,9 @@ fun FlowNavHost(
 							)
 						)
 					},
-					goToAddPostScreen = { TODO() },
+					goToAddPostScreen = {
+						showNotImplementedToast(context)
+					},
 					shareProfile = { url ->
 						// TODO
 
@@ -125,16 +156,56 @@ fun FlowNavHost(
 			}
 
 			composable<ChatsScreen> {
-				ChatsRoute(modifier)
+				ChatsRoute(
+					onChatClick = { chatToNavigate ->
+						navController.navigate(
+							ChatScreen(
+								interlocutorId = chatToNavigate.id,
+								interlocutorName = chatToNavigate.name.value,
+								interlocutorAvatarUri = chatToNavigate.avatarUrl.toString()
+							)
+						)
+					},
+					onSearchClick = {
+						navController.navigate(SearchUsersScreen)
+					},
+					vm = koinInject(),
+					modifier = modifier
+				)
+			}
+
+			composable<ChatScreen> {
+				val backStackEntry = navController.currentBackStackEntry
+				val chatScreen: ChatScreen? =
+					backStackEntry?.toRoute<ChatScreen>()
+
+				ChatRoute(
+					initialData = ChatRouteInitialData(
+						chatInterlocutorId = chatScreen?.interlocutorId ?: -1L,
+						chatInterlocutorName = chatScreen?.interlocutorName ?: "",
+						chatInterlocutorAvatarUrl = chatScreen?.interlocutorAvatarUri?.let { Uri.parse(it) }
+					),
+					vm = koinViewModel(),
+					modifier = modifier
+				)
 			}
 
 			composable<SearchUsersScreen> {
 				SearchUsersRoute(
-					onUserPick = { TODO() },
+					onBackClick = {
+						navController.popBackStack()
+					},
+					onUserPick = {
+						showNotImplementedToast(context)
+					},
 					vm = koinViewModel(),
 					modifier = modifier
 				)
 			}
 		}
 	}
+}
+
+private fun showNotImplementedToast(context: Context) {
+	Toast.makeText(context, "Фича ещё разрабатывается…", Toast.LENGTH_SHORT).show()
 }

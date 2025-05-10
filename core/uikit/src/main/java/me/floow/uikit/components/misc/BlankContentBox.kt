@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -35,7 +36,7 @@ fun BlankContentBox(modifier: Modifier = Modifier) {
 			Spacer(Modifier.height(24.dp))
 
 			Text(
-				text = "Ничего нет.",
+				text = stringResource(R.string.there_is_nothing),
 				style = LocalTypography.current.titleLarge.copy(
 					fontSize = 24.sp,
 				),
@@ -44,7 +45,7 @@ fun BlankContentBox(modifier: Modifier = Modifier) {
 			Spacer(Modifier.height(10.dp))
 
 			Text(
-				text = "Но скоро будет, обещаем!",
+				text = stringResource(R.string.but_it_will_be_soon_we_promise),
 				style = LocalTypography.current.bodyMedium,
 			)
 		}

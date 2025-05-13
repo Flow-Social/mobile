@@ -17,26 +17,49 @@ android {
     defaultConfig {
         applicationId = "me.floow.app"
         minSdk = 28
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
-
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
 
-        val secretsFile = project.rootProject.file("secrets.properties")
-        val secretsProperties = Properties()
-        secretsProperties.load(secretsFile.inputStream())
+//        val secretsFile = project.rootProject.file("secrets.properties")
+//        val secretsProperties = Properties()
+//        secretsProperties.load(secretsFile.inputStream())
 
-        val googleClientId = secretsProperties.getProperty("googleClientId") ?: ""
+//        val googleClientId = secretsProperties.getProperty("googleClientId") ?: ""
         buildConfigField(
             type = "String",
             name = "GOOGLE_CLIENT_ID",
-            value = googleClientId
+            value = "BUILD_TYPE" // mock
         )
+    }
+
+    flavorDimensions += "data"
+
+    productFlavors {
+        create("production") {
+            dimension = "data"
+
+            buildConfigField(
+				name = "USE_MOCK_DATA",
+				value = "false",
+                type = "boolean"
+			)
+        }
+
+        create("mock") {
+            dimension = "data"
+			applicationIdSuffix = ".mock"
+            buildConfigField(
+                name = "USE_MOCK_DATA",
+                value = "true",
+                type = "boolean"
+            )
+        }
     }
 
     buildTypes {

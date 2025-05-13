@@ -14,6 +14,7 @@ import me.floow.chatssearch.di.usersearchModule
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import me.floow.app.BuildConfig.*
 import me.floow.app.di.apiModule
 import me.floow.app.di.appModule
 import me.floow.app.di.authModule
@@ -49,15 +50,14 @@ class MainActivity : ComponentActivity() {
 			startKoin {
 				androidContext(this@MainActivity)
 
-				val mockDependencies = false // TODO: make build flavors with and without mocks
-
-				if (!mockDependencies) {
+				@Suppress("KotlinConstantConditions")
+				if (USE_MOCK_DATA) {
 					modules(
 						appModule,
 						apiModule,
-						authModule,
+						mockAuthModule,
 						databaseModule,
-						dataModule,
+						mockDataModule,
 						domainModule,
 						mockModule,
 						loginModule,
@@ -69,9 +69,9 @@ class MainActivity : ComponentActivity() {
 					modules(
 						appModule,
 						apiModule,
-						mockAuthModule,
+						authModule,
 						databaseModule,
-						mockDataModule,
+						dataModule,
 						domainModule,
 						mockModule,
 						loginModule,

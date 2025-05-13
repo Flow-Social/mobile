@@ -1,5 +1,6 @@
 package me.floow.login.ui.createprofile.components
 
+import android.net.Uri
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,7 +22,7 @@ import me.flowme.login.R
 @Composable
 fun EditState(
 	state: CreateProfileState.Edit,
-	onAvatarPickerClick: () -> Unit = {},
+	onAvatarChanged: (Uri) -> Unit = {},
 	onNameChange: (String) -> Unit = {},
 	onUsernameChange: (String) -> Unit = {},
 	onBiographyChange: (String) -> Unit = {},
@@ -32,9 +33,9 @@ fun EditState(
 			.padding(14.dp)
 	) {
 		AvatarAndBackgroundPicker(
-			avatarImagePainter = null,
+			avatarUri = state.avatarUri,
 			backgroundImagePainter = null,
-			onAvatarPickerClick = onAvatarPickerClick,
+			onAvatarChanged = onAvatarChanged,
 			onBackgroundPickerClick = {},
 			modifier = Modifier.fillMaxWidth()
 		)

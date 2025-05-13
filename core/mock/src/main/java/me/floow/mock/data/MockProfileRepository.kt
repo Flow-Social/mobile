@@ -34,4 +34,10 @@ class MockProfileRepository : ProfileRepository {
 
 		return UpdateDataResponse.Success
 	}
+
+	override suspend fun uploadAvatar(
+		avatarBytes: ByteArray
+	): UpdateDataResponse {
+		return UpdateDataResponse.Success
+	}
 }

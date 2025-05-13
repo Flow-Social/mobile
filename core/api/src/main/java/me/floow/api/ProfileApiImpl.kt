@@ -1,13 +1,12 @@
 package me.floow.api
 
+import io.ktor.client.plugins.timeout
 import io.ktor.client.request.*
 import io.ktor.client.request.forms.FormDataContent
+import io.ktor.client.request.forms.MultiPartFormDataContent
 import io.ktor.client.request.forms.formData
-import io.ktor.client.request.forms.submitForm
 import io.ktor.client.statement.*
 import io.ktor.http.*
-import io.ktor.util.*
-import io.ktor.util.network.*
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import me.floow.api.util.ApiConfig
@@ -105,6 +104,44 @@ class ProfileApiImpl(
 
 			return@safeApiCall EditProfileResponse(EditProfileResponseStatus.SUCCESS)
 		}
+	}
+
+	override suspend fun uploadAvatar(
+		avatarBytes: ByteArray,
+	): UploadAvatarResponse {
+		return safeApiCall(errorResponse = UploadAvatarResponse(status = UploadAvatarResponseStatus.ERROR)) {
+			val authToken = authenticationManager.getAuthTokenOrNull()
+				?: return@safeApiCall UploadAvatarResponse(UploadAvatarResponseStatus.ERROR)
+
+			val response: HttpResponse = httpClient.post("${config.apiUrl}/user/avatar") {
+				addAuthTokenHeader(authToken)
+				setBody(
+					MultiPartFormDataContent(
+						formData {
+							append("file", avatarBytes, Headers.build {
+								append(HttpHeaders.ContentDisposition, "filename=\"avatar\"")
+							})
+						},
+					)
+				)
+				timeout { requestTimeoutMillis = 5000 }
+			}
+
+			logger.logKtorRequest("ProfileApiImpl uploadAvatar", response.request)
+
+			val bodyText = response.bodyAsText()
+
+			if (!response.status.isSuccess()) {
+				logger.logFailureResponse("ProfileApiImpl uploadAvatar", response.status, bodyText)
+
+				return@safeApiCall UploadAvatarResponse(UploadAvatarResponseStatus.ERROR)
+			}
+
+
+			return@safeApiCall UploadAvatarResponse(UploadAvatarResponseStatus.SUCCESS)
+
+		}
+
 	}
 
 	override suspend fun deleteProfile(): DeleteProfileResponse {

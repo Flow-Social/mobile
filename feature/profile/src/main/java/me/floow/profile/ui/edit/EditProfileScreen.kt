@@ -1,5 +1,6 @@
 package me.floow.profile.ui.edit
 
+import android.net.Uri
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -22,7 +23,7 @@ internal fun EditProfileScreen(
 	state: EditProfileState,
 	onBackClick: () -> Unit,
 	onDoneClick: () -> Unit,
-	onAvatarPickerClick: () -> Unit,
+	onAvatarChanged: (Uri) -> Unit,
 	onNameChange: (String) -> Unit,
 	onUsernameChange: (String) -> Unit,
 	onBiographyChange: (String) -> Unit,
@@ -53,7 +54,7 @@ internal fun EditProfileScreen(
 
 				is EditProfileState.Edit -> {
 					EditState(
-						onAvatarPickerClick,
+						onAvatarChanged,
 						state,
 						onNameChange,
 						onUsernameChange,

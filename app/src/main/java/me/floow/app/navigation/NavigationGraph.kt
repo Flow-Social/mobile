@@ -46,7 +46,8 @@ data object SelfProfileScreen : NavigationRoute
 data class EditProfileScreen(
     val name: String = "",
     val username: String = "",
-    val description: String = ""
+    val description: String = "",
+    val avatarUrl: String = "",
 ) : NavigationRoute
 
 val bottomNavigationItems = listOf(

@@ -17,10 +17,9 @@ android {
     defaultConfig {
         applicationId = "me.floow.app"
         minSdk = 28
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
-
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -37,6 +36,30 @@ android {
             name = "GOOGLE_CLIENT_ID",
             value = googleClientId
         )
+    }
+
+    flavorDimensions += "data"
+
+    productFlavors {
+        create("production") {
+            dimension = "data"
+
+            buildConfigField(
+				name = "USE_MOCK_DATA",
+				value = "false",
+                type = "boolean"
+			)
+        }
+
+        create("mock") {
+            dimension = "data"
+			applicationIdSuffix = ".mock"
+            buildConfigField(
+                name = "USE_MOCK_DATA",
+                value = "true",
+                type = "boolean"
+            )
+        }
     }
 
     buildTypes {

@@ -26,15 +26,15 @@ android {
             useSupportLibrary = true
         }
 
-        val secretsFile = project.rootProject.file("secrets.properties")
-        val secretsProperties = Properties()
-        secretsProperties.load(secretsFile.inputStream())
+//        val secretsFile = project.rootProject.file("secrets.properties")
+//        val secretsProperties = Properties()
+//        secretsProperties.load(secretsFile.inputStream())
 
-        val googleClientId = secretsProperties.getProperty("googleClientId") ?: ""
+//        val googleClientId = secretsProperties.getProperty("googleClientId") ?: ""
         buildConfigField(
             type = "String",
             name = "GOOGLE_CLIENT_ID",
-            value = googleClientId
+            value = "BUILD_TYPE" // mock
         )
     }
 

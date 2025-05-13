@@ -1,6 +1,6 @@
 # Flow mobile
 
-Mobile client for the Flow Social Network. Flow is a tinder-like swipe-based next generation social network
+Mobile client for the Flow Social Network. Flow is a tinder-like swipe-based next generation social network.
 
 Stack:
 

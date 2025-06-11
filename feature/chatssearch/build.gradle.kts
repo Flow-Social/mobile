@@ -37,6 +37,7 @@ android {
 dependencies {
 	implementation(project(":core:uikit"))
 	implementation(project(":core:domain"))
+	implementation(project(":core:mock"))
 
 	implementation(libs.appcompat)
 

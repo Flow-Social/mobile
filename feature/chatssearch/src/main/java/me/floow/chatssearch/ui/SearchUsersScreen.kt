@@ -76,7 +76,8 @@ private fun SearchUsersScreenPreview() {
 				UserSearchResult(
 					name = ProfileName.create("Demn"),
 					username = ProfileUsername.create("demndevel"),
-					isOnline = false
+					isOnline = false,
+					avatarUrl = "https://http.cat/images/101.jpg"
 				)
 			),
 			messageResults = listOf(

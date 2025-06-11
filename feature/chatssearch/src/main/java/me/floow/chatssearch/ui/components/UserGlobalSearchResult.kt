@@ -1,9 +1,7 @@
 package me.floow.chatssearch.ui.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -18,10 +16,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import me.floow.chatssearch.uilogic.UserSearchResult
 import me.floow.domain.values.ProfileName
 import me.floow.domain.values.ProfileUsername
@@ -42,11 +40,12 @@ fun UserGlobalSearchResult(
 			.padding(horizontal = 20.dp, vertical = 4.dp),
 		verticalAlignment = Alignment.CenterVertically
 	) {
-		Box(
-			Modifier
+		AsyncImage(
+			model = userSearchResult.avatarUrl,
+			contentDescription = null,
+			modifier = Modifier
 				.size(56.dp)
 				.clip(ElevanagonShape)
-				.background(Color.LightGray)
 		)
 
 		Spacer(Modifier.width(9.dp))
@@ -81,7 +80,8 @@ private fun UserGlobalSearchResultPreview() {
 				ProfileUsername.create(
 					"demndevel"
 				),
-				isOnline = false
+				isOnline = false,
+				avatarUrl = "https://http.cat/images/101.jpg"
 			),
 			onClick = {},
 			modifier = Modifier.fillMaxWidth()

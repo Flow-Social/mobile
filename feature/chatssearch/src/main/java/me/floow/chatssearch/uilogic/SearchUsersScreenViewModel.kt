@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import me.floow.domain.values.ProfileName
 import me.floow.domain.values.ProfileUsername
+import me.floow.mock.data.MockProfileRepository
 import kotlin.random.Random
 
 private data class SearchUsersScreenVmState(
@@ -42,6 +43,7 @@ private data class SearchUsersScreenVmState(
 }
 
 class SearchUsersScreenViewModel : ViewModel() {
+	private val profileRepository = MockProfileRepository()
 	private val _state = MutableStateFlow(SearchUsersScreenVmState())
 
 	val state: StateFlow<SearchUsersScreenUiState> = _state
@@ -178,7 +180,8 @@ class SearchUsersScreenViewModel : ViewModel() {
 			UserSearchResult(
 				name = ProfileName.create(randomName),
 				username = ProfileUsername.create(randomUsername),
-				isOnline = isOnline
+				isOnline = isOnline,
+				avatarUrl = profileRepository.getAvatarUrl()
 			)
 		}
 	}

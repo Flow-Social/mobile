@@ -44,7 +44,7 @@ fun UserGlobalSearchResult(
 	) {
 		Box(
 			Modifier
-				.size(50.dp)
+				.size(56.dp)
 				.clip(ElevanagonShape)
 				.background(Color.LightGray)
 		)

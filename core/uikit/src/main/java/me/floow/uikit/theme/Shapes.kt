@@ -37,7 +37,6 @@ class RoundedPolygonShape(
         layoutDirection: LayoutDirection,
         density: Density
     ): Outline {
-        // Создаем новые объекты каждый раз при вызове (по идее, это не должно нам что то ломать :/)
         val path = polygon.toPath().asComposePath()
         val matrix = Matrix()
         val bounds = polygon.getBounds()

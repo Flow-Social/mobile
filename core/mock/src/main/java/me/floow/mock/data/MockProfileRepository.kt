@@ -19,6 +19,10 @@ class MockProfileRepository : ProfileRepository {
 		description = ProfileDescription.createRaw("Hi. My name is demn. I like coding: Kotlin, F#, Jetpack Compose, SwiftUI and etc. Welcome to my profile screen!")
 	)
 
+	fun getAvatarUrl(): String {
+		return "https://http.cat/images/101.jpg"
+	}
+
 	override suspend fun getSelfData(): GetDataResponse<SelfProfile> {
 		return GetDataResponse.Success(
 			data = userProfile

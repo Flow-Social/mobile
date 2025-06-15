@@ -6,7 +6,8 @@ import me.floow.domain.values.ProfileUsername
 data class UserSearchResult(
 	val name: ProfileName,
 	val username: ProfileUsername,
-	val isOnline: Boolean
+	val isOnline: Boolean,
+	val avatarUrl: String
 )
 
 data class RecentUser(

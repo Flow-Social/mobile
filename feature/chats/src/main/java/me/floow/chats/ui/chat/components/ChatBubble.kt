@@ -94,6 +94,8 @@ fun ChatBubble(
                 .padding(vertical = 8.dp, horizontal = 10.dp)
                 .widthIn(74.dp, 324.dp),
             text = chatMessage.messageText,
+            color = colors.textColor,
+            style = LocalTypography.current.bodyMedium,
             forcedObstacleOffset = IntOffset(0, 6),
             obstacleAlignment = TextWrapObstacleAlignment.BottomEnd,
             obstacleContent = {

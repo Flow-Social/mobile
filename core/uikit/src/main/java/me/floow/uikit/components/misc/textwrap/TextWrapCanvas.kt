@@ -322,9 +322,17 @@ private fun TextMeasurer.measureBottomAlignmentTextFlow(
             bottomAffectedBlockFirstCharIndex > 0
     }
 
+
     if (hasTopUnaffectedBlock) {
+        var unaffectedText = text.subSequence(0, bottomAffectedBlockFirstCharIndex)
+
+        // Если незатронутый текст оканчивается новой строкой,
+        // то убираем ее во избежание лишней пустой строки между блоками
+        if (unaffectedText.last() == '\n') unaffectedText =
+            AnnotatedString(unaffectedText.dropLast(1).toString())
+
         topUnaffectedBlock = measure(
-            text = text.subSequence(0, bottomAffectedBlockFirstCharIndex),
+            text = unaffectedText,
             style = mergedStyle,
             constraints = Constraints(
                 maxWidth = layoutWidth,
